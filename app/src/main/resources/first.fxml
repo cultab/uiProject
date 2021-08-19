@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
+<?language javascript?>
+<VBox xmlns:fx="http://javafx.com/fxml">
+    <children>
+        <Label fx:id="lbl" text="Button not clicked"/>
+        <Button fx:id="btn" text="Click me!" onAction="handleButtonAction()">
+            <style>
+                -fx-padding: 10; -fx-background-color: aqua;
+                -fx-text-fill: blue; -fx-font: normal bold 20px 'serif’;
+            </style>
+        </Button>
+    </children>
+    <fx:script>
+        function handleButtonAction() {
+        lbl.setText("Button clicked");
+        }
+    </fx:script>
+</VBox>
