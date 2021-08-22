@@ -1,8 +1,14 @@
 package erg;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 
 public class MyController {
-    public void handleButtonAction(ActionEvent event) {
-        System.out.println("You clicked me!");
+    @FXML
+    public void TurnLampOn(ActionEvent event)
+    {
+        if(On.isSelected())
+        {
+            Lamp.setImage("LampOn.jpeg");
+        }
     }
 }

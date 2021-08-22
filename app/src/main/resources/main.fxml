@@ -25,7 +25,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="469.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:controller="erg.MyController" prefHeight="469.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
   <children>
     <MenuBar prefWidth="902.0" VBox.vgrow="NEVER">
       <menus>
@@ -115,7 +115,7 @@
                      <children>
                         <StackPane>
                            <children>
-                              <ImageView fitHeight="74.0" fitWidth="88.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="Lamp" fitHeight="74.0" fitWidth="88.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@LampOff.jpeg" />
                                  </image>
@@ -124,8 +124,8 @@
                         </StackPane>
                         <HBox>
                            <children>
-                              <RadioButton mnemonicParsing="false" text="On" />
-                              <RadioButton mnemonicParsing="false" text="Off" />
+                              <RadioButton fx:id="On" mnemonicParsing="false" onAction="#TurnLampOn" text="On" />
+                              <RadioButton fx:id="Off" mnemonicParsing="false" onAction="#TurnLampOn" text="Off" />
                            </children>
                         </HBox>
                         <StackPane>
