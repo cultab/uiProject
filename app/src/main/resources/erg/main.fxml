@@ -20,7 +20,7 @@
 
 <VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="erg.AppController">
   <children>
-    <MenuBar VBox.vgrow="NEVER">
+    <MenuBar prefWidth="902.0" VBox.vgrow="NEVER">
       <menus>
         <Menu mnemonicParsing="false" text="File">
           <items>
@@ -59,7 +59,7 @@
         </Menu>
       </menus>
     </MenuBar>
-    <SplitPane fx:id="mainSplit" dividerPositions="0.2505567928730512, 0.6915367483296214" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+    <SplitPane fx:id="mainSplit" dividerPositions="0.2505567928730512" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <items>
             <VBox prefHeight="200.0" prefWidth="100.0">
                <children>
@@ -92,22 +92,11 @@
                   </Accordion>
                </children>
             </VBox>
-        <ScrollPane prefHeight="-1.0" prefWidth="-1.0">
-          <content>
-            <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="537.0" prefWidth="381.0">
-              <children>
-                <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" style="&#10;" text="View" textAlignment="CENTER" wrapText="false">
-                           <font>
-                      <Font size="18.0" fx:id="x1" />
-                           </font>
-                           <textFill>
-                      <Color red="0.624" green="0.624" blue="0.624" fx:id="x2" />
-                           </textFill></Label>
-              </children>
-            </AnchorPane>
-          </content>
-        </ScrollPane>
-        <AnchorPane prefHeight="549.0" prefWidth="445.0" />
+            <ScrollPane prefHeight="551.0" prefWidth="169.0">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+              </content>
+            </ScrollPane>
       </items>
     </SplitPane>
     <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
