@@ -5,3 +5,6 @@
 build
 
 bin
+.metadata
+.project
+.settings
