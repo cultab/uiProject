@@ -11,6 +11,7 @@
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.effect.Glow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -25,7 +26,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:controller="erg.MyController" prefHeight="469.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="469.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="erg.MyController">
   <children>
     <MenuBar prefWidth="902.0" VBox.vgrow="NEVER">
       <menus>
@@ -124,8 +125,11 @@
                         </StackPane>
                         <HBox>
                            <children>
-                              <RadioButton fx:id="On" mnemonicParsing="false" onAction="#TurnLampOn" text="On" />
-                              <RadioButton fx:id="Off" mnemonicParsing="false" onAction="#TurnLampOn" text="Off" />
+                              <RadioButton fx:id="On" mnemonicParsing="false" onAction="#TurnLampOn"  text="On">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="OnOff" />
+                                 </toggleGroup></RadioButton>
+                              <RadioButton fx:id="Off" mnemonicParsing="false" onAction="#TurnLampOn" selected="true" text="Off" toggleGroup="$OnOff" />
                            </children>
                         </HBox>
                         <StackPane>
