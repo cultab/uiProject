@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<fx:root alignment="CENTER" prefHeight="99.0" prefWidth="117.0" type="VBox" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root alignment="CENTER" prefHeight="99.0" prefWidth="117.0" type="VBox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
         <children>
             <ImageView fx:id="Lamp" fitHeight="74.0" fitWidth="88.0" pickOnBounds="true" preserveRatio="true">
                 <image>
@@ -24,16 +24,20 @@
                     <RadioButton fx:id="On" mnemonicParsing="false" onAction="#TurnLampOn" text="On">
                         <toggleGroup>
                             <ToggleGroup fx:id="OnOff" />
-                        </toggleGroup></RadioButton>
+                        </toggleGroup>
+            </RadioButton>
                     <RadioButton fx:id="Off" mnemonicParsing="false" onAction="#TurnLampOn" selected="true" text="Off" toggleGroup="$OnOff" />
                 </children>
          <VBox.margin>
             <Insets bottom="5.0" />
          </VBox.margin>
             </HBox>
-      <Button mnemonicParsing="false" text="Button">
+      <Button mnemonicParsing="false" text="Details">
          <VBox.margin>
             <Insets bottom="5.0" />
          </VBox.margin></Button>
         </children>
+   <padding>
+      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+   </padding>
 </fx:root>

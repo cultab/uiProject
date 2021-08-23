@@ -9,12 +9,12 @@ import java.io.ObjectOutputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.SplitPane;
+import javafx.scene.layout.FlowPane;
 
 public class AppController implements Initializable {
 
@@ -23,24 +23,26 @@ public class AppController implements Initializable {
 
     @FXML
     SplitPane mainSplit;
+    @FXML
+    FlowPane flow;
 
     public AppController() {
         devices = new HashMap<String, Device>();
         rooms = new HashMap<String, Room>();
 
-//         gen_rooms_and_devices();
+//          gen_rooms_and_devices();
 // 
-//         save_devices();
-//         save_rooms();
+//          save_devices();
+//          save_rooms();
 
         load_devices();
-        for (var a : devices.entrySet()) {
-            System.out.println(a.getValue().getIP());
-        }
+        // for (var a : devices.entrySet()) {
+        //     System.out.println(a.getValue().getIP());
+        // }
         load_rooms();
-        for (var a : rooms.entrySet()) {
-            System.out.println(a.getValue().getRoom_id());
-        }
+        // for (var a : rooms.entrySet()) {
+        //     System.out.println(a.getValue().getRoom_id());
+        // }
     }
 
     private void gen_rooms_and_devices() {
@@ -80,11 +82,19 @@ public class AppController implements Initializable {
         rooms.put(room4.getRoom_id(), room2);
         rooms.put(room5.getRoom_id(), room2);
 
+
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        mainSplit.getItems().add(new TemperatureDetailsWidget(new TemperatureSensor("192.168.1.29", "0xDEADBEEF")));
+        var lamp = devices.get("192.168.1.2");
+
+        flow.getChildren().add(new LampViewWidget((Lamp)lamp));
+        flow.getChildren().add(new LampViewWidget((Lamp)lamp));
+        flow.getChildren().add(new LampViewWidget((Lamp)lamp));
+        flow.getChildren().add(new LampViewWidget((Lamp)lamp));
+        // flow.getChildren().add(new LampDetailsWidget((Lamp)lamp));
+        // mainSplit.getItems().add(new TemperatureDetailsWidget(new TemperatureSensor("192.168.1.29", "0xDEADBEEF")));
         mainSplit.getItems().add(new LampDetailsWidget(new Lamp("192.168.1.29", "0xDEADBEEF")));
 
     }
