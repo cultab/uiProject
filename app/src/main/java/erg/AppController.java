@@ -20,6 +20,7 @@ public class AppController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         mainSplit.getItems().add(new TemperatureDetailsWidget(new TemperatureSensor("192.168.1.29", "0xDEADBEEF")));
+        mainSplit.getItems().add(new LampDetailsWidget(new Lamp("192.168.1.29", "0xDEADBEEF")));
     }
 
     @FXML

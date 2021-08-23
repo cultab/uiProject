@@ -19,7 +19,7 @@
    <children>
       <TextFlow VBox.vgrow="NEVER">
          <children>
-            <Label alignment="TOP_LEFT" style="&#10;" text="Details" textAlignment="CENTER" wrapText="false">
+            <Label alignment="TOP_LEFT" style="&#10;" text="Thermostat details:" textAlignment="CENTER" wrapText="false">
                <font>
                   <Font size="18.0" fx:id="x1" />
                </font>
@@ -49,7 +49,7 @@
             <Label alignment="CENTER_RIGHT" text="Room:" textAlignment="RIGHT" GridPane.rowIndex="1" />
          </children>
       </GridPane>
-      <LineChart fx:id="chart" prefHeight="231.0" prefWidth="246.0">
+      <LineChart fx:id="chart" prefHeight="231.0" prefWidth="246.0" title="Temperature History">
          <xAxis>
             <NumberAxis side="BOTTOM" />
          </xAxis>

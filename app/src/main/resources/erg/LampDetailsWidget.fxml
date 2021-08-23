@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.TextFlow?>
+
+<fx:root alignment="TOP_CENTER" spacing="5.0" type="VBox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TextFlow VBox.vgrow="NEVER">
+         <children>
+            <Label alignment="TOP_LEFT" style="&#10;" text="Lamp details:" textAlignment="CENTER" wrapText="false">
+               <font>
+                  <Font size="18.0" fx:id="x1" />
+               </font>
+               <textFill>
+                  <Color blue="0.624" green="0.624" red="0.624" fx:id="x2" />
+               </textFill>
+            </Label>
+         </children>
+      </TextFlow>
+      <ImageView fx:id="image" fitHeight="175.0" fitWidth="234.0" pickOnBounds="true" preserveRatio="true" />
+      <GridPane alignment="CENTER" hgap="5.0" minHeight="-Infinity" minWidth="-Infinity" vgap="5.0">
+        <columnConstraints>
+          <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" maxWidth="185.0" minWidth="0.0" prefWidth="149.0" />
+          <ColumnConstraints hgrow="ALWAYS" maxWidth="246.0" minWidth="10.0" prefWidth="145.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="85.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="92.0" minHeight="9.0" prefHeight="36.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="118.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="16.0" prefWidth="42.0" text="IP:" textAlignment="RIGHT" />
+            <TextField fx:id="IP" editable="false" text="192.168.1.1" GridPane.columnIndex="1" />
+            <TextField fx:id="room_name" editable="false" text="Kitchen" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label alignment="CENTER_RIGHT" text="Status:" textAlignment="RIGHT" GridPane.rowIndex="2" />
+            <Label alignment="CENTER_RIGHT" text="Room:" textAlignment="RIGHT" GridPane.rowIndex="1" />
+            <TextField fx:id="status" editable="false" text="On" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+         </children>
+      </GridPane>
+      <LineChart fx:id="chart" prefHeight="231.0" prefWidth="246.0">
+         <xAxis>
+            <NumberAxis side="BOTTOM" />
+         </xAxis>
+         <yAxis>
+            <NumberAxis side="LEFT" />
+         </yAxis>
+      </LineChart>
+   </children>
+   <padding>
+      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+   </padding>
+</fx:root>
