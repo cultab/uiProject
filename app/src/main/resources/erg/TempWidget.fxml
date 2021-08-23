@@ -16,14 +16,14 @@
 <?import javafx.scene.text.Font?>
 
 
-<fx:root prefHeight="561.0" prefWidth="294.0" type="AnchorPane" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="erg.TempWidget">
+<fx:root prefHeight="561.0" prefWidth="294.0" type="AnchorPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label alignment="CENTER" style="&#10;" text="Details" textAlignment="CENTER" wrapText="false">
          <font>
             <Font size="18.0" fx:id="x1" />
          </font>
          <textFill>
-            <Color red="0.624" green="0.624" blue="0.624" fx:id="x2" />
+            <Color blue="0.624" green="0.624" red="0.624" fx:id="x2" />
          </textFill>
       </Label>
       <ImageView fx:id="image" fitHeight="175.0" fitWidth="234.0" layoutX="35.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true" />

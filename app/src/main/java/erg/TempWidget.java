@@ -10,9 +10,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.AnchorPane;
 
-public class TempWidget extends VBox /*implements Initializable*/ {
+public class TempWidget extends AnchorPane implements Initializable {
 
     @FXML
     ImageView image;
@@ -26,15 +26,15 @@ public class TempWidget extends VBox /*implements Initializable*/ {
         try {
             fxmlLoader.load();
         } catch (IOException exception) {
+            System.out.println(exception.getMessage());
             throw new RuntimeException(exception);
         }
     }
 
-//     @Override
-//     public void initialize(URL url, ResourceBundle rb) {
-//         // image = new ImageView(new Image(getClass().getResource("/erg/thermometer.png").toString()));
-// 
-//     }
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        image.setImage(new Image(getClass().getResource("/erg/thermometer.png").toString()));
+    }
 
     @FXML
     protected void doSomething() {
