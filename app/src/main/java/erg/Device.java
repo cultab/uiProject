@@ -1,7 +1,11 @@
 
 package erg;
 
-public class Device {
+import java.io.Serializable;
+
+public class Device implements Serializable {
+    private static final long serialversionUID = 1000L;
+
     public Device(String IP, String room_id) {
         this.IP = IP;
         this.room_id = room_id;

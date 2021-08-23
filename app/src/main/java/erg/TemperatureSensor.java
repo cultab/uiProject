@@ -1,15 +1,11 @@
 
 package erg;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class TemperatureSensor extends Device implements Serializable {
-
-    private static final long serialversionUID = 1000L;
-
+public class TemperatureSensor extends Device {
     int temperature;
     List<Integer> temp_history;
 
