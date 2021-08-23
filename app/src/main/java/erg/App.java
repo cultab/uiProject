@@ -29,11 +29,6 @@ public class App extends Application implements Initializable {
 
     @Override
     public void start(Stage stage) {
-        String javaVersion = System.getProperty("java.version");
-        String javafxVersion = System.getProperty("javafx.version");
-
-        Label l = new Label("Hello, JavaFX " + javafxVersion + ", running on Java " + javaVersion);
-
         Parent root = null;
         // var fxmlLoader = new FXMLLoader(getClass().getResource("/main.fxml"));
 
