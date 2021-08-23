@@ -36,9 +36,10 @@ public class App extends Application implements Initializable {
             // root = fxmlLoader.load();
             root = FXMLLoader.load(getClass().getResource("/erg/main.fxml"));
 
-        } catch (IOException e) {
-            System.out.print("Could not load main.fxml ");
+        } catch (Exception e) {
+            System.out.println("Could not load main.fxml");
             System.out.print(e.getCause());
+            System.out.print(e.getMessage());
 
         }
 
