@@ -22,16 +22,8 @@ public class MyController {
     public void TurnLampOn(ActionEvent event)
     {
         if(On.isSelected())
-        {
-            File file = new File("/home/asimakis/Code/uiProject2/app/src/main/resources/LampOn.jpeg");
-            Lamp.setImage(new Image(file.toURI().toString()));
-
-        }
+            Lamp.setImage(new Image (String.valueOf(getClass().getResource("/LampOn.jpeg"))));
         else if (Off.isSelected())
-        {
-            File file = new File("/home/asimakis/Code/uiProject2/app/src/main/resources/LampOff.jpeg");
-            Lamp.setImage(new Image(file.toURI().toString()));
-
-        }
+            Lamp.setImage(new Image (String.valueOf(getClass().getResource("/LampOff.jpeg"))));
     }
 }
