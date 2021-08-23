@@ -13,6 +13,7 @@ import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.FlowPane;
 
@@ -22,9 +23,11 @@ public class AppController implements Initializable {
     HashMap<String, Room> rooms;
 
     @FXML
-    SplitPane mainSplit;
+    private SplitPane mainSplit;
     @FXML
-    FlowPane flow;
+    private FlowPane flow;
+    @FXML
+    private ListView<String> list1;
 
     public AppController() {
         devices = new HashMap<String, Device>();
@@ -78,25 +81,43 @@ public class AppController implements Initializable {
         
 
         rooms.put(room2.getRoom_id(), room2);
-        rooms.put(room3.getRoom_id(), room2);
-        rooms.put(room4.getRoom_id(), room2);
-        rooms.put(room5.getRoom_id(), room2);
+        rooms.put(room3.getRoom_id(), room3);
+        rooms.put(room4.getRoom_id(), room4);
+        rooms.put(room5.getRoom_id(), room5);
 
 
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        var lamp = devices.get("192.168.1.2");
 
-        flow.getChildren().add(new LampViewWidget((Lamp)lamp));
-        flow.getChildren().add(new LampViewWidget((Lamp)lamp));
-        flow.getChildren().add(new LampViewWidget((Lamp)lamp));
-        flow.getChildren().add(new LampViewWidget((Lamp)lamp));
         // flow.getChildren().add(new LampDetailsWidget((Lamp)lamp));
         // mainSplit.getItems().add(new TemperatureDetailsWidget(new TemperatureSensor("192.168.1.29", "0xDEADBEEF")));
-        mainSplit.getItems().add(new LampDetailsWidget(new Lamp("192.168.1.29", "0xDEADBEEF")));
 
+        for(String s: rooms.keySet())
+        {
+            list1.getItems().add(s);
+        }
+
+        mainSplit.getItems().add(new LampDetailsWidget(new Lamp("192.168.1.29", "0xDEADBEEF")));
+    }
+
+    public void load_widgets()
+    {
+        flow.getChildren().removeAll(flow.getChildren());
+        String selection = list1.getSelectionModel().getSelectedItem();
+
+        for(Device d: devices.values())
+        {
+            if(d.getRoom_id().equals(selection))
+            {
+
+                if(d.getClass().getSimpleName().equals("Lamp"))
+                    flow.getChildren().add(new LampViewWidget((Lamp) d));
+                if(d.getClass().getSimpleName().equals("TemperatureSensor"))
+                    flow.getChildren().add(new TempViewWidget());
+            }
+        }
     }
 
     public void load_devices() {
