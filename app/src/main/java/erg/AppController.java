@@ -32,7 +32,7 @@ public class AppController implements Initializable {
             System.out.print("FUCKING AAAAAAAAA");
             System.exit(0);
         }
-        mainSplit.getItems().add(new LampWidget());
+        mainSplit.getItems().add(new TempViewWidget());
     }
 
     @FXML

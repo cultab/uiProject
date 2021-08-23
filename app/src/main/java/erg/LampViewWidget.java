@@ -12,7 +12,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
 
-public class LampWidget extends VBox {
+public class LampViewWidget extends VBox {
 
     @FXML
     private ImageView Lamp;
@@ -21,8 +21,8 @@ public class LampWidget extends VBox {
     @FXML
     private RadioButton Off;
 
-    public LampWidget() {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/erg/LampWidget.fxml"));
+    public LampViewWidget() {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/erg/LampViewWidget.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
 
