@@ -38,7 +38,8 @@ public class App extends Application implements Initializable {
 
         } catch (IOException e) {
             System.out.print("Could not load main.fxml ");
-            System.out.print(e.getCause());
+            System.out.println(e.getCause());
+            System.out.println(e.getMessage());
 
         }
 

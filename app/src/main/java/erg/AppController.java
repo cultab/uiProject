@@ -20,12 +20,7 @@ public class AppController implements Initializable {
     @FXML
     Label fucking_label;
 
-    // @FXML
-    // private ImageView Lamp;
-    // @FXML
-    // private RadioButton On;
-    // @FXML
-    // private RadioButton Off;
+
 
     public AppController() {
 
@@ -37,18 +32,11 @@ public class AppController implements Initializable {
             System.out.print("FUCKING AAAAAAAAA");
             System.exit(0);
         }
-        mainSplit.getItems().add(new TempWidget());
+        mainSplit.getItems().add(new LampWidget());
     }
 
     @FXML
     void doStuff(){}
 
-    // @FXML
-    // public void TurnLampOn(ActionEvent event)
-    // {
-    //     if(On.isSelected())
-    //         Lamp.setImage(new Image (String.valueOf(getClass().getResource("/erg/LampOn.jpeg"))));
-    //     else if (Off.isSelected())
-    //         Lamp.setImage(new Image (String.valueOf(getClass().getResource("/erg/LampOff.jpeg"))));
-    // }
+
 }
