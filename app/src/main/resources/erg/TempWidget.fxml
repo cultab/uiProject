@@ -15,18 +15,18 @@
 <?import javafx.scene.text.Font?>
 
 
-<fx:root type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root prefHeight="561.0" prefWidth="294.0" type="AnchorPane" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="erg.TempWidget">
    <children>
       <Label alignment="CENTER" style="&#10;" text="Details" textAlignment="CENTER" wrapText="false">
          <font>
             <Font size="18.0" fx:id="x1" />
          </font>
          <textFill>
-            <Color blue="0.624" green="0.624" red="0.624" fx:id="x2" />
+            <Color red="0.624" green="0.624" blue="0.624" fx:id="x2" />
          </textFill>
       </Label>
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="52.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true" />
-      <LineChart fx:id="details_chart" layoutX="22.0" layoutY="287.0" prefHeight="231.0" prefWidth="246.0">
+      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+      <LineChart fx:id="details_chart" layoutX="17.0" layoutY="316.0" prefHeight="231.0" prefWidth="246.0">
          <xAxis>
             <CategoryAxis side="BOTTOM" />
          </xAxis>
@@ -34,9 +34,9 @@
             <NumberAxis side="LEFT" />
          </yAxis>
       </LineChart>
-      <GridPane layoutX="12.0" layoutY="171.0" prefHeight="103.0" prefWidth="280.0">
+      <GridPane alignment="CENTER" layoutY="213.0" prefHeight="103.0" prefWidth="294.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="130.0" minWidth="10.0" prefWidth="127.0" />
+          <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="130.0" minWidth="10.0" prefWidth="127.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="116.0" minWidth="10.0" prefWidth="85.0" />
         </columnConstraints>
         <rowConstraints>
@@ -45,12 +45,12 @@
           <RowConstraints maxHeight="118.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label contentDisplay="RIGHT" prefHeight="16.0" prefWidth="42.0" text="IP:" textAlignment="RIGHT" />
+            <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="16.0" prefWidth="42.0" text="IP:" textAlignment="RIGHT" />
             <TextField editable="false" text="192.168.1.1" GridPane.columnIndex="1" />
             <TextField editable="false" text="Kitchen" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Slider blockIncrement="1.0" max="35.0" min="20.0" prefHeight="16.0" prefWidth="171.0" showTickLabels="true" value="30.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Label text="Temperature (C):" GridPane.rowIndex="2" />
-            <Label text="Room:" GridPane.rowIndex="1" />
+            <Label alignment="CENTER_RIGHT" text="Temperature (C):" textAlignment="RIGHT" GridPane.rowIndex="2" />
+            <Label alignment="CENTER_RIGHT" text="Room:" textAlignment="RIGHT" GridPane.rowIndex="1" />
          </children>
       </GridPane>
    </children>
