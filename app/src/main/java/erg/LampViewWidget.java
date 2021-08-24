@@ -49,7 +49,23 @@ public class LampViewWidget extends VBox implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        update();
+        Image new_image;
+
+        if(sensor.getPowered_on())
+        {
+            On.setSelected(true);
+            Off.setSelected(false);
+            new_image = new Image(getClass().getResource("/erg/LampOn.jpeg").toString());
+            Lamp.setImage(new_image);
+        }
+        else
+        {
+            On.setSelected(false);
+            Off.setSelected(true);
+            new_image = new Image(getClass().getResource("/erg/LampOff.jpeg").toString());
+            Lamp.setImage(new_image);
+        }
+
     }
 
     @FXML

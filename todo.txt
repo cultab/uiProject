@@ -1,3 +1,6 @@
-x Pane to put detail widgets in so that the layout does not get reset when adding removing
-Details widget button
-
+Pane to put detail widgets in so that the layout does not get reset when adding removing
+Details temp widget
+Persistence temperature status
+Add devices
+DropDown menu listeners
+beautification
