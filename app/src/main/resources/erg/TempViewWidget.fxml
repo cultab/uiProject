@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<fx:root alignment="CENTER" prefHeight="181.0" prefWidth="167.0" type="VBox" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="150.0" spacing="5.0" type="VBox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <ImageView fx:id="Lamp" fitHeight="74.0" fitWidth="88.0" pickOnBounds="true" preserveRatio="true">
             <image>
@@ -28,15 +28,18 @@
                         <Insets bottom="5.0" />
                     </VBox.margin>
                 </HBox>
-                <Slider fx:id="slider" blockIncrement="1.0" layoutX="26.0" layoutY="32.0" majorTickUnit="1.0" max="35.0" min="20.0" minorTickCount="1" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+                <Slider fx:id="slider" blockIncrement="1.0" layoutX="26.0" layoutY="32.0" majorTickUnit="10.0" max="40.0" min="20.0" minorTickCount="8" prefHeight="0.0" prefWidth="140.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
             </children>
             <VBox.margin>
                 <Insets bottom="5.0" />
             </VBox.margin>
         </VBox>
-        <Button mnemonicParsing="false" text="Details">
+        <Button mnemonicParsing="false" onAction="#set_details" text="Details">
             <VBox.margin>
                 <Insets bottom="5.0" />
             </VBox.margin></Button>
     </children>
+   <padding>
+      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+   </padding>
 </fx:root>

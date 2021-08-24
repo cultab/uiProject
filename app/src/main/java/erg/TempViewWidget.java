@@ -45,6 +45,10 @@ public class TempViewWidget extends VBox implements Initializable {
             sensor.setTemperature(new_temp);
             parent.update_details();
         });
+    }
 
+    @FXML
+    public void set_details() {
+        parent.setCurrent_details(sensor);
     }
 }

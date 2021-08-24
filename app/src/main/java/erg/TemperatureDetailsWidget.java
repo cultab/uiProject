@@ -28,7 +28,7 @@ public class TemperatureDetailsWidget extends DetailsWidget implements Initializ
     @FXML
     Slider temperature;
     @FXML
-    LineChart<Number,Number> chart;
+    LineChart<Number,Double> chart;
 
     public TemperatureDetailsWidget(TemperatureSensor sensor) {
         this.sensor = sensor;
@@ -54,10 +54,10 @@ public class TemperatureDetailsWidget extends DetailsWidget implements Initializ
 
         update();
 
-        XYChart.Series<Number,Number> series = new XYChart.Series<Number,Number>();
+        XYChart.Series<Number,Double> series = new XYChart.Series<Number,Double>();
         int i = 0;
         for (var temp : sensor.getTemp_history()) {
-            series.getData().add(new XYChart.Data<Number,Number>(i++, temp));
+            series.getData().add(new XYChart.Data<Number,Double>(i++, temp));
         }
 
         chart.getData().add(series);
@@ -69,6 +69,6 @@ public class TemperatureDetailsWidget extends DetailsWidget implements Initializ
     public void update() {
         IP.setText(sensor.getIP());
         room_name.setText(sensor.getRoom_id());
-        temperature.adjustValue((double)sensor.getTemperature());
+        temperature.adjustValue(sensor.getTemperature());
     }
 }

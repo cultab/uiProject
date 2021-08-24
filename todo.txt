@@ -1,2 +1,3 @@
-Pane to put detail widgets in so that the layout does not get reset when adding removing
+x Pane to put detail widgets in so that the layout does not get reset when adding removing
+Details widget button
 

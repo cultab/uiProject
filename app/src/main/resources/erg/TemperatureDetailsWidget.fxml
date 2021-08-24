@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -15,7 +16,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.TextFlow?>
 
-<fx:root alignment="TOP_CENTER" spacing="5.0" type="VBox" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root alignment="TOP_CENTER" spacing="5.0" type="VBox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <TextFlow VBox.vgrow="NEVER">
          <children>
@@ -29,7 +30,10 @@
             </Label>
          </children>
       </TextFlow>
-      <ImageView fx:id="image" fitHeight="175.0" fitWidth="234.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="image" fitHeight="175.0" fitWidth="234.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@thermometer.png" />
+         </image></ImageView>
       <GridPane alignment="CENTER" hgap="5.0" minHeight="-Infinity" minWidth="-Infinity" vgap="5.0">
         <columnConstraints>
           <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" maxWidth="185.0" minWidth="0.0" prefWidth="149.0" />
@@ -44,7 +48,7 @@
             <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="16.0" prefWidth="42.0" text="IP:" textAlignment="RIGHT" />
             <TextField fx:id="IP" editable="false" text="192.168.1.1" GridPane.columnIndex="1" />
             <TextField fx:id="room_name" editable="false" text="Kitchen" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Slider fx:id="temperature" blockIncrement="1.0" max="35.0" min="20.0" prefHeight="16.0" prefWidth="171.0" showTickLabels="true" value="30.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Slider fx:id="temperature" blockIncrement="1.0" majorTickUnit="10.0" max="40.0" min="20.0" minorTickCount="9" prefHeight="16.0" prefWidth="171.0" showTickLabels="true" showTickMarks="true" value="30.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label alignment="CENTER_RIGHT" text="Temperature (C):" textAlignment="RIGHT" GridPane.rowIndex="2" />
             <Label alignment="CENTER_RIGHT" text="Room:" textAlignment="RIGHT" GridPane.rowIndex="1" />
          </children>
