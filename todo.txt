@@ -3,4 +3,5 @@ Details temp widget
 Persistence temperature status
 Add devices
 DropDown menu listeners
+reaffirmation windows
 beautification

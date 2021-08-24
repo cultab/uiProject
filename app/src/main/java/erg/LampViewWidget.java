@@ -73,15 +73,22 @@ public class LampViewWidget extends VBox implements Initializable {
 
         Image new_image;
 
-        if (On.isSelected()) {
-            new_image = new Image(getClass().getResource("/erg/LampOn.jpeg").toString());
-        } else {
+        if(sensor.getPowered_on())
+        {
+            On.setSelected(false);
+            Off.setSelected(true);
+            sensor.setPowered_on(false);
             new_image = new Image(getClass().getResource("/erg/LampOff.jpeg").toString());
+            Lamp.setImage(new_image);
         }
-
-        Lamp.setImage(new_image);
-
-        sensor.setPowered_on(On.isSelected());
+        else
+        {
+            On.setSelected(true);
+            Off.setSelected(false);
+            sensor.setPowered_on(true);
+            new_image = new Image(getClass().getResource("/erg/LampOn.jpeg").toString());
+            Lamp.setImage(new_image);
+        }
 
         parent.update_details();
     }
