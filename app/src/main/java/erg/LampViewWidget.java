@@ -1,6 +1,9 @@
 
 package erg;
 
+
+
+import javafx.scene.media.AudioClip;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -51,6 +54,7 @@ public class LampViewWidget extends VBox implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         Image new_image;
 
+        System.out.println("Initialization");
         if(sensor.getPowered_on())
         {
             On.setSelected(true);
@@ -65,16 +69,20 @@ public class LampViewWidget extends VBox implements Initializable {
             new_image = new Image(getClass().getResource("/erg/LampOff.jpeg").toString());
             Lamp.setImage(new_image);
         }
+        System.out.println("Initialized");
 
     }
 
     @FXML
     public void update() {
-
+        System.out.println("Here");
         Image new_image;
-
+        AudioClip click = new AudioClip(getClass().getResource("/erg/Light Pull Chain- Sound Effect [HQ]-xpiz-39Q3mk.wav").toString());
+        System.out.println("Built");
         if(sensor.getPowered_on())
         {
+            click.play();
+            System.out.println("Played");
             On.setSelected(false);
             Off.setSelected(true);
             sensor.setPowered_on(false);
@@ -83,6 +91,7 @@ public class LampViewWidget extends VBox implements Initializable {
         }
         else
         {
+            click.play();
             On.setSelected(true);
             Off.setSelected(false);
             sensor.setPowered_on(true);
