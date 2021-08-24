@@ -68,8 +68,7 @@ public class TemperatureDetailsWidget extends DetailsWidget implements Initializ
     @FXML
     public void update() {
         IP.setText(sensor.getIP());
-        // TODO: use room id to find room name
         room_name.setText(sensor.getRoom_id());
-        temperature.adjustValue(sensor.getTemperature());
+        temperature.adjustValue((double)sensor.getTemperature());
     }
 }

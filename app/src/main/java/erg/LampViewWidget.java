@@ -77,13 +77,4 @@ public class LampViewWidget extends VBox implements Initializable {
     public void set_details() {
         parent.setCurrent_details(sensor);
     }
-
-    @FXML
-    public void TurnLampOn(ActionEvent event)
-    {
-        if(On.isSelected())
-            Lamp.setImage(new Image(String.valueOf(getClass().getResource("/erg/LampOn.jpeg"))));
-        else if (Off.isSelected())
-            Lamp.setImage(new Image (String.valueOf(getClass().getResource("/erg/LampOff.jpeg"))));
-    }
 }

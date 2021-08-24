@@ -13,6 +13,7 @@ import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
@@ -29,14 +30,19 @@ public class AppController implements Initializable {
     private FlowPane flow;
     @FXML
     private Pane details;
+    @FXML
+    private ListView<String> listRooms;
+    @FXML
+    private ListView<String> listDevices;
+
 
     public AppController() {
         devices = new HashMap<String, Device>();
         rooms = new HashMap<String, Room>();
-//         gen_rooms_and_devices();
-// 
-//         save_devices();
-//         save_rooms();
+        gen_rooms_and_devices();
+
+        save_devices();
+        save_rooms();
 
         load_devices();
         // for (var a : devices.entrySet()) {
@@ -48,26 +54,8 @@ public class AppController implements Initializable {
         // }
     }
 
+
     
-
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        var lamp = (Lamp)devices.get("192.168.1.2");
-
-        flow.getChildren().add(new LampViewWidget(lamp, this));
-        flow.getChildren().add(new LampViewWidget(lamp, this));
-        flow.getChildren().add(new LampViewWidget(lamp, this));
-        flow.getChildren().add(new LampViewWidget(lamp, this));
-        // flow.getChildren().add(new LampDetailsWidget((Lamp)lamp));
-        // mainSplit.getItems().add(new TemperatureDetailsWidget(new TemperatureSensor("192.168.1.29", "0xDEADBEEF")));
-        // current_details = new LampDetailsWidget(lamp);
-        // mainSplit.getItems().add(current_details);
-
-    }
-
-    public void update_details() {
-        current_details.update();
-    }
 
     public void setCurrent_details(Device device) {
         if (current_details != null) {
@@ -82,10 +70,62 @@ public class AppController implements Initializable {
                 current_details = new LampDetailsWidget((Lamp)device);
                 break;
         }
-
-        details.getChildren().add(current_details);
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+
+        for(String s: rooms.keySet())
+        {
+            listRooms.getItems().add(s);
+        }
+
+        listDevices.getItems().add("Lamp");
+        listDevices.getItems().add("TemperatureSensor");
+
+    }
+
+    public void update_details() {
+        current_details.update();
+    }
+
+    public void load_widgets()
+    {
+        flow.getChildren().removeAll(flow.getChildren());
+        String selection = listRooms.getSelectionModel().getSelectedItem();
+
+        for(Device d: devices.values())
+        {
+            if(d.getRoom_id().equals(selection))
+            {
+
+                if(d.getClass().getSimpleName().equals("Lamp"))
+                    flow.getChildren().add(new LampViewWidget((Lamp) d, this));
+                if(d.getClass().getSimpleName().equals("TemperatureSensor"))
+                    flow.getChildren().add(new TempViewWidget((TemperatureSensor) d, this));
+            }
+        }
+    }
+
+    public void load_general()
+    {
+        flow.getChildren().removeAll(flow.getChildren());
+        String selection = listDevices.getSelectionModel().getSelectedItem();
+
+        for(Device d: devices.values())
+        {
+            if(d.getClass().getSimpleName().equals(selection))
+            {
+                switch (selection)
+                {
+                    case "Lamp": flow.getChildren().add(new LampViewWidget((Lamp) d, this));
+                        break;
+                    case "TemperatureSensor": flow.getChildren().add(new TempViewWidget((TemperatureSensor) d, this));
+                        break;
+                }
+            }
+        }
+    }
     public void load_devices() {
         var filename = "devices.cfg";
 

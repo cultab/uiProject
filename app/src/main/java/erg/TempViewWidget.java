@@ -1,25 +1,30 @@
 
 package erg;
 
-import java.awt.*;
 import java.io.IOException;
-import javafx.event.ActionEvent;
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
-public class TempViewWidget extends VBox {
+public class TempViewWidget extends VBox implements Initializable {
 
     @FXML
     private Label label;
     @FXML
     private Slider slider;
+    private TemperatureSensor sensor;
+    private AppController parent;
 
-    public TempViewWidget() {
+    public TempViewWidget(TemperatureSensor sensor, AppController parent) {
+        this.sensor = sensor;
+        this.parent = parent;
+
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/erg/TempViewWidget.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
@@ -32,17 +37,14 @@ public class TempViewWidget extends VBox {
         }
     }
 
-//    public void ChangeTemp() {
-//
-//        textField.setText(String.valueOf(slider.getValue()));
-//    }
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        slider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            var new_temp = slider.getValue();
+            label.setText(String.valueOf(new_temp));
+            sensor.setTemperature(new_temp);
+            parent.update_details();
+        });
 
-        public void initialize() {
-
-            slider.valueProperty().addListener((observable, oldValue, newValue) -> {
-                label.setText(String.valueOf(slider.getValue()));
-            });
-
-        }
-
+    }
 }

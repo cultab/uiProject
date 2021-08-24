@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -18,7 +19,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="erg.AppController">
+<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="erg.AppController">
   <children>
     <MenuBar prefWidth="902.0" VBox.vgrow="NEVER">
       <menus>
@@ -75,17 +76,18 @@
                     <panes>
                       <TitledPane animated="false" prefHeight="885.0" prefWidth="221.0" text="Rooms">
                         <content>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <ListView fx:id="listRooms" layoutX="-6.0" layoutY="72.0" onMouseClicked="#load_widgets" prefHeight="454.0" prefWidth="202.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                 </children></AnchorPane>
                         </content>
                       </TitledPane>
                       <TitledPane animated="false" text="Devices">
                         <content>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                        </content>
-                      </TitledPane>
-                      <TitledPane animated="false" prefHeight="865.0" prefWidth="221.0" text="Settings">
-                        <content>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="852.0" prefWidth="219.0" />
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <ListView fx:id="listDevices" layoutX="-12.0" layoutY="39.0" onMouseClicked="#load_general" prefHeight="180.0" prefWidth="202.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                 </children></AnchorPane>
                         </content>
                       </TitledPane>
                     </panes>
@@ -110,7 +112,7 @@
             <Font size="11.0" />
           </font>
           <textFill>
-            <Color blue="0.625" green="0.625" red="0.625" />
+            <Color red="0.625" green="0.625" blue="0.625" />
           </textFill>
         </Label>
         <Pane prefHeight="-1.0" prefWidth="-1.0" HBox.hgrow="ALWAYS" />

@@ -25,6 +25,6 @@ public class Device implements Serializable {
         this.room_id = room_id;
     }
 
-    String IP;
-    String room_id;
+     String IP;
+     String room_id;
 }
