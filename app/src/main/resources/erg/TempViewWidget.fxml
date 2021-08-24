@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -22,13 +21,11 @@
         <VBox alignment="CENTER">
             <children>
                 <HBox alignment="CENTER">
-                    <Label text="Temperature (C):" textAlignment="LEFT" />
-                    <Label fx:id="label" text="30" textAlignment="CENTER" />
                     <VBox.margin>
                         <Insets bottom="5.0" />
                     </VBox.margin>
                 </HBox>
-                <Slider fx:id="slider" blockIncrement="1.0" layoutX="26.0" layoutY="32.0" majorTickUnit="10.0" max="40.0" min="20.0" minorTickCount="8" prefHeight="0.0" prefWidth="140.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+                <Slider fx:id="slider" blockIncrement="1.0" layoutX="26.0" layoutY="32.0" majorTickUnit="10.0" max="40.0" min="20.0" minorTickCount="9" prefHeight="0.0" prefWidth="140.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
             </children>
             <VBox.margin>
                 <Insets bottom="5.0" />

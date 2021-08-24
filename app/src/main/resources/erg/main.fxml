@@ -58,7 +58,7 @@
         </Menu>
       </menus>
     </MenuBar>
-    <SplitPane fx:id="mainSplit" dividerPositions="0.3507795100222717, 0.7951002227171492" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+    <SplitPane fx:id="mainSplit" dividerPositions="0.2828507795100223, 0.9955456570155902" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <items>
             <VBox prefHeight="854.0" prefWidth="150.0" SplitPane.resizableWithParent="false">
                <children>
@@ -82,7 +82,7 @@
                   <Insets />
                </opaqueInsets>
             </FlowPane>
-            <TilePane fx:id="details" alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="200.0" />
+            <TilePane fx:id="details" alignment="TOP_RIGHT" maxWidth="0.0" SplitPane.resizableWithParent="false" />
       </items>
     </SplitPane>
     <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">

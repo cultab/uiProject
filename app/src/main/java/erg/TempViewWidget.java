@@ -15,8 +15,6 @@ import javafx.scene.layout.VBox;
 public class TempViewWidget extends VBox implements Initializable {
 
     @FXML
-    private Label label;
-    @FXML
     private Slider slider;
     private TemperatureSensor sensor;
     private AppController parent;
@@ -41,8 +39,7 @@ public class TempViewWidget extends VBox implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         slider.valueProperty().addListener((observable, oldValue, newValue) -> {
             var new_temp = slider.getValue();
-            label.setText(String.valueOf(new_temp));
-            sensor.setTemperature(new_temp);
+            sensor.setTemperature((double)Math.round(new_temp));
             parent.update_details();
         });
     }

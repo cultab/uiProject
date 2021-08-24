@@ -4,7 +4,6 @@
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -36,8 +35,8 @@
          </image></ImageView>
       <GridPane alignment="CENTER" hgap="5.0" minHeight="-Infinity" minWidth="-Infinity" vgap="5.0">
         <columnConstraints>
-          <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" maxWidth="185.0" minWidth="0.0" prefWidth="149.0" />
-          <ColumnConstraints hgrow="ALWAYS" maxWidth="246.0" minWidth="10.0" prefWidth="145.0" />
+          <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" maxWidth="185.0" minWidth="0.0" prefWidth="113.0" />
+          <ColumnConstraints hgrow="ALWAYS" maxWidth="246.0" minWidth="10.0" prefWidth="181.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints maxHeight="85.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
@@ -48,9 +47,9 @@
             <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="16.0" prefWidth="42.0" text="IP:" textAlignment="RIGHT" />
             <TextField fx:id="IP" editable="false" text="192.168.1.1" GridPane.columnIndex="1" />
             <TextField fx:id="room_name" editable="false" text="Kitchen" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Slider fx:id="temperature" blockIncrement="1.0" majorTickUnit="10.0" max="40.0" min="20.0" minorTickCount="9" prefHeight="16.0" prefWidth="171.0" showTickLabels="true" showTickMarks="true" value="30.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label alignment="CENTER_RIGHT" text="Temperature (C):" textAlignment="RIGHT" GridPane.rowIndex="2" />
             <Label alignment="CENTER_RIGHT" text="Room:" textAlignment="RIGHT" GridPane.rowIndex="1" />
+            <TextField fx:id="temperature" editable="false" text="23" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
       <LineChart fx:id="chart" prefHeight="231.0" prefWidth="246.0" title="Temperature History">

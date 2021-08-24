@@ -26,7 +26,7 @@ public class TemperatureDetailsWidget extends DetailsWidget implements Initializ
     @FXML
     TextField room_name;
     @FXML
-    Slider temperature;
+    TextField temperature;
     @FXML
     LineChart<Number,Double> chart;
 
@@ -69,6 +69,6 @@ public class TemperatureDetailsWidget extends DetailsWidget implements Initializ
     public void update() {
         IP.setText(sensor.getIP());
         room_name.setText(sensor.getRoom_id());
-        temperature.adjustValue(sensor.getTemperature());
+        temperature.setText(sensor.getTemperature().toString());
     }
 }

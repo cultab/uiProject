@@ -33,8 +33,8 @@
          </image></ImageView>
       <GridPane alignment="CENTER" hgap="5.0" minHeight="-Infinity" minWidth="-Infinity" vgap="5.0">
         <columnConstraints>
-          <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" maxWidth="185.0" minWidth="0.0" prefWidth="149.0" />
-          <ColumnConstraints hgrow="ALWAYS" maxWidth="246.0" minWidth="10.0" prefWidth="145.0" />
+          <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" maxWidth="185.0" minWidth="0.0" prefWidth="49.0" />
+          <ColumnConstraints hgrow="ALWAYS" maxWidth="250.0" minWidth="10.0" prefWidth="245.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints maxHeight="85.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
@@ -42,7 +42,7 @@
           <RowConstraints maxHeight="118.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="16.0" prefWidth="42.0" text="IP:" textAlignment="RIGHT" />
+            <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" text="IP:" textAlignment="RIGHT" />
             <TextField fx:id="IP" editable="false" text="192.168.1.1" GridPane.columnIndex="1" />
             <TextField fx:id="room_name" editable="false" text="Kitchen" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label alignment="CENTER_RIGHT" text="Status:" textAlignment="RIGHT" GridPane.rowIndex="2" />

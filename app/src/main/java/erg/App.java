@@ -42,7 +42,7 @@ public class App extends Application implements Initializable {
             System.out.println(e.getMessage());
         }
 
-        Scene scene = new Scene(root, 640, 480);
+        Scene scene = new Scene(root, 720, 480);
         
         stage.setTitle("testing title");
         stage.setScene(scene);
