@@ -5,6 +5,7 @@
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -28,7 +29,10 @@
             </Label>
          </children>
       </TextFlow>
-      <ImageView fx:id="image" fitHeight="175.0" fitWidth="234.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="image" fitHeight="175.0" fitWidth="234.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@LampOff.jpeg" />
+         </image></ImageView>
       <GridPane alignment="CENTER" hgap="5.0" minHeight="-Infinity" minWidth="-Infinity" vgap="5.0">
         <columnConstraints>
           <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" maxWidth="185.0" minWidth="0.0" prefWidth="149.0" />

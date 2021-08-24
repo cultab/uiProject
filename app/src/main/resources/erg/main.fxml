@@ -59,9 +59,9 @@
         </Menu>
       </menus>
     </MenuBar>
-    <SplitPane fx:id="mainSplit" dividerPositions="0.23496659242761692" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+    <SplitPane fx:id="mainSplit" dividerPositions="0.3596881959910913, 0.7594654788418709" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <items>
-            <VBox prefHeight="200.0" prefWidth="100.0">
+            <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="100.0">
                <children>
                   <AnchorPane prefHeight="29.0" prefWidth="221.0">
                      <children>
@@ -100,6 +100,7 @@
                   <Insets />
                </opaqueInsets>
             </FlowPane>
+            <Pane fx:id="details" maxWidth="1.7976931348623157E308" minWidth="-Infinity" />
       </items>
     </SplitPane>
     <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
