@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<fx:root alignment="CENTER" prefHeight="181.0" prefWidth="167.0" type="VBox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root alignment="CENTER" prefHeight="181.0" prefWidth="167.0" type="VBox" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <ImageView fx:id="Lamp" fitHeight="74.0" fitWidth="88.0" pickOnBounds="true" preserveRatio="true">
             <image>

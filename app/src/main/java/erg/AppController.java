@@ -27,7 +27,9 @@ public class AppController implements Initializable {
     @FXML
     private FlowPane flow;
     @FXML
-    private ListView<String> list1;
+    private ListView<String> listRooms;
+    @FXML
+    private ListView<String> listDevices;
 
     public AppController() {
         devices = new HashMap<String, Device>();
@@ -96,8 +98,11 @@ public class AppController implements Initializable {
 
         for(String s: rooms.keySet())
         {
-            list1.getItems().add(s);
+            listRooms.getItems().add(s);
         }
+
+        listDevices.getItems().add("Lamp");
+        listDevices.getItems().add("TemperatureSensor");
 
         mainSplit.getItems().add(new LampDetailsWidget(new Lamp("192.168.1.29", "0xDEADBEEF")));
     }
@@ -105,7 +110,7 @@ public class AppController implements Initializable {
     public void load_widgets()
     {
         flow.getChildren().removeAll(flow.getChildren());
-        String selection = list1.getSelectionModel().getSelectedItem();
+        String selection = listRooms.getSelectionModel().getSelectedItem();
 
         for(Device d: devices.values())
         {
@@ -120,6 +125,25 @@ public class AppController implements Initializable {
         }
     }
 
+    public void load_general()
+    {
+        flow.getChildren().removeAll(flow.getChildren());
+        String selection = listDevices.getSelectionModel().getSelectedItem();
+
+        for(Device d: devices.values())
+        {
+            if(d.getClass().getSimpleName().equals(selection))
+            {
+                switch (selection)
+                {
+                    case "Lamp": flow.getChildren().add(new LampViewWidget((Lamp) d));
+                        break;
+                    case "TemperatureSensor": flow.getChildren().add(new TempViewWidget());
+                        break;
+                }
+            }
+        }
+    }
     public void load_devices() {
         var filename = "devices.cfg";
 
