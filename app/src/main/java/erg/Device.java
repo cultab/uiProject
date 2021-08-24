@@ -6,10 +6,12 @@ import java.io.Serializable;
 public class Device implements Serializable {
     private static final long serialversionUID = 1000L;
 
+    String IP;
+    String room_id;
+
     public Device(String IP, String room_id) {
         this.IP = IP;
         this.room_id = room_id;
-
     }
 
     public String getIP() {
@@ -25,6 +27,4 @@ public class Device implements Serializable {
         this.room_id = room_id;
     }
 
-     String IP;
-     String room_id;
 }

@@ -16,33 +16,35 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.TilePane;
 
 public class AppController implements Initializable {
 
     private HashMap<String, Device> devices;
     private HashMap<String, Room> rooms;
-    private DetailsWidget current_details;
+    private DetailsWidget currentDetailsWidget;
 
     @FXML
     private SplitPane mainSplit;
     @FXML
     private FlowPane flow;
     @FXML
-    private Pane details;
+    private TilePane details;
     @FXML
     private ListView<String> listRooms;
     @FXML
     private ListView<String> listDevices;
 
+    // height of vertiral listView item
+    private final int ROW_HEIGHT = 24;
 
     public AppController() {
         devices = new HashMap<String, Device>();
         rooms = new HashMap<String, Room>();
-        gen_rooms_and_devices();
-
-        save_devices();
-        save_rooms();
+//         gen_rooms_and_devices();
+// 
+//         save_devices();
+//         save_rooms();
 
         load_devices();
         // for (var a : devices.entrySet()) {
@@ -58,18 +60,23 @@ public class AppController implements Initializable {
     
 
     public void setCurrent_details(Device device) {
-        if (current_details != null) {
-            details.getChildren().remove(current_details);
+        System.out.println("setting new details");
+        if (currentDetailsWidget != null) {
+            details.getChildren().remove(currentDetailsWidget);
         }
 
         switch(device.getClass().getSimpleName()) {
             case "TemperatureSensor":
-                current_details = new TemperatureDetailsWidget((TemperatureSensor)device);
+                currentDetailsWidget = new TemperatureDetailsWidget((TemperatureSensor)device);
                 break;
             case "Lamp":
-                current_details = new LampDetailsWidget((Lamp)device);
+                currentDetailsWidget = new LampDetailsWidget((Lamp)device);
                 break;
+            default:
+                throw new RuntimeException("No such Device class like" + device.getClass().getSimpleName());
         }
+
+        details.getChildren().add(currentDetailsWidget);
     }
 
     @Override
@@ -78,15 +85,19 @@ public class AppController implements Initializable {
         for(String s: rooms.keySet())
         {
             listRooms.getItems().add(s);
+            listRooms.setPrefHeight(listRooms.getItems().size() * ROW_HEIGHT + 2);
         }
 
         listDevices.getItems().add("Lamp");
         listDevices.getItems().add("TemperatureSensor");
+        listDevices.setPrefHeight(listDevices.getItems().size() * ROW_HEIGHT + 2);
 
     }
 
     public void update_details() {
-        current_details.update();
+        if (currentDetailsWidget != null) {
+            currentDetailsWidget.update();
+        }
     }
 
     public void load_widgets()
@@ -118,14 +129,17 @@ public class AppController implements Initializable {
             {
                 switch (selection)
                 {
-                    case "Lamp": flow.getChildren().add(new LampViewWidget((Lamp) d, this));
-                        break;
-                    case "TemperatureSensor": flow.getChildren().add(new TempViewWidget((TemperatureSensor) d, this));
-                        break;
+                case "Lamp": 
+                    flow.getChildren().add(new LampViewWidget((Lamp) d, this));
+                    break;
+                case "TemperatureSensor": 
+                    flow.getChildren().add(new TempViewWidget((TemperatureSensor) d, this));
+                    break;
                 }
             }
         }
     }
+
     public void load_devices() {
         var filename = "devices.cfg";
 
@@ -229,7 +243,5 @@ public class AppController implements Initializable {
         rooms.put(room3.getRoom_id(), room2);
         rooms.put(room4.getRoom_id(), room2);
         rooms.put(room5.getRoom_id(), room2);
-
-
     }
 }

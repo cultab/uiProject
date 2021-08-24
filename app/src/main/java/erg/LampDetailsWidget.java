@@ -25,8 +25,6 @@ public class LampDetailsWidget extends DetailsWidget implements Initializable {
     TextField room_name;
     @FXML
     TextField status;
-    @FXML
-    LineChart<Number,Number> chart;
 
     public LampDetailsWidget(Lamp sensor) {
         this.sensor = sensor;
@@ -48,27 +46,17 @@ public class LampDetailsWidget extends DetailsWidget implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        image.setImage(new Image(getClass().getResource("/erg/LampOff.jpeg").toString()));
 
         IP.setText(sensor.getIP());
-        // TODO: use room id to find room name
         room_name.setText(sensor.getRoom_id());
-        status.setText(sensor.getPowered_on() ? "On": "Off");
 
-//         XYChart.Series<Number,Number> series = new XYChart.Series<Number,Number>();
-//         int i = 0;
-//         for (var temp : sensor.getTemp_history()) {
-//             series.getData().add(new XYChart.Data<Number,Number>(i++, temp));
-//         }
-// 
-        //         chart.getData().add(series);
+        update();
 
     }
 
     @FXML
     @Override
     public void update() {
-        System.out.println("UPDATE CALLED");
         String status_text;
         Image new_image;
 
