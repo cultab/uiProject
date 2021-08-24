@@ -12,8 +12,6 @@ import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
-
-
 public class TempViewWidget extends VBox {
 
     @FXML

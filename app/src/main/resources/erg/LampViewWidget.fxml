@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<fx:root alignment="CENTER" prefHeight="99.0" prefWidth="117.0" type="VBox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root alignment="CENTER" minWidth="-Infinity" prefHeight="99.0" prefWidth="117.0" spacing="5.0" type="VBox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
         <children>
             <ImageView fx:id="Lamp" fitHeight="74.0" fitWidth="88.0" pickOnBounds="true" preserveRatio="true">
                 <image>
@@ -21,18 +21,18 @@
             </ImageView>
             <HBox alignment="CENTER">
                 <children>
-                    <RadioButton fx:id="On" mnemonicParsing="false" onAction="#TurnLampOn" text="On">
+                    <RadioButton fx:id="On" mnemonicParsing="false" onAction="#update" text="On">
                         <toggleGroup>
                             <ToggleGroup fx:id="OnOff" />
                         </toggleGroup>
             </RadioButton>
-                    <RadioButton fx:id="Off" mnemonicParsing="false" onAction="#TurnLampOn" selected="true" text="Off" toggleGroup="$OnOff" />
+                    <RadioButton fx:id="Off" mnemonicParsing="false" onAction="#update" selected="true" text="Off" toggleGroup="$OnOff" />
                 </children>
          <VBox.margin>
             <Insets bottom="5.0" />
          </VBox.margin>
             </HBox>
-      <Button mnemonicParsing="false" text="Details">
+      <Button fx:id="details_button" mnemonicParsing="false" onAction="#set_details" text="Details">
          <VBox.margin>
             <Insets bottom="5.0" />
          </VBox.margin></Button>

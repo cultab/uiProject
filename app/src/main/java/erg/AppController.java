@@ -18,22 +18,22 @@ import javafx.scene.layout.FlowPane;
 
 public class AppController implements Initializable {
 
-    HashMap<String, Device> devices;
-    HashMap<String, Room> rooms;
+    private HashMap<String, Device> devices;
+    private HashMap<String, Room> rooms;
+    private DetailsWidget current_details;
 
     @FXML
-    SplitPane mainSplit;
+    private SplitPane mainSplit;
     @FXML
-    FlowPane flow;
+    private FlowPane flow;
 
     public AppController() {
         devices = new HashMap<String, Device>();
         rooms = new HashMap<String, Room>();
+        gen_rooms_and_devices();
 
-//          gen_rooms_and_devices();
-// 
-//          save_devices();
-//          save_rooms();
+        save_devices();
+        save_rooms();
 
         load_devices();
         // for (var a : devices.entrySet()) {
@@ -87,16 +87,38 @@ public class AppController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        var lamp = devices.get("192.168.1.2");
+        var lamp = (Lamp)devices.get("192.168.1.2");
 
-        flow.getChildren().add(new LampViewWidget((Lamp)lamp));
-        flow.getChildren().add(new LampViewWidget((Lamp)lamp));
-        flow.getChildren().add(new LampViewWidget((Lamp)lamp));
-        flow.getChildren().add(new LampViewWidget((Lamp)lamp));
+        flow.getChildren().add(new LampViewWidget(lamp, this));
+        flow.getChildren().add(new LampViewWidget(lamp, this));
+        flow.getChildren().add(new LampViewWidget(lamp, this));
+        flow.getChildren().add(new LampViewWidget(lamp, this));
         // flow.getChildren().add(new LampDetailsWidget((Lamp)lamp));
         // mainSplit.getItems().add(new TemperatureDetailsWidget(new TemperatureSensor("192.168.1.29", "0xDEADBEEF")));
-        mainSplit.getItems().add(new LampDetailsWidget(new Lamp("192.168.1.29", "0xDEADBEEF")));
+        // current_details = new LampDetailsWidget(lamp);
+        // mainSplit.getItems().add(current_details);
 
+    }
+
+    public void update_details() {
+        current_details.update();
+    }
+
+    public void setCurrent_details(Device device) {
+        if (current_details != null) {
+            mainSplit.getItems().remove(current_details);
+        }
+
+        switch(device.getClass().getSimpleName()) {
+            case "TemperatureSensor":
+                current_details = new TemperatureDetailsWidget((TemperatureSensor)device);
+                break;
+            case "Lamp":
+                current_details = new LampDetailsWidget((Lamp)device);
+                break;
+        }
+
+        mainSplit.getItems().add(current_details);
     }
 
     public void load_devices() {

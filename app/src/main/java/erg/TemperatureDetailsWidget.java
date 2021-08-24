@@ -13,9 +13,8 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
 
-public class TemperatureDetailsWidget extends VBox implements Initializable {
+public class TemperatureDetailsWidget extends DetailsWidget implements Initializable {
 
     @FXML
     ImageView image;

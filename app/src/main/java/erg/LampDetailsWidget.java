@@ -8,14 +8,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
-import javafx.scene.chart.XYChart;
-import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
 
-public class LampDetailsWidget extends VBox implements Initializable {
+public class LampDetailsWidget extends DetailsWidget implements Initializable {
 
     @FXML
     ImageView image;
@@ -64,12 +61,14 @@ public class LampDetailsWidget extends VBox implements Initializable {
 //             series.getData().add(new XYChart.Data<Number,Number>(i++, temp));
 //         }
 // 
-//         chart.getData().add(series);
+        //         chart.getData().add(series);
 
     }
 
     @FXML
+    @Override
     public void update() {
+        System.out.println("UPDATE CALLED");
         String status_text;
         Image new_image;
 
@@ -81,8 +80,8 @@ public class LampDetailsWidget extends VBox implements Initializable {
             new_image = new Image(getClass().getResource("/erg/LampOff.jpeg").toString());
         }
 
-            status.setText(status_text);
-            image.setImage(new_image);
+        status.setText(status_text);
+        image.setImage(new_image);
     }
 
 }
