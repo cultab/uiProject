@@ -41,10 +41,10 @@ public class AppController implements Initializable {
     public AppController() {
         devices = new HashMap<String, Device>();
         rooms = new HashMap<String, Room>();
-        gen_rooms_and_devices();
-
-        save_devices();
-        save_rooms();
+//         gen_rooms_and_devices();
+// 
+//         save_devices();
+//         save_rooms();
 
         load_devices();
         // for (var a : devices.entrySet()) {
