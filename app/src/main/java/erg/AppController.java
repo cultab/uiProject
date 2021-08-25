@@ -12,10 +12,12 @@ import java.util.HashMap;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.TilePane;
 import javafx.stage.Stage;
 
@@ -122,6 +124,8 @@ public class AppController implements Initializable {
     public void quit()
     {
         alert.setAlertType(Alert.AlertType.CONFIRMATION);
+        Platform.runLater(() -> alert.setWidth(200));
+        Platform.runLater(() -> alert.setHeight(150));
         Optional<ButtonType> result = alert.showAndWait();
 
         if (result.get() == ButtonType.OK) {
@@ -216,6 +220,9 @@ public class AppController implements Initializable {
             throw new RuntimeException("Could not save rooms to " + filename);
         }
 
+        // Platform.runLater(() -> alert.setResizable(true));
+        Platform.runLater(() -> alert.setWidth(200));
+        Platform.runLater(() -> alert.setHeight(150));
         alert.setAlertType(Alert.AlertType.INFORMATION);
         alert.setContentText("Save Succesfull");
         alert.setHeaderText(null);
