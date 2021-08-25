@@ -3,7 +3,7 @@ package erg;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
+// import java.util.Random;
 
 public class TemperatureSensor extends Device {
     Double temperature;
@@ -14,9 +14,9 @@ public class TemperatureSensor extends Device {
         temperature = 25.0;
         temp_history = new ArrayList<Double>();
 
-        for (int i = 0; i < 25; i++) {
-            temp_history.add(new Random().nextDouble() + 20);
-        }
+        // for (int i = 0; i < 25; i++) {
+        //     temp_history.add(new Random().nextDouble() + 20);
+        // }
     }
 
     public List<Double> getTemp_history() {
@@ -33,6 +33,7 @@ public class TemperatureSensor extends Device {
 
     public void setTemperature(Double temperature) {
         this.temperature = temperature;
+        temp_history.add(temperature);
     }
 
 }

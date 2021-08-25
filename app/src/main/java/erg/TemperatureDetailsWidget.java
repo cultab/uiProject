@@ -11,6 +11,7 @@ import javafx.scene.chart.XYChart;
 public class TemperatureDetailsWidget extends DetailsWidget {
 
     TemperatureSensor thermometer;
+    XYChart.Series<Number, Double> series;
 
     @FXML
     LineChart<Number, Double> chart;
@@ -18,29 +19,29 @@ public class TemperatureDetailsWidget extends DetailsWidget {
     public TemperatureDetailsWidget(TemperatureSensor sensor, AppController parent) {
         super(sensor, parent);
         thermometer = (TemperatureSensor) sensor;
-
+        series = new XYChart.Series<Number, Double>();
         load_fxml("/erg/TemperatureDetailsWidget.fxml");
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        status.setText(thermometer.getTemperature().toString());
+        super.initialize(url, rb);
 
-        XYChart.Series<Number, Double> series = new XYChart.Series<Number, Double>();
+        chart.getData().add(series);
         int i = 0;
         for (var temp : thermometer.getTemp_history()) {
             series.getData().add(new XYChart.Data<Number, Double>(i++, temp));
         }
-
-        chart.getData().add(series);
-
-        super.initialize(url, rb);
         update();
     }
 
     @FXML
     public void update() {
         status.setText(thermometer.getTemperature().toString());
+
+        var data = series.getData();
+
+        data.add(new XYChart.Data<Number, Double>((Integer)data.get(data.size() - 1).getXValue() + 1 , thermometer.getTemperature()));
 
         super.update();
     }

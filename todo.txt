@@ -14,6 +14,8 @@ DropDown menu listeners (Asim)
 reaffirmation windows
 add help button
 being able to add/edit rooms and devices (Evan)
-Thermostat history (Evan)
+    x edit
+    add
+x Thermostat history (Evan)
 
 beautification
