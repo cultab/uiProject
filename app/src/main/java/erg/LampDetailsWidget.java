@@ -14,7 +14,7 @@ public class LampDetailsWidget extends DetailsWidget implements Initializable {
 
     public LampDetailsWidget(Lamp sensor) {
         super(sensor);
-        lamp = (Lamp)sensor;
+        lamp = (Lamp) sensor;
         load_fxml("/erg/LampDetailsWidget.fxml");
     }
 

@@ -16,7 +16,7 @@ public class TemperatureViewWidget extends ViewWidget {
 
     public TemperatureViewWidget(TemperatureSensor sensor, AppController parent) {
         super(sensor, parent);
-        thermostat = (TemperatureSensor)sensor;
+        thermostat = (TemperatureSensor) sensor;
 
         load_fxml("/erg/TempViewWidget.fxml");
     }
@@ -27,7 +27,7 @@ public class TemperatureViewWidget extends ViewWidget {
 
         slider.valueProperty().addListener((observable, oldValue, newValue) -> {
             var new_temp = slider.getValue();
-            thermostat.setTemperature((double)Math.round(new_temp));
+            thermostat.setTemperature((double) Math.round(new_temp));
             super.update();
         });
 

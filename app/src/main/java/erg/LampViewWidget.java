@@ -8,7 +8,6 @@ import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.media.AudioClip;
 
-
 public class LampViewWidget extends ViewWidget {
 
     private Image onImg;
@@ -19,11 +18,12 @@ public class LampViewWidget extends ViewWidget {
 
     public LampViewWidget(Lamp sensor, AppController parent) {
         super(sensor, parent);
-        lamp = (Lamp)sensor;
+        lamp = (Lamp) sensor;
 
-        onImg  = new Image(getClass().getResource("/erg/LampOn.png").toString());
+        onImg = new Image(getClass().getResource("/erg/LampOn.png").toString());
         offImg = new Image(getClass().getResource("/erg/LampOff.png").toString());
-        click = new AudioClip(getClass().getResource("/erg/Light Pull Chain- Sound Effect [HQ]-xpiz-39Q3mk.wav").toString());
+        click = new AudioClip(
+                getClass().getResource("/erg/Light Pull Chain- Sound Effect [HQ]-xpiz-39Q3mk.wav").toString());
 
         load_fxml("/erg/LampViewWidget.fxml");
     }
@@ -31,12 +31,9 @@ public class LampViewWidget extends ViewWidget {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        if(lamp.isPoweredOn())
-        {
+        if (lamp.isPoweredOn()) {
             image.setImage(onImg);
-        }
-        else
-        {
+        } else {
             image.setImage(offImg);
         }
 
@@ -47,7 +44,7 @@ public class LampViewWidget extends ViewWidget {
     @Override
     public void update() {
 
-        if(lamp.isPoweredOn()) {
+        if (lamp.isPoweredOn()) {
             image.setImage(onImg);
         } else {
             image.setImage(offImg);

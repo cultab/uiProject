@@ -13,7 +13,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
 import javafx.stage.Stage;
 
@@ -43,7 +42,7 @@ public class App extends Application implements Initializable {
         }
 
         Scene scene = new Scene(root, 720, 480);
-        
+
         stage.setTitle("testing title");
         stage.setScene(scene);
         stage.show();

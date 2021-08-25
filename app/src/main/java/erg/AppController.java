@@ -48,16 +48,13 @@ public class AppController implements Initializable {
 
         load_devices();
         // for (var a : devices.entrySet()) {
-        //     System.out.println(a.getValue().getIP());
+        // System.out.println(a.getValue().getIP());
         // }
         load_rooms();
         // for (var a : rooms.entrySet()) {
-        //     System.out.println(a.getValue().getRoom_id());
+        // System.out.println(a.getValue().getRoom_id());
         // }
     }
-
-
-    
 
     public void setCurrent_details(Device device) {
         System.out.println("setting new details");
@@ -65,12 +62,12 @@ public class AppController implements Initializable {
             details.getChildren().remove(currentDetailsWidget);
         }
 
-        switch(device.getClass().getSimpleName()) {
+        switch (device.getClass().getSimpleName()) {
             case "TemperatureSensor":
-                currentDetailsWidget = new TemperatureDetailsWidget((TemperatureSensor)device);
+                currentDetailsWidget = new TemperatureDetailsWidget((TemperatureSensor) device);
                 break;
             case "Lamp":
-                currentDetailsWidget = new LampDetailsWidget((Lamp)device);
+                currentDetailsWidget = new LampDetailsWidget((Lamp) device);
                 break;
             default:
                 throw new RuntimeException("No such Device class like" + device.getClass().getSimpleName());
@@ -82,8 +79,7 @@ public class AppController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        for(String s: rooms.keySet())
-        {
+        for (String s : rooms.keySet()) {
             listRooms.getItems().add(s);
             listRooms.setPrefHeight(listRooms.getItems().size() * ROW_HEIGHT + 2);
         }
@@ -100,41 +96,34 @@ public class AppController implements Initializable {
         }
     }
 
-    public void load_widgets()
-    {
+    public void load_widgets() {
         flow.getChildren().removeAll(flow.getChildren());
         String selection = listRooms.getSelectionModel().getSelectedItem();
 
-        for(Device d: devices.values())
-        {
-            if(d.getRoom_name().equals(selection))
-            {
+        for (Device d : devices.values()) {
+            if (d.getRoom_name().equals(selection)) {
 
-                if(d.getClass().getSimpleName().equals("Lamp"))
+                if (d.getClass().getSimpleName().equals("Lamp"))
                     flow.getChildren().add(new LampViewWidget((Lamp) d, this));
-                if(d.getClass().getSimpleName().equals("TemperatureSensor"))
+                if (d.getClass().getSimpleName().equals("TemperatureSensor"))
                     flow.getChildren().add(new TemperatureViewWidget((TemperatureSensor) d, this));
             }
         }
     }
 
-    public void load_general()
-    {
+    public void load_general() {
         flow.getChildren().removeAll(flow.getChildren());
         String selection = listDevices.getSelectionModel().getSelectedItem();
 
-        for(Device d: devices.values())
-        {
-            if(d.getClass().getSimpleName().equals(selection))
-            {
-                switch (selection)
-                {
-                case "Lamp": 
-                    flow.getChildren().add(new LampViewWidget((Lamp) d, this));
-                    break;
-                case "TemperatureSensor": 
-                    flow.getChildren().add(new TemperatureViewWidget((TemperatureSensor) d, this));
-                    break;
+        for (Device d : devices.values()) {
+            if (d.getClass().getSimpleName().equals(selection)) {
+                switch (selection) {
+                    case "Lamp":
+                        flow.getChildren().add(new LampViewWidget((Lamp) d, this));
+                        break;
+                    case "TemperatureSensor":
+                        flow.getChildren().add(new TemperatureViewWidget((TemperatureSensor) d, this));
+                        break;
                 }
             }
         }
@@ -143,10 +132,10 @@ public class AppController implements Initializable {
     public void load_devices() {
         var filename = "devices.cfg";
 
-        try (var in = new ObjectInputStream(new FileInputStream(filename))){
+        try (var in = new ObjectInputStream(new FileInputStream(filename))) {
 
             // Method for deserialization of object
-            devices = (HashMap<String, Device>)in.readObject();
+            devices = (HashMap<String, Device>) in.readObject();
 
         } catch (IOException e) {
             System.out.println(e.getCause());
@@ -162,10 +151,9 @@ public class AppController implements Initializable {
         var filename = "devices.cfg";
 
         // Serialization
-        try (var out = new ObjectOutputStream(new FileOutputStream(filename))){
+        try (var out = new ObjectOutputStream(new FileOutputStream(filename))) {
             out.writeObject(devices);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
             System.out.println(e);
@@ -177,10 +165,10 @@ public class AppController implements Initializable {
     public void load_rooms() {
         var filename = "rooms.cfg";
 
-        try (var in = new ObjectInputStream(new FileInputStream(filename))){
+        try (var in = new ObjectInputStream(new FileInputStream(filename))) {
 
             // Method for deserialization of object
-            rooms = (HashMap<String, Room>)in.readObject();
+            rooms = (HashMap<String, Room>) in.readObject();
 
         } catch (IOException e) {
             System.out.println(e.getCause());
@@ -196,10 +184,9 @@ public class AppController implements Initializable {
         var filename = "rooms.cfg";
 
         // Serialization
-        try (var out = new ObjectOutputStream(new FileOutputStream(filename))){
+        try (var out = new ObjectOutputStream(new FileOutputStream(filename))) {
             out.writeObject(rooms);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
             System.out.println(e);
@@ -237,7 +224,6 @@ public class AppController implements Initializable {
         var room5_list = new ArrayList<String>();
         room5_list.add(t4.getIP());
         var room5 = new Room("Basement", room5_list);
-        
 
         rooms.put(room2.getRoom_id(), room2);
         rooms.put(room3.getRoom_id(), room2);

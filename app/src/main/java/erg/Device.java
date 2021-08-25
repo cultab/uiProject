@@ -27,12 +27,15 @@ public class Device implements Serializable {
     public String getIP() {
         return IP;
     }
+
     public void setIP(String iP) {
         IP = iP;
     }
+
     public String getRoom_name() {
         return room_name;
     }
+
     public void setRoom_name(String room_id) {
         this.room_name = room_id;
     }
