@@ -1,7 +1,19 @@
-Pane to put detail widgets in so that the layout does not get reset when adding removing
-Details temp widget
-Persistence temperature status
+x Pane to put detail widgets in so that the layout does not get reset when adding removing
+x Details temp widget
+x Persistence temperature status
+ListView Performance ~(Asim)
 Add devices
-DropDown menu listeners
+    Windows Rolls
+    TV
+    A/C
+    Radio/Stereo
+    Water heater
+DropDown menu listeners (Asim)
+    remove
+        Everything except save,quit,help
 reaffirmation windows
+add help button
+being able to add/edit rooms and devices (Evan)
+Thermostat history (Evan)
+
 beautification
