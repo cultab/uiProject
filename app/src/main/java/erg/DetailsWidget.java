@@ -11,6 +11,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
 
 public class DetailsWidget extends VBox implements Initializable {
     protected Device sensor;

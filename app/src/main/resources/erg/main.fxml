@@ -17,43 +17,20 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="erg.AppController">
+<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="erg.AppController">
   <children>
     <MenuBar prefWidth="902.0" VBox.vgrow="NEVER">
       <menus>
         <Menu mnemonicParsing="false" text="File">
           <items>
-            <MenuItem mnemonicParsing="false" text="New" />
-            <MenuItem mnemonicParsing="false" text="Open…" />
-            <Menu mnemonicParsing="false" text="Open Recent" />
+            <MenuItem fx:id="save" mnemonicParsing="false" onAction="#save_to_cfg" text="Save" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Close" />
-            <MenuItem mnemonicParsing="false" text="Save" />
-            <MenuItem mnemonicParsing="false" text="Save As…" />
-            <MenuItem mnemonicParsing="false" text="Revert" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Preferences…" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Quit" />
-          </items>
-        </Menu>
-        <Menu mnemonicParsing="false" text="Edit">
-          <items>
-            <MenuItem mnemonicParsing="false" text="Undo" />
-            <MenuItem mnemonicParsing="false" text="Redo" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Cut" />
-            <MenuItem mnemonicParsing="false" text="Copy" />
-            <MenuItem mnemonicParsing="false" text="Paste" />
-            <MenuItem mnemonicParsing="false" text="Delete" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Select All" />
-            <MenuItem mnemonicParsing="false" text="Unselect All" />
+            <MenuItem fx:id="quit" mnemonicParsing="false" onAction="#quit" text="Quit" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Help">
           <items>
-            <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
+            <MenuItem mnemonicParsing="false" onAction="#help" text="About MyHelloApp" />
           </items>
         </Menu>
       </menus>
@@ -92,7 +69,7 @@
             <Font size="11.0" />
           </font>
           <textFill>
-            <Color blue="0.625" green="0.625" red="0.625" />
+            <Color red="0.625" green="0.625" blue="0.625" />
           </textFill>
         </Label>
         <Pane prefHeight="-1.0" prefWidth="-1.0" HBox.hgrow="ALWAYS" />

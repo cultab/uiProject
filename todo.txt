@@ -8,12 +8,13 @@ Add devices
     A/C
     Radio/Stereo
     Water heater
-DropDown menu listeners (Asim)
+x DropDown menu listeners (Asim)
     remove
         Everything except save,quit,help
 reaffirmation windows
 add help button
 being able to add/edit rooms and devices (Evan)
 Thermostat history (Evan)
+Pop up tips on open
 
 beautification

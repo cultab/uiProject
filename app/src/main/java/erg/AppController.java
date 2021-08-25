@@ -9,20 +9,22 @@ import java.io.ObjectOutputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ListView;
-import javafx.scene.control.SplitPane;
+import javafx.scene.control.*;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.TilePane;
+import javafx.stage.Stage;
 
 public class AppController implements Initializable {
 
     private HashMap<String, Device> devices;
     private HashMap<String, Room> rooms;
     private DetailsWidget currentDetailsWidget;
+    private Alert alert = new Alert(Alert.AlertType.NONE);
 
     @FXML
     private SplitPane mainSplit;
@@ -35,7 +37,7 @@ public class AppController implements Initializable {
     @FXML
     private ListView<String> listDevices;
 
-    // height of vertiral listView item
+    // height of vertical listView item
     private final int ROW_HEIGHT = 24;
 
     public AppController() {
@@ -43,8 +45,7 @@ public class AppController implements Initializable {
         rooms = new HashMap<String, Room>();
         gen_rooms_and_devices();
 
-        save_devices();
-        save_rooms();
+        save_to_cfg();
 
         load_devices();
         // for (var a : devices.entrySet()) {
@@ -94,6 +95,20 @@ public class AppController implements Initializable {
         if (currentDetailsWidget != null) {
             currentDetailsWidget.update();
         }
+    }
+
+    @FXML
+    public void quit()
+    {
+        alert.setAlertType(Alert.AlertType.CONFIRMATION);
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.get() == ButtonType.OK) {
+            Stage stage = (Stage) flow.getScene().getWindow();
+            stage.close();
+        }
+
+
     }
 
     public void load_widgets() {
@@ -147,8 +162,16 @@ public class AppController implements Initializable {
         }
     }
 
-    public void save_devices() {
-        var filename = "devices.cfg";
+    @FXML
+    public void help(){
+        alert.setAlertType(Alert.AlertType.INFORMATION);
+        alert.setContentText("Help Needed");
+        alert.showAndWait();
+    }
+
+    @FXML
+    public void save_to_cfg() {
+        String filename = "devices.cfg";
 
         // Serialization
         try (var out = new ObjectOutputStream(new FileOutputStream(filename))) {
@@ -160,6 +183,22 @@ public class AppController implements Initializable {
             // throw new RuntimeException("Could not save devices to " + filename);
         }
 
+        filename = "rooms.cfg";
+
+        // Serialization
+        try (var out = new ObjectOutputStream(new FileOutputStream(filename))) {
+            out.writeObject(rooms);
+        } catch (IOException e) {
+            System.out.println(e.getCause());
+            System.out.println(e.getMessage());
+            System.out.println(e);
+            throw new RuntimeException("Could not save rooms to " + filename);
+        }
+
+        alert.setAlertType(Alert.AlertType.INFORMATION);
+        alert.setContentText("Save Succesfull");
+        alert.setHeaderText(null);
+        alert.showAndWait();
     }
 
     public void load_rooms() {
@@ -177,20 +216,6 @@ public class AppController implements Initializable {
             throw new RuntimeException("Could not save rooms to " + filename);
         } catch (ClassNotFoundException e) {
             System.out.println("ClassNotFoundException.");
-        }
-    }
-
-    public void save_rooms() {
-        var filename = "rooms.cfg";
-
-        // Serialization
-        try (var out = new ObjectOutputStream(new FileOutputStream(filename))) {
-            out.writeObject(rooms);
-        } catch (IOException e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
-            System.out.println(e);
-            throw new RuntimeException("Could not save rooms to " + filename);
         }
     }
 
