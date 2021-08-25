@@ -8,29 +8,30 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TextField;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
-public class DetailsWidget extends VBox implements Initializable {
-    protected Device sensor;
+public class ViewWidget extends VBox implements Initializable {
 
     @FXML
     protected ImageView image;
     @FXML
-    private TextField IP;
+    protected Label name;
     @FXML
-    private TextField room_name;
-    @FXML
-    protected TextField status;
+    protected Label room_name;
 
-    public DetailsWidget(Device sensor) {
+    protected Device sensor;
+    protected AppController parent;
+
+    public ViewWidget(Device sensor, AppController parent) {
         this.sensor = sensor;
+        this.parent = parent;
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        IP.setText(sensor.getIP());
+        name.setText(sensor.getName());
         room_name.setText(sensor.getRoom_name());
     }
 
@@ -49,7 +50,15 @@ public class DetailsWidget extends VBox implements Initializable {
     }
 
     public void update() {
-        IP.setText(sensor.getIP());
+        name.setText(sensor.getName());
         room_name.setText(sensor.getRoom_name());
+
+        parent.update_details();
     }
+
+    @FXML
+    public void set_details() {
+        parent.setCurrent_details(sensor);
+    }
+
 }

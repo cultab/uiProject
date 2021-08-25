@@ -49,7 +49,7 @@
             <TextField fx:id="room_name" editable="false" text="Kitchen" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label alignment="CENTER_RIGHT" text="Temperature (C):" textAlignment="RIGHT" GridPane.rowIndex="2" />
             <Label alignment="CENTER_RIGHT" text="Room:" textAlignment="RIGHT" GridPane.rowIndex="1" />
-            <TextField fx:id="temperature" editable="false" text="23" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="status" editable="false" text="23" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
       <LineChart fx:id="chart" prefHeight="231.0" prefWidth="246.0" title="Temperature History">

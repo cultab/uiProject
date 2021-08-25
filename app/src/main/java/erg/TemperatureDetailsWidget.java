@@ -5,70 +5,43 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Slider;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
-public class TemperatureDetailsWidget extends DetailsWidget implements Initializable {
+public class TemperatureDetailsWidget extends DetailsWidget {
 
-    @FXML
-    ImageView image;
+    TemperatureSensor thermometer;
 
-    TemperatureSensor sensor;
-
-    @FXML
-    TextField IP;
-    @FXML
-    TextField room_name;
-    @FXML
-    TextField temperature;
     @FXML
     LineChart<Number,Double> chart;
 
     public TemperatureDetailsWidget(TemperatureSensor sensor) {
-        this.sensor = sensor;
-
-        // load fxml
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/erg/TemperatureDetailsWidget.fxml"));
-        fxmlLoader.setRoot(this);
-        fxmlLoader.setController(this);
-
-        try {
-            fxmlLoader.load();
-        } catch (Exception exception) {
-            System.out.println("Could not load TemperatureDetailsWidget.fxml");
-            System.out.println(exception.getCause());
-            System.out.println(exception.getMessage());
-            throw new RuntimeException(exception);
-        }
+        super(sensor);
+        thermometer = (TemperatureSensor)sensor;
+        
+        load_fxml("/erg/TemperatureDetailsWidget.fxml");
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        image.setImage(new Image(getClass().getResource("/erg/thermometer.png").toString()));
-
-        update();
+        status.setText(thermometer.getTemperature().toString());
 
         XYChart.Series<Number,Double> series = new XYChart.Series<Number,Double>();
         int i = 0;
-        for (var temp : sensor.getTemp_history()) {
+        for (var temp : thermometer.getTemp_history()) {
             series.getData().add(new XYChart.Data<Number,Double>(i++, temp));
         }
 
         chart.getData().add(series);
 
 
+        super.initialize(url, rb);
     }
 
     @FXML
     public void update() {
-        IP.setText(sensor.getIP());
-        room_name.setText(sensor.getRoom_id());
-        temperature.setText(sensor.getTemperature().toString());
+        status.setText(thermometer.getTemperature().toString());
+
+        super.update();
     }
 }

@@ -9,8 +9,8 @@ public class TemperatureSensor extends Device {
     Double temperature;
     List<Double> temp_history;
 
-    public TemperatureSensor(String IP, String room_id) {
-        super(IP, room_id);
+    public TemperatureSensor(String name, String IP, String room_id) {
+        super(name, IP, room_id);
         temperature = 25.0;
         temp_history = new ArrayList<Double>();
 
