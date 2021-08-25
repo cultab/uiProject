@@ -25,6 +25,7 @@ public class TemperatureViewWidget extends ViewWidget {
     public void initialize(URL url, ResourceBundle rb) {
         slider.adjustValue(thermostat.getTemperature());
 
+
         slider.valueProperty().addListener((observable, oldValue, newValue) -> {
             var new_temp = slider.getValue();
             thermostat.setTemperature((double) Math.round(new_temp));
@@ -33,4 +34,5 @@ public class TemperatureViewWidget extends ViewWidget {
 
         super.initialize(url, rb);
     }
+
 }

@@ -5,10 +5,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
 
-public class LampDetailsWidget extends DetailsWidget implements Initializable {
+public class LampDetailsWidget extends DetailsWidget {
 
     Lamp lamp;
 
