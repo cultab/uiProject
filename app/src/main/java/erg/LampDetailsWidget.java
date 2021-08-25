@@ -10,16 +10,36 @@ import javafx.scene.image.Image;
 public class LampDetailsWidget extends DetailsWidget {
 
     Lamp lamp;
+    Image on;
+    Image off;
 
-    public LampDetailsWidget(Lamp sensor) {
-        super(sensor);
+    public LampDetailsWidget(Lamp sensor, AppController parent) {
+        super(sensor, parent);
         lamp = (Lamp) sensor;
         load_fxml("/erg/LampDetailsWidget.fxml");
+
+        on = new Image(getClass().getResource("/erg/LampOn.png").toString());
+        off = new Image(getClass().getResource("/erg/LampOff.png").toString());
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        super.initialize(url, rb);
         update();
+    }
+
+    @FXML
+    // @Override
+    public void update2() {
+        if (lamp.isPoweredOn()) {
+            status.setText("On");
+            image.setImage(on);
+        } else {
+            status.setText("Off");
+            image.setImage(off);
+        }
+
+        super.update();
     }
 
     @FXML
@@ -43,3 +63,4 @@ public class LampDetailsWidget extends DetailsWidget {
     }
 
 }
+

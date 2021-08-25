@@ -15,8 +15,8 @@ public class TemperatureDetailsWidget extends DetailsWidget {
     @FXML
     LineChart<Number, Double> chart;
 
-    public TemperatureDetailsWidget(TemperatureSensor sensor) {
-        super(sensor);
+    public TemperatureDetailsWidget(TemperatureSensor sensor, AppController parent) {
+        super(sensor, parent);
         thermometer = (TemperatureSensor) sensor;
 
         load_fxml("/erg/TemperatureDetailsWidget.fxml");
@@ -35,6 +35,7 @@ public class TemperatureDetailsWidget extends DetailsWidget {
         chart.getData().add(series);
 
         super.initialize(url, rb);
+        update();
     }
 
     @FXML
@@ -43,4 +44,5 @@ public class TemperatureDetailsWidget extends DetailsWidget {
 
         super.update();
     }
+
 }

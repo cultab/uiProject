@@ -17,8 +17,7 @@ public class ViewWidget extends CustomWidget implements Initializable {
     protected Label room_name;
 
     public ViewWidget(Device sensor, AppController parent) {
-        super(sensor);
-        this.parent = parent;
+        super(sensor, parent);
     }
 
     @Override

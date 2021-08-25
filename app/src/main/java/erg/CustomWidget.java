@@ -16,8 +16,9 @@ public class CustomWidget extends VBox {
     protected Device sensor;
     protected AppController parent;
 
-    public CustomWidget(Device sensor) {
+    public CustomWidget(Device sensor, AppController parent) {
         this.sensor = sensor;
+        this.parent = parent;
     }
 
     protected void load_fxml(String path) {
@@ -33,5 +34,4 @@ public class CustomWidget extends VBox {
             throw new RuntimeException("Could not load " + path);
         }
     }
-
 }

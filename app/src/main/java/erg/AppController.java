@@ -23,6 +23,7 @@ public class AppController implements Initializable {
     private HashMap<String, Device> devices;
     private HashMap<String, Room> rooms;
     private DetailsWidget currentDetailsWidget;
+    private Boolean unsaved_details = false;
 
     @FXML
     private SplitPane mainSplit;
@@ -64,10 +65,10 @@ public class AppController implements Initializable {
 
         switch (device.getClass().getSimpleName()) {
             case "TemperatureSensor":
-                currentDetailsWidget = new TemperatureDetailsWidget((TemperatureSensor) device);
+                currentDetailsWidget = new TemperatureDetailsWidget((TemperatureSensor) device, this);
                 break;
             case "Lamp":
-                currentDetailsWidget = new LampDetailsWidget((Lamp) device);
+                currentDetailsWidget = new LampDetailsWidget((Lamp) device, this);
                 break;
             default:
                 throw new RuntimeException("No such Device class like" + device.getClass().getSimpleName());
@@ -90,6 +91,25 @@ public class AppController implements Initializable {
 
     }
 
+    public Boolean getUnsaved_details() {
+        return unsaved_details;
+    }
+
+    public void setUnsaved_details(Boolean unsaved_details) {
+        System.out.println(unsaved_details);
+        this.unsaved_details = unsaved_details;
+    }
+
+    @FXML
+    public void check_unsaved_details() {
+        if (unsaved_details) {
+            // TODO: create Alert
+            System.out.println("Unsaved details Alert!");
+        } else {
+            System.out.println("Unsaved details are FINE!");
+        }
+    }
+
     public void update_details() {
         if (currentDetailsWidget != null) {
             currentDetailsWidget.update();
@@ -100,13 +120,13 @@ public class AppController implements Initializable {
         flow.getChildren().removeAll(flow.getChildren());
         String selection = listRooms.getSelectionModel().getSelectedItem();
 
-        for (Device d : devices.values()) {
-            if (d.getRoom_name().equals(selection)) {
+        for (var device : devices.values()) {
+            if (device.getRoom_name().equals(selection)) {
 
-                if (d.getClass().getSimpleName().equals("Lamp"))
-                    flow.getChildren().add(new LampViewWidget((Lamp) d, this));
-                if (d.getClass().getSimpleName().equals("TemperatureSensor"))
-                    flow.getChildren().add(new TemperatureViewWidget((TemperatureSensor) d, this));
+                if (device instanceof Lamp)
+                    flow.getChildren().add(new LampViewWidget((Lamp) device, this));
+                if (device instanceof TemperatureSensor)
+                    flow.getChildren().add(new TemperatureViewWidget((TemperatureSensor) device, this));
             }
         }
     }
@@ -115,14 +135,14 @@ public class AppController implements Initializable {
         flow.getChildren().removeAll(flow.getChildren());
         String selection = listDevices.getSelectionModel().getSelectedItem();
 
-        for (Device d : devices.values()) {
-            if (d.getClass().getSimpleName().equals(selection)) {
+        for (var device : devices.values()) {
+            if (device.getClass().getSimpleName().equals(selection)) {
                 switch (selection) {
                     case "Lamp":
-                        flow.getChildren().add(new LampViewWidget((Lamp) d, this));
+                        flow.getChildren().add(new LampViewWidget((Lamp) device, this));
                         break;
                     case "TemperatureSensor":
-                        flow.getChildren().add(new TemperatureViewWidget((TemperatureSensor) d, this));
+                        flow.getChildren().add(new TemperatureViewWidget((TemperatureSensor) device, this));
                         break;
                 }
             }
@@ -230,4 +250,5 @@ public class AppController implements Initializable {
         rooms.put(room4.getRoom_id(), room2);
         rooms.put(room5.getRoom_id(), room2);
     }
+
 }

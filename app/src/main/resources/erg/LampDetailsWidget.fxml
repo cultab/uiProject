@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -29,7 +30,7 @@
       </TextFlow>
       <ImageView fx:id="image" fitHeight="175.0" fitWidth="234.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@LampOff.jpeg" />
+            <Image url="@LampOff.png" />
          </image></ImageView>
       <GridPane alignment="CENTER" hgap="5.0" minHeight="-Infinity" minWidth="-Infinity" vgap="5.0">
         <columnConstraints>
@@ -37,19 +38,23 @@
           <ColumnConstraints hgrow="ALWAYS" maxWidth="250.0" minWidth="10.0" prefWidth="245.0" />
         </columnConstraints>
         <rowConstraints>
+            <RowConstraints maxHeight="85.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="85.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="92.0" minHeight="9.0" prefHeight="36.0" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="118.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" text="IP:" textAlignment="RIGHT" />
-            <TextField fx:id="IP" editable="false" text="192.168.1.1" GridPane.columnIndex="1" />
-            <TextField fx:id="room_name" editable="false" text="Kitchen" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label alignment="CENTER_RIGHT" text="Status:" textAlignment="RIGHT" GridPane.rowIndex="2" />
-            <Label alignment="CENTER_RIGHT" text="Room:" textAlignment="RIGHT" GridPane.rowIndex="1" />
-            <TextField fx:id="status" editable="false" text="On" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" text="IP:" textAlignment="RIGHT" GridPane.rowIndex="1" />
+            <TextField fx:id="IP" text="192.168.1.1" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="room_name" text="Kitchen" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label alignment="CENTER_RIGHT" text="Status:" textAlignment="RIGHT" GridPane.rowIndex="3" />
+            <Label alignment="CENTER_RIGHT" text="Room:" textAlignment="RIGHT" GridPane.rowIndex="2" />
+            <TextField fx:id="status" editable="false" text="On" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label text="Name:" />
+            <TextField fx:id="name" text="LAMP #2" GridPane.columnIndex="1" />
          </children>
       </GridPane>
+      <Button fx:id="save" disable="true" mnemonicParsing="false" onAction="#save" text="Apply" />
    </children>
    <padding>
       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

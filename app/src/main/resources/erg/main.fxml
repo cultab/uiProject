@@ -60,7 +60,7 @@
     </MenuBar>
     <SplitPane fx:id="mainSplit" dividerPositions="0.2828507795100223, 0.9955456570155902" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <items>
-            <VBox prefHeight="854.0" prefWidth="150.0" SplitPane.resizableWithParent="false">
+            <VBox onMouseClicked="#check_unsaved_details" prefHeight="854.0" prefWidth="150.0" SplitPane.resizableWithParent="false">
                <children>
                 <TitledPane alignment="TOP_LEFT" animated="false" expanded="false" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" text="Rooms">
                      <content>
@@ -74,7 +74,7 @@
                 </TitledPane>
                </children>
             </VBox>
-            <FlowPane fx:id="flow" prefHeight="200.0" prefWidth="200.0">
+            <FlowPane fx:id="flow" onMouseClicked="#check_unsaved_details" prefHeight="200.0" prefWidth="200.0">
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
