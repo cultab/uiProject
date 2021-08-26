@@ -10,6 +10,11 @@ public class Lamp extends Device {
         powered_on = false;
     }
 
+    public Lamp(String room_name) {
+        super(room_name);
+        powered_on = false;
+    }
+
     public Boolean isPoweredOn() {
         return powered_on;
     }

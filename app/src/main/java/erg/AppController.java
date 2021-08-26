@@ -9,24 +9,30 @@ import java.io.ObjectOutputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ListView;
+import javafx.scene.control.SplitPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.TilePane;
 import javafx.stage.Stage;
 
 public class AppController implements Initializable {
 
-    private HashMap<String, Device> devices;
-    private HashMap<String, Room> rooms;
+    private List<Device> devices;
+    private List<Room> rooms;
     private DetailsWidget currentDetailsWidget;
     private Boolean unsaved_details = false;
     private Alert alert;
+    private HashMap<String, List<CustomWidget>> devicesViewCache;
+    private HashMap<String, List<CustomWidget>> roomsViewCache;
 
     @FXML
     private SplitPane mainSplit;
@@ -44,20 +50,16 @@ public class AppController implements Initializable {
 
     public AppController() {
         alert = new Alert(Alert.AlertType.NONE);
-        devices = new HashMap<String, Device>();
-        rooms = new HashMap<String, Room>();
-//         gen_rooms_and_devices();
-// 
-//         save_to_cfg();
+        devices = new ArrayList<Device>();
+        rooms = new ArrayList<Room>();
+
+        devicesViewCache = new HashMap<String, List<CustomWidget>>();
+        roomsViewCache = new HashMap<String, List<CustomWidget>>();
+        // gen_rooms_and_devices();
+        // 
+        // save_to_cfg();
 
         load_from_cfg();
-        // for (var a : devices.entrySet()) {
-        // System.out.println(a.getValue().getIP());
-        // }
-
-        // for (var a : rooms.entrySet()) {
-        // System.out.println(a.getValue().getRoom_id());
-        // }
     }
 
     public void setCurrent_details(DetailsWidget widget) {
@@ -73,13 +75,17 @@ public class AppController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        for (String s : rooms.keySet()) {
-            listRooms.getItems().add(s);
-            listRooms.setPrefHeight(listRooms.getItems().size() * ROW_HEIGHT + 2);
+        for (var room : rooms) {
+            if (!listRooms.getItems().contains(room.getRoom_id())) {
+                listRooms.getItems().add(room.getRoom_id());
+            }
+            System.out.println("");
         }
 
         listDevices.getItems().add("Lamp");
         listDevices.getItems().add("Temperature Sensor");
+
+        listRooms.setPrefHeight(listRooms.getItems().size() * ROW_HEIGHT + 2);
         listDevices.setPrefHeight(listDevices.getItems().size() * ROW_HEIGHT + 2);
 
     }
@@ -89,7 +95,6 @@ public class AppController implements Initializable {
     }
 
     public void setUnsaved_details(Boolean unsaved_details) {
-        System.out.println(unsaved_details);
         this.unsaved_details = unsaved_details;
     }
 
@@ -104,8 +109,7 @@ public class AppController implements Initializable {
     }
 
     @FXML
-    public void quit()
-    {
+    public void quit() {
         alert.setAlertType(Alert.AlertType.CONFIRMATION);
         Platform.runLater(() -> alert.setWidth(200));
         Platform.runLater(() -> alert.setHeight(150));
@@ -116,44 +120,75 @@ public class AppController implements Initializable {
             stage.close();
         }
 
-
     }
 
     public void load_widgets_by_room() {
-        flow.getChildren().removeAll(flow.getChildren());
+
+        var children = flow.getChildren();
         String selection = listRooms.getSelectionModel().getSelectedItem();
+        var widgets_to_add = new ArrayList<CustomWidget>();
 
-        for (var device : devices.values()) {
-            if (device.getRoom_name().equals(selection)) {
+        children.removeAll(children);
 
-                if (device instanceof Lamp)
-                    flow.getChildren().add(new LampViewWidget((Lamp) device, this));
-                if (device instanceof TemperatureSensor)
-                    flow.getChildren().add(new TemperatureViewWidget((TemperatureSensor) device, this));
+        if (!roomsViewCache.containsKey(selection)) {
+            for (var device : devices) {
+                if (device.getRoom_name().equals(selection)) {
+                    switch (device.getClass().getSimpleName()) {
+                        case "Lamp":
+                            widgets_to_add.add(new LampViewWidget((Lamp) device, this));
+                            break;
+                        case "TemperatureSensor":
+                            widgets_to_add.add(new TemperatureViewWidget((TemperatureSensor) device, this));
+                            break;
+                        default:
+                            throw new RuntimeException("Missing switch case for class.");
+                    }
+                }
             }
+            widgets_to_add.add(new AddDeviceCustomWidget(this, null, selection));
+
+            // add to flow
+            children.addAll(widgets_to_add);
+            // add to cache
+            roomsViewCache.put(selection, widgets_to_add);
+        } else {
+            children.addAll(roomsViewCache.get(selection));
         }
-        System.out.println("room selection" + selection);
-        flow.getChildren().add(AddDeviceCustomWidget.newWithRoom(this, selection));
+
     }
 
     public void load_widgets_by_device() {
-        flow.getChildren().removeAll(flow.getChildren());
+        var children = flow.getChildren();
         String selection = listDevices.getSelectionModel().getSelectedItem();
+        var widgets_to_add = new ArrayList<CustomWidget>();
         var selection_no_spaces = selection.replaceAll("\\s+", "");
 
-        for (var device : devices.values()) {
-            if (device.getClass().getSimpleName().equals(selection_no_spaces)) {
-                switch (selection_no_spaces) {
-                    case "Lamp":
-                        flow.getChildren().add(new LampViewWidget((Lamp) device, this));
-                        break;
-                    case "TemperatureSensor":
-                        flow.getChildren().add(new TemperatureViewWidget((TemperatureSensor) device, this));
-                        break;
+        children.removeAll(children);
+
+        if (!devicesViewCache.containsKey(selection)) {
+            for (var device : devices) {
+                if (device.getClass().getSimpleName().equals(selection_no_spaces)) {
+                    switch (selection_no_spaces) {
+                        case "Lamp":
+                            widgets_to_add.add(new LampViewWidget((Lamp) device, this));
+                            break;
+                        case "TemperatureSensor":
+                            widgets_to_add.add(new TemperatureViewWidget((TemperatureSensor) device, this));
+                            break;
+                        default:
+                            throw new RuntimeException("Missing switch case for class.");
+                    }
                 }
             }
+            widgets_to_add.add(new AddDeviceCustomWidget(this, selection, null));
+
+            // add to flow
+            children.addAll(widgets_to_add);
+            // add to cache
+            devicesViewCache.put(selection, widgets_to_add);
+        } else {
+            children.addAll(devicesViewCache.get(selection));
         }
-        flow.getChildren().add(AddDeviceCustomWidget.newWithType(this, selection));
     }
 
     public void load_from_cfg() {
@@ -162,7 +197,7 @@ public class AppController implements Initializable {
         try (var in = new ObjectInputStream(new FileInputStream(filename))) {
 
             // Method for deserialization of object
-            devices = (HashMap<String, Device>) in.readObject();
+            devices = (ArrayList<Device>) in.readObject();
 
         } catch (IOException e) {
             System.out.println(e.getCause());
@@ -178,7 +213,7 @@ public class AppController implements Initializable {
         try (var in = new ObjectInputStream(new FileInputStream(filename))) {
 
             // Method for deserialization of object
-            rooms = (HashMap<String, Room>) in.readObject();
+            rooms = (ArrayList<Room>) in.readObject();
 
         } catch (IOException e) {
             System.out.println(e.getCause());
@@ -191,12 +226,11 @@ public class AppController implements Initializable {
     }
 
     public void newDevice(Device dev) {
-        // HACK: randomized key until we use a list
-        devices.put("JUST USE A LIST FUCK " + Math.random(), dev);
+        devices.add(dev);
     }
 
     @FXML
-    public void help(){
+    public void help() {
         alert.setAlertType(Alert.AlertType.INFORMATION);
         alert.setContentText("Help Needed");
         alert.showAndWait();
@@ -239,39 +273,39 @@ public class AppController implements Initializable {
 
     protected void gen_rooms_and_devices() {
         var l1 = new Lamp("Desk", "192.168.1.2", "Bedroom");
-        devices.put(l1.getIP(), l1);
+        devices.add(l1);
         var t1 = new TemperatureSensor("Thermostat 1", "192.168.1.22", "Bedroom");
-        devices.put(t1.getIP(), t1);
+        devices.add(t1);
         var room2_list = new ArrayList<String>();
         room2_list.add(l1.getIP());
         room2_list.add(t1.getIP());
         var room2 = new Room("Bedroom", room2_list);
 
         var l2 = new Lamp("Main", "192.168.1.3", "Kitchen");
-        devices.put(l2.getIP(), l2);
+        devices.add(l2);
         var t2 = new TemperatureSensor("Thermostat", "192.168.1.23", "Kitchen");
-        devices.put(t2.getIP(), t2);
+        devices.add(t2);
         var room3_list = new ArrayList<String>();
         room3_list.add(l2.getIP());
         room3_list.add(t2.getIP());
         var room3 = new Room("Kitchen", room3_list);
 
         var l3 = new Lamp("Main", "192.168.1.4", "Bathroom");
-        devices.put(l3.getIP(), l3);
+        devices.add(l3);
         var room4_list = new ArrayList<String>();
         room4_list.add(l3.getIP());
         var room4 = new Room("Bathroom", room4_list);
 
         var t4 = new TemperatureSensor("Thermostat", "192.168.1.25", "Basement");
-        devices.put(t4.getIP(), t4);
+        devices.add(t4);
         var room5_list = new ArrayList<String>();
         room5_list.add(t4.getIP());
         var room5 = new Room("Basement", room5_list);
 
-        rooms.put(room2.getRoom_id(), room2);
-        rooms.put(room3.getRoom_id(), room2);
-        rooms.put(room4.getRoom_id(), room2);
-        rooms.put(room5.getRoom_id(), room2);
+        rooms.add(room2);
+        rooms.add(room3);
+        rooms.add(room4);
+        rooms.add(room5);
     }
 
 }

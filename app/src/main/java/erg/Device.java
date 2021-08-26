@@ -16,6 +16,12 @@ public class Device implements Serializable {
         this.room_name = room_name;
     }
 
+    public Device(String room_name) {
+        this.name = "Undefined";
+        this.IP = "000.000.0.0";
+        this.room_name = room_name;
+    }
+
     public String getName() {
         return name;
     }

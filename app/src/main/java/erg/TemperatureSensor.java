@@ -13,10 +13,12 @@ public class TemperatureSensor extends Device {
         super(name, IP, room_id);
         temperature = 25.0;
         temp_history = new ArrayList<Double>();
+    }
 
-        // for (int i = 0; i < 25; i++) {
-        //     temp_history.add(new Random().nextDouble() + 20);
-        // }
+    public TemperatureSensor(String room_name) {
+        super(room_name);
+        temperature = 25.0;
+        temp_history = new ArrayList<Double>();
     }
 
     public List<Double> getTemp_history() {

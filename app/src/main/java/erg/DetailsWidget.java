@@ -9,11 +9,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 
 public class DetailsWidget extends CustomWidget implements Initializable {
 
     protected Boolean saved;
+    protected Device sensor;
 
+    @FXML
+    protected ImageView image;
     @FXML
     protected TextField IP;
     @FXML
@@ -26,7 +30,8 @@ public class DetailsWidget extends CustomWidget implements Initializable {
     protected Button save;
 
     public DetailsWidget(Device sensor, AppController parent) {
-        super(sensor, parent);
+        super(parent);
+        this.sensor = sensor;
         saved = true;
     }
 

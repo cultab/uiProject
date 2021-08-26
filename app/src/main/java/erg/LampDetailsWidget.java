@@ -13,13 +13,13 @@ public class LampDetailsWidget extends DetailsWidget {
     Image on;
     Image off;
 
-    public LampDetailsWidget(Lamp sensor, AppController parent) {
+    public LampDetailsWidget(Device sensor, AppController parent) {
         super(sensor, parent);
         lamp = (Lamp) sensor;
-        load_fxml("/erg/LampDetailsWidget.fxml");
 
         on = new Image(getClass().getResource("/erg/LampOn.png").toString());
         off = new Image(getClass().getResource("/erg/LampOff.png").toString());
+        load_fxml("/erg/LampDetailsWidget.fxml");
     }
 
     @Override
@@ -28,20 +28,20 @@ public class LampDetailsWidget extends DetailsWidget {
         update();
     }
 
-    @FXML
-    // @Override
-    public void update2() {
-        if (lamp.isPoweredOn()) {
-            status.setText("On");
-            image.setImage(on);
-        } else {
-            status.setText("Off");
-            image.setImage(off);
-        }
-
-        super.update();
-    }
-
+    // @FXML
+//      @Override
+//     public void update2() {
+//         if (lamp.isPoweredOn()) {
+//             status.setText("On");
+//             image.setImage(on);
+//         } else {
+//             status.setText("Off");
+//             image.setImage(off);
+//         }
+// 
+//         super.update();
+//     }
+// 
     @FXML
     @Override
     public void update() {

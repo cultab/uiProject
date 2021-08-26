@@ -9,45 +9,40 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.image.ImageView;
 
 public class AddDeviceCustomWidget extends CustomWidget implements Initializable {
 
     @FXML
+    ImageView image;
+    @FXML
     ChoiceBox<String> dropdown;
     @FXML
     Button add;
-    private DetailsWidget detailsWidget;
 
     private final String DEFAULT_SELECTION_TEXT = "Select a device type..";
     private String type;
+    private String room_name;
 
-    public AddDeviceCustomWidget(Device dev, AppController parent) {
-        super(dev, parent);
-        type = null;
+//     public AddDeviceCustomWidget(Device sensor, AppController parent) {
+//         super(new Device("rip"), parent);
+//         type = null;
+// 
+//         load_fxml("/erg/AddDeviceViewWidget.fxml");
+// 
+//     }
 
-        load_fxml("/erg/AddDeviceViewWidget.fxml");
-
-    }
-
-    public AddDeviceCustomWidget(Device dev, AppController parent, String new_type) {
-        super(dev, parent);
+    public AddDeviceCustomWidget(AppController parent, String new_type, String new_room_name) {
+        super(parent);
         type = new_type;
+        room_name = new_room_name;
+        if (room_name == null) {
+            room_name = "Undefined";
+        }
 
         load_fxml("/erg/AddDeviceViewWidget.fxml");
     }
     
-    public static AddDeviceCustomWidget newWithRoom(AppController parent, String room_name){
-        var dev = new Device("New Device", "Undefined", room_name);
-
-        return new AddDeviceCustomWidget(dev, parent);
-    }
-
-    public static AddDeviceCustomWidget newWithType(AppController parent, String type){
-        var dev = new Device("New Device", "Undefined", "Undefined");
-
-        return new AddDeviceCustomWidget(dev, parent, type);
-    }
-
     @FXML
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -71,23 +66,24 @@ public class AddDeviceCustomWidget extends CustomWidget implements Initializable
     }
 
     public void add() {
-        Device dev;
+        Device sensor;
+        DetailsWidget widget;
 
         switch(dropdown.getSelectionModel().getSelectedItem()) {
         case "Lamp":
-            dev = new Lamp("New Lamp", "000.000.0.0", "Room");
-            detailsWidget = new LampDetailsWidget((Lamp)dev, parent);
+            sensor = new Lamp(room_name);
+            widget = new LampDetailsWidget(sensor, parent);
             break;
         case "Temperature Sensor":
-            dev = new TemperatureSensor("New Temperature Sensor", "000.000.0.0", "Room");
-            detailsWidget = new TemperatureDetailsWidget((TemperatureSensor)dev, parent);
+            sensor = new TemperatureSensor(room_name);
+            widget = new TemperatureDetailsWidget(sensor, parent);
             break;
         default:
             throw new RuntimeException("No such class name.");
         }
         
-        parent.newDevice(dev);
-        parent.setCurrent_details(detailsWidget);
+        parent.newDevice(sensor);
+        parent.setCurrent_details(widget);
 
         if (type == null) {
             add.setDisable(true);

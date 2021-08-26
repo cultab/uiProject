@@ -16,10 +16,11 @@ public class TemperatureDetailsWidget extends DetailsWidget {
     @FXML
     LineChart<Number, Double> chart;
 
-    public TemperatureDetailsWidget(TemperatureSensor sensor, AppController parent) {
+    public TemperatureDetailsWidget(Device sensor, AppController parent) {
         super(sensor, parent);
         thermometer = (TemperatureSensor) sensor;
         series = new XYChart.Series<Number, Double>();
+
         load_fxml("/erg/TemperatureDetailsWidget.fxml");
     }
 

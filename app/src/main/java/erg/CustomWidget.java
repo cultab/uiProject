@@ -3,21 +3,14 @@ package erg;
 
 import java.io.IOException;
 
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
 public class CustomWidget extends VBox {
 
-    @FXML
-    protected ImageView image;
-
-    protected Device sensor;
     protected AppController parent;
 
-    public CustomWidget(Device sensor, AppController parent) {
-        this.sensor = sensor;
+    public CustomWidget(AppController parent) {
         this.parent = parent;
     }
 
