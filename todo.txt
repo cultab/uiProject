@@ -18,5 +18,12 @@ being able to add/edit rooms and devices (Evan)
     add
 x Thermostat history (Evan)
 Pop up tips on open
+header on help window
 
 beautification
+
+LOW PRIORITY
+fxml_load in constructor from final String
+
+LOWEST PITS OF HELL PRIORITY
+events
