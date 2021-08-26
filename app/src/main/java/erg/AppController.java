@@ -17,7 +17,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.TilePane;
 import javafx.stage.Stage;
 
@@ -61,22 +60,12 @@ public class AppController implements Initializable {
         // }
     }
 
-    public void setCurrent_details(Device device) {
-        System.out.println("setting new details");
+    public void setCurrent_details(DetailsWidget widget) {
         if (currentDetailsWidget != null) {
             details.getChildren().remove(currentDetailsWidget);
         }
 
-        switch (device.getClass().getSimpleName()) {
-            case "TemperatureSensor":
-                currentDetailsWidget = new TemperatureDetailsWidget((TemperatureSensor) device, this);
-                break;
-            case "Lamp":
-                currentDetailsWidget = new LampDetailsWidget((Lamp) device, this);
-                break;
-            default:
-                throw new RuntimeException("No such Device class like" + device.getClass().getSimpleName());
-        }
+        currentDetailsWidget = widget;
 
         details.getChildren().add(currentDetailsWidget);
     }
@@ -90,7 +79,7 @@ public class AppController implements Initializable {
         }
 
         listDevices.getItems().add("Lamp");
-        listDevices.getItems().add("TemperatureSensor");
+        listDevices.getItems().add("Temperature Sensor");
         listDevices.setPrefHeight(listDevices.getItems().size() * ROW_HEIGHT + 2);
 
     }
@@ -114,12 +103,6 @@ public class AppController implements Initializable {
         }
     }
 
-    public void update_details() {
-        if (currentDetailsWidget != null) {
-            currentDetailsWidget.update();
-        }
-    }
-
     @FXML
     public void quit()
     {
@@ -136,7 +119,7 @@ public class AppController implements Initializable {
 
     }
 
-    public void load_widgets() {
+    public void load_widgets_by_room() {
         flow.getChildren().removeAll(flow.getChildren());
         String selection = listRooms.getSelectionModel().getSelectedItem();
 
@@ -149,15 +132,18 @@ public class AppController implements Initializable {
                     flow.getChildren().add(new TemperatureViewWidget((TemperatureSensor) device, this));
             }
         }
+        System.out.println("room selection" + selection);
+        flow.getChildren().add(AddDeviceCustomWidget.newWithRoom(this, selection));
     }
 
-    public void load_general() {
+    public void load_widgets_by_device() {
         flow.getChildren().removeAll(flow.getChildren());
         String selection = listDevices.getSelectionModel().getSelectedItem();
+        var selection_no_spaces = selection.replaceAll("\\s+", "");
 
         for (var device : devices.values()) {
-            if (device.getClass().getSimpleName().equals(selection)) {
-                switch (selection) {
+            if (device.getClass().getSimpleName().equals(selection_no_spaces)) {
+                switch (selection_no_spaces) {
                     case "Lamp":
                         flow.getChildren().add(new LampViewWidget((Lamp) device, this));
                         break;
@@ -167,6 +153,7 @@ public class AppController implements Initializable {
                 }
             }
         }
+        flow.getChildren().add(AddDeviceCustomWidget.newWithType(this, selection));
     }
 
     public void load_from_cfg() {
@@ -201,6 +188,11 @@ public class AppController implements Initializable {
         } catch (ClassNotFoundException e) {
             System.out.println("ClassNotFoundException.");
         }
+    }
+
+    public void newDevice(Device dev) {
+        // HACK: randomized key until we use a list
+        devices.put("JUST USE A LIST FUCK " + Math.random(), dev);
     }
 
     @FXML

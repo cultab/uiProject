@@ -41,7 +41,12 @@ public class TemperatureDetailsWidget extends DetailsWidget {
 
         var data = series.getData();
 
-        data.add(new XYChart.Data<Number, Double>((Integer)data.get(data.size() - 1).getXValue() + 1 , thermometer.getTemperature()));
+        if (data.isEmpty()) {
+            data.add(new XYChart.Data<Number, Double>((Integer) 1, thermometer.getTemperature()));
+        } else {
+            data.add(new XYChart.Data<Number, Double>((Integer) data.get(data.size() - 1).getXValue() + 1,
+                    thermometer.getTemperature()));
+        }
 
         super.update();
     }

@@ -20,6 +20,7 @@ public class LampViewWidget extends ViewWidget {
         super(sensor, parent);
         lamp = (Lamp) sensor;
 
+        detailsWidget = new LampDetailsWidget(sensor, parent);
         onImg = new Image(getClass().getResource("/erg/LampOn.png").toString());
         offImg = new Image(getClass().getResource("/erg/LampOff.png").toString());
         click = new AudioClip(

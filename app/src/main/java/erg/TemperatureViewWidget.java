@@ -18,13 +18,13 @@ public class TemperatureViewWidget extends ViewWidget {
         super(sensor, parent);
         thermostat = (TemperatureSensor) sensor;
 
+        detailsWidget = new TemperatureDetailsWidget(sensor, parent);
         load_fxml("/erg/TempViewWidget.fxml");
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         slider.adjustValue(thermostat.getTemperature());
-
 
         // slider.valueProperty().addListener((observable, oldValue, newValue) -> {
         //     var new_temp = slider.getValue();
