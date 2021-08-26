@@ -25,7 +25,7 @@
       </ImageView>
       <VBox alignment="CENTER">
          <children>
-            <ChoiceBox prefWidth="150.0" value="Channel 1">
+            <ChoiceBox fx:id="choice" prefWidth="150.0" value="Channel 1">
                <items>
 
                </items>
