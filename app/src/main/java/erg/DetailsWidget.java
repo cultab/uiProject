@@ -78,7 +78,13 @@ public class DetailsWidget extends CustomWidget implements Initializable {
     public void save() {
         sensor.setIP(IP.getText());
         sensor.setName(name.getText());
-        sensor.setRoom_name(room_name.getSelectionModel().getSelectedItem().getRoom_name());
+
+        var new_room = room_name.getSelectionModel().getSelectedItem();
+        if (!sensor.getRoom_name().equals(new_room.getRoom_name())) {
+            parent.changeDeviceRoom(sensor, sensor.getRoom_name(), new_room);
+            sensor.setRoom_name(new_room.getRoom_name());
+        }
+
         setSaved(true);
         update();
     }

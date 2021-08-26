@@ -13,6 +13,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -25,8 +28,7 @@ import javafx.stage.Stage;
 
 public class AppController implements Initializable {
 
-    private List<Device> devices;
-    private List<Room> rooms;
+    private ObservableList<Room> rooms;
     private DetailsWidget currentDetailsWidget;
     private Boolean unsaved_details = false;
     private CustomAlert alert;
@@ -49,14 +51,13 @@ public class AppController implements Initializable {
 
     public AppController() {
         alert = new CustomAlert(Alert.AlertType.NONE);
-        devices = new ArrayList<Device>();
-        rooms = new ArrayList<Room>();
+        // devices = new ArrayList<Device>();
+        rooms = FXCollections.observableArrayList();
 
         devicesViewCache = new HashMap<String, List<CustomWidget>>();
         roomsViewCache = new HashMap<String, List<CustomWidget>>();
         // gen_rooms_and_devices();
         // save_to_cfg();
-
         load_from_cfg();
     }
 
@@ -90,6 +91,10 @@ public class AppController implements Initializable {
         listRooms.setPrefHeight(listRooms.getItems().size() * ROW_HEIGHT + 2);
         listDevices.setPrefHeight(listDevices.getItems().size() * ROW_HEIGHT + 2);
 
+        // rooms.addListener((ListChangeListener<Room>) change -> {
+        // change.getAddedSubList();
+        // });
+
     }
 
     public Boolean getUnsaved_details() {
@@ -103,6 +108,16 @@ public class AppController implements Initializable {
 
     public List<Room> getRooms() {
         return rooms;
+    }
+
+    public void changeDeviceRoom(Device dev, String old_room_name, Room new_room) {
+        for (var old_room : rooms) {
+            if (old_room.getRoom_name().equals(old_room_name)) {
+                old_room.removeDevice(dev);
+                new_room.addDevice(dev);
+            }
+        }
+
     }
 
     @FXML
@@ -136,17 +151,19 @@ public class AppController implements Initializable {
         children.removeAll(children);
 
         if (!roomsViewCache.containsKey(selection)) {
-            for (var device : devices) {
-                if (device.getRoom_name().equals(selection)) {
-                    switch (device.getClass().getSimpleName()) {
-                        case "Lamp":
-                            widgets_to_add.add(new LampViewWidget((Lamp) device, this));
-                            break;
-                        case "TemperatureSensor":
-                            widgets_to_add.add(new TemperatureViewWidget((TemperatureSensor) device, this));
-                            break;
-                        default:
-                            throw new RuntimeException("Missing switch case for class.");
+            for (var room : rooms) {
+                if (room.getRoom_name().equals(selection)) {
+                    for (var device : room.getDevices()) {
+                        switch (device.getClass().getSimpleName()) {
+                            case "Lamp":
+                                widgets_to_add.add(new LampViewWidget((Lamp) device, this));
+                                break;
+                            case "TemperatureSensor":
+                                widgets_to_add.add(new TemperatureViewWidget((TemperatureSensor) device, this));
+                                break;
+                            default:
+                                throw new RuntimeException("Missing switch case for class.");
+                        }
                     }
                 }
             }
@@ -171,21 +188,23 @@ public class AppController implements Initializable {
         children.removeAll(children);
 
         if (!devicesViewCache.containsKey(selection)) {
-            for (var device : devices) {
-                if (device.getClass().getSimpleName().equals(selection_no_spaces)) {
-                    ViewWidget widget;
-                    switch (selection_no_spaces) {
-                    case "Lamp":
-                        widget = new LampViewWidget((Lamp) device, this);
-                        break;
-                    case "TemperatureSensor":
-                        widget = new TemperatureViewWidget((TemperatureSensor) device, this);
-                        break;
-                    default:
-                        throw new RuntimeException("Missing switch case for class.");
+            for (var room : rooms) {
+                for (var device : room.getDevices()) {
+                    if (device.getClass().getSimpleName().equals(selection_no_spaces)) {
+                        ViewWidget widget;
+                        switch (selection_no_spaces) {
+                            case "Lamp":
+                                widget = new LampViewWidget((Lamp) device, this);
+                                break;
+                            case "TemperatureSensor":
+                                widget = new TemperatureViewWidget((TemperatureSensor) device, this);
+                                break;
+                            default:
+                                throw new RuntimeException("Missing switch case for class.");
+                        }
+                        widget.setRoom_name_visible();
+                        widgets_to_add.add(widget);
                     }
-                widget.setRoom_name_visible();
-                widgets_to_add.add(widget);
                 }
             }
 
@@ -200,41 +219,50 @@ public class AppController implements Initializable {
     }
 
     public void load_from_cfg() {
-        var filename = "devices.cfg";
+        var filename = "rooms.cfg";
 
         try (var in = new ObjectInputStream(new FileInputStream(filename))) {
 
             // Method for deserialization of object
-            devices = (ArrayList<Device>) in.readObject();
+            rooms.addAll((ArrayList<Room>) in.readObject());
+            // rooms =
 
         } catch (IOException e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
             System.out.println(e);
-            throw new RuntimeException("Could not save devices to " + filename);
-        } catch (ClassNotFoundException e) {
-            System.out.println("ClassNotFoundException.");
-        }
-
-        filename = "rooms.cfg";
-
-        try (var in = new ObjectInputStream(new FileInputStream(filename))) {
-
-            // Method for deserialization of object
-            rooms = (ArrayList<Room>) in.readObject();
-
-        } catch (IOException e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
-            System.out.println(e);
-            throw new RuntimeException("Could not save rooms to " + filename);
+            throw new RuntimeException("Could load from " + filename);
         } catch (ClassNotFoundException e) {
             System.out.println("ClassNotFoundException.");
         }
     }
 
     public void newDevice(Device dev) {
-        devices.add(dev);
+        for (var room : rooms) {
+            if (room.getRoom_name().equals(dev.getRoom_name())) {
+                room.addDevice(dev);
+            }
+        }
+    }
+
+    @FXML
+    public void save_to_cfg() {
+        var filename = "rooms.cfg";
+
+        // Serialization
+        try (var out = new ObjectOutputStream(new FileOutputStream(filename))) {
+            out.writeObject(new ArrayList<Room>(rooms));
+        } catch (IOException e) {
+            System.out.println(e.getCause());
+            System.out.println(e.getMessage());
+            System.out.println(e);
+            throw new RuntimeException("Could not save to " + filename);
+        }
+
+        alert.setAlertType(Alert.AlertType.INFORMATION);
+        alert.setContentText("Save Succesfull");
+        alert.setHeaderText(null);
+        alert.showAndWait();
     }
 
     @FXML
@@ -244,71 +272,39 @@ public class AppController implements Initializable {
         alert.showAndWait();
     }
 
-    @FXML
-    public void save_to_cfg() {
-        String filename = "devices.cfg";
-
-        // Serialization
-        try (var out = new ObjectOutputStream(new FileOutputStream(filename))) {
-            out.writeObject(devices);
-        } catch (IOException e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
-            System.out.println(e);
-            // throw new RuntimeException("Could not save devices to " + filename);
-        }
-
-        filename = "rooms.cfg";
-
-        // Serialization
-        try (var out = new ObjectOutputStream(new FileOutputStream(filename))) {
-            out.writeObject(rooms);
-        } catch (IOException e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
-            System.out.println(e);
-            throw new RuntimeException("Could not save rooms to " + filename);
-        }
-
-        alert.setAlertType(Alert.AlertType.INFORMATION);
-        alert.setContentText("Save Succesfull");
-        alert.setHeaderText(null);
-        alert.showAndWait();
-    }
-
     protected void gen_rooms_and_devices() {
         var l1 = new Lamp("Desk", "192.168.1.2", "Bedroom");
-        devices.add(l1);
+        // devices.add(l1);
         var t1 = new TemperatureSensor("Thermostat 1", "192.168.1.22", "Bedroom");
-        devices.add(t1);
-        var room2_list = new ArrayList<String>();
-        room2_list.add(l1.getIP());
-        room2_list.add(t1.getIP());
+        // devices.add(t1);
+        ObservableList<Device> room2_list = FXCollections.observableArrayList();
+        room2_list.add(l1);
+        room2_list.add(t1);
         var room2 = new Room("Bedroom", room2_list);
 
         var l2 = new Lamp("Main", "192.168.1.3", "Kitchen");
-        devices.add(l2);
+        // devices.add(l2);
         var t2 = new TemperatureSensor("Thermostat", "192.168.1.23", "Kitchen");
-        devices.add(t2);
-        var room3_list = new ArrayList<String>();
-        room3_list.add(l2.getIP());
-        room3_list.add(t2.getIP());
+        // devices.add(t2);
+        ObservableList<Device> room3_list = FXCollections.observableArrayList();
+        room3_list.add(l2);
+        room3_list.add(t2);
         var room3 = new Room("Kitchen", room3_list);
 
         var l3 = new Lamp("Main", "192.168.1.4", "Bathroom");
-        devices.add(l3);
-        var room4_list = new ArrayList<String>();
-        room4_list.add(l3.getIP());
+        // devices.add(l3);
+        ObservableList<Device> room4_list = FXCollections.observableArrayList();
+        room4_list.add(l3);
         var room4 = new Room("Bathroom", room4_list);
 
         var t4 = new TemperatureSensor("Thermostat", "192.168.1.25", "Basement");
-        devices.add(t4);
-        var room5_list = new ArrayList<String>();
-        room5_list.add(t4.getIP());
+        // devices.add(t4);
+        ObservableList<Device> room5_list = FXCollections.observableArrayList();
+        room5_list.add(t4);
         var room5 = new Room("Basement", room5_list);
 
-        var room6 = new Room("Living Room", room5_list);
-        var room7 = new Room("Main Hall", room5_list);
+        var room6 = new Room("Living Room", FXCollections.observableArrayList());
+        var room7 = new Room("Main Hall", FXCollections.observableArrayList());
 
         rooms.add(room2);
         rooms.add(room3);
