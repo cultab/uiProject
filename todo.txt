@@ -4,9 +4,9 @@ x Persistence temperature status
 ListView Performance ~(Asim)
 Add devices
     Windows Rolls
-    TV
+x   TV
     A/C
-    Radio/Stereo
+x   Radio/Stereo
     Water heater
 x DropDown menu listeners (Asim)
     remove
