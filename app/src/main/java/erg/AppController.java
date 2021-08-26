@@ -51,11 +51,11 @@ public class AppController implements Initializable {
 // 
 //         save_to_cfg();
 
-        load_devices();
+        load_from_cfg();
         // for (var a : devices.entrySet()) {
         // System.out.println(a.getValue().getIP());
         // }
-        load_rooms();
+
         // for (var a : rooms.entrySet()) {
         // System.out.println(a.getValue().getRoom_id());
         // }
@@ -107,10 +107,10 @@ public class AppController implements Initializable {
     @FXML
     public void check_unsaved_details() {
         if (unsaved_details) {
-            // TODO: create Alert
-            System.out.println("Unsaved details Alert!");
-        } else {
-            System.out.println("Unsaved details are FINE!");
+            alert.setAlertType(Alert.AlertType.WARNING);
+            alert.setHeaderText(null);
+            alert.setContentText("Unsaved details");
+            alert.showAndWait();
         }
     }
 
@@ -169,7 +169,7 @@ public class AppController implements Initializable {
         }
     }
 
-    public void load_devices() {
+    public void load_from_cfg() {
         var filename = "devices.cfg";
 
         try (var in = new ObjectInputStream(new FileInputStream(filename))) {
@@ -182,6 +182,22 @@ public class AppController implements Initializable {
             System.out.println(e.getMessage());
             System.out.println(e);
             throw new RuntimeException("Could not save devices to " + filename);
+        } catch (ClassNotFoundException e) {
+            System.out.println("ClassNotFoundException.");
+        }
+
+        filename = "rooms.cfg";
+
+        try (var in = new ObjectInputStream(new FileInputStream(filename))) {
+
+            // Method for deserialization of object
+            rooms = (HashMap<String, Room>) in.readObject();
+
+        } catch (IOException e) {
+            System.out.println(e.getCause());
+            System.out.println(e.getMessage());
+            System.out.println(e);
+            throw new RuntimeException("Could not save rooms to " + filename);
         } catch (ClassNotFoundException e) {
             System.out.println("ClassNotFoundException.");
         }
@@ -227,24 +243,6 @@ public class AppController implements Initializable {
         alert.setContentText("Save Succesfull");
         alert.setHeaderText(null);
         alert.showAndWait();
-    }
-
-    public void load_rooms() {
-        var filename = "rooms.cfg";
-
-        try (var in = new ObjectInputStream(new FileInputStream(filename))) {
-
-            // Method for deserialization of object
-            rooms = (HashMap<String, Room>) in.readObject();
-
-        } catch (IOException e) {
-            System.out.println(e.getCause());
-            System.out.println(e.getMessage());
-            System.out.println(e);
-            throw new RuntimeException("Could not save rooms to " + filename);
-        } catch (ClassNotFoundException e) {
-            System.out.println("ClassNotFoundException.");
-        }
     }
 
     protected void gen_rooms_and_devices() {
