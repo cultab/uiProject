@@ -15,6 +15,7 @@ public class ViewWidget extends CustomWidget implements Initializable {
     protected Label name;
     @FXML
     protected Label room_name;
+    protected DetailsWidget detailsWidget;
 
     public ViewWidget(Device sensor, AppController parent) {
         super(sensor, parent);
@@ -30,12 +31,12 @@ public class ViewWidget extends CustomWidget implements Initializable {
         name.setText(sensor.getName());
         room_name.setText(sensor.getRoom_name());
 
-        parent.update_details();
+        detailsWidget.update();
     }
 
     @FXML
     public void set_details() {
-        parent.setCurrent_details(sensor);
+        parent.setCurrent_details(detailsWidget);
     }
 
 }

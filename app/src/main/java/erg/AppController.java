@@ -17,7 +17,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.TilePane;
 import javafx.stage.Stage;
 
@@ -61,22 +60,12 @@ public class AppController implements Initializable {
         // }
     }
 
-    public void setCurrent_details(Device device) {
-        System.out.println("setting new details");
+    public void setCurrent_details(DetailsWidget widget) {
         if (currentDetailsWidget != null) {
             details.getChildren().remove(currentDetailsWidget);
         }
 
-        switch (device.getClass().getSimpleName()) {
-            case "TemperatureSensor":
-                currentDetailsWidget = new TemperatureDetailsWidget((TemperatureSensor) device, this);
-                break;
-            case "Lamp":
-                currentDetailsWidget = new LampDetailsWidget((Lamp) device, this);
-                break;
-            default:
-                throw new RuntimeException("No such Device class like" + device.getClass().getSimpleName());
-        }
+        currentDetailsWidget = widget;
 
         details.getChildren().add(currentDetailsWidget);
     }
@@ -111,12 +100,6 @@ public class AppController implements Initializable {
             alert.setHeaderText(null);
             alert.setContentText("Unsaved details");
             alert.showAndWait();
-        }
-    }
-
-    public void update_details() {
-        if (currentDetailsWidget != null) {
-            currentDetailsWidget.update();
         }
     }
 

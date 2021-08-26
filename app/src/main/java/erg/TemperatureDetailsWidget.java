@@ -29,11 +29,8 @@ public class TemperatureDetailsWidget extends DetailsWidget {
 
         chart.getData().add(series);
         int i = 0;
-        System.out.println("here");
         for (var temp : thermometer.getTemp_history()) {
-        System.out.println("here1");
             series.getData().add(new XYChart.Data<Number, Double>(i++, temp));
-        System.out.println("here2:W");
         }
         update();
     }
@@ -45,9 +42,10 @@ public class TemperatureDetailsWidget extends DetailsWidget {
         var data = series.getData();
 
         if (data.isEmpty()) {
-            data.add(new XYChart.Data<Number, Double>((Integer)1 , thermometer.getTemperature()));
+            data.add(new XYChart.Data<Number, Double>((Integer) 1, thermometer.getTemperature()));
         } else {
-            data.add(new XYChart.Data<Number, Double>((Integer)data.get(data.size() - 1).getXValue() + 1 , thermometer.getTemperature()));
+            data.add(new XYChart.Data<Number, Double>((Integer) data.get(data.size() - 1).getXValue() + 1,
+                    thermometer.getTemperature()));
         }
 
         super.update();

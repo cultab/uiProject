@@ -16,6 +16,7 @@ public class AddDeviceCustomWidget extends CustomWidget implements Initializable
     ChoiceBox<String> dropdown;
     @FXML
     Button add;
+    private DetailsWidget detailsWidget;
 
     private final String DEFAULT_SELECTION_TEXT = "Select a device type..";
     private String type;
@@ -75,16 +76,18 @@ public class AddDeviceCustomWidget extends CustomWidget implements Initializable
         switch(dropdown.getSelectionModel().getSelectedItem()) {
         case "Lamp":
             dev = new Lamp("New Lamp", "000.000.0.0", "Room");
+            detailsWidget = new LampDetailsWidget((Lamp)dev, parent);
             break;
         case "Temperature Sensor":
             dev = new TemperatureSensor("New Temperature Sensor", "000.000.0.0", "Room");
+            detailsWidget = new TemperatureDetailsWidget((TemperatureSensor)dev, parent);
             break;
         default:
             throw new RuntimeException("No such class name.");
         }
         
         parent.newDevice(dev);
-        parent.setCurrent_details(dev);
+        parent.setCurrent_details(detailsWidget);
 
         if (type == null) {
             add.setDisable(true);
