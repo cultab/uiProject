@@ -51,11 +51,13 @@ public class DetailsWidget extends CustomWidget implements Initializable {
             setSaved(false);
         };
 
-        name.textProperty().addListener(set_unsaved);
-        IP.textProperty().addListener(set_unsaved);
-        room_name.getSelectionModel().selectedItemProperty().addListener(set_unsaved_r);
 
         update();
+
+        room_name.getSelectionModel().selectedItemProperty().addListener(set_unsaved_r);
+        name.textProperty().addListener(set_unsaved);
+        IP.textProperty().addListener(set_unsaved);
+
         if (room_name.getSelectionModel().getSelectedIndex() == -1) {
             room_name.getSelectionModel().select(0);
         }

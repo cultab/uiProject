@@ -61,6 +61,7 @@ public class AddDeviceCustomWidget extends CustomWidget implements Initializable
             dropdown.setDisable(true);
             add.setDisable(false);
         }
+
     }
 
     public void add() {
@@ -82,6 +83,7 @@ public class AddDeviceCustomWidget extends CustomWidget implements Initializable
         
         parent.newDevice(sensor);
         parent.setCurrent_details(widget);
+        parent.setUnsaved_details(true);
 
         if (type == null) {
             add.setDisable(true);

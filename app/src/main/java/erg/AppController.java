@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -30,7 +29,7 @@ public class AppController implements Initializable {
     private List<Room> rooms;
     private DetailsWidget currentDetailsWidget;
     private Boolean unsaved_details = false;
-    private Alert alert;
+    private CustomAlert alert;
     private HashMap<String, List<CustomWidget>> devicesViewCache;
     private HashMap<String, List<CustomWidget>> roomsViewCache;
 
@@ -49,20 +48,23 @@ public class AppController implements Initializable {
     private final int ROW_HEIGHT = 24;
 
     public AppController() {
-        alert = new Alert(Alert.AlertType.NONE);
+        alert = new CustomAlert(Alert.AlertType.NONE);
         devices = new ArrayList<Device>();
         rooms = new ArrayList<Room>();
 
         devicesViewCache = new HashMap<String, List<CustomWidget>>();
         roomsViewCache = new HashMap<String, List<CustomWidget>>();
         // gen_rooms_and_devices();
-        //
         // save_to_cfg();
 
         load_from_cfg();
     }
 
     public void setCurrent_details(DetailsWidget widget) {
+        System.out.println("unsaved" + unsaved_details);
+        if (unsaved_details) {
+            return;
+        }
         if (currentDetailsWidget != null) {
             details.getChildren().remove(currentDetailsWidget);
         }
@@ -95,6 +97,7 @@ public class AppController implements Initializable {
     }
 
     public void setUnsaved_details(Boolean unsaved_details) {
+        System.out.println("SET unsaved -> " + unsaved_details);
         this.unsaved_details = unsaved_details;
     }
 
@@ -115,8 +118,6 @@ public class AppController implements Initializable {
     @FXML
     public void quit() {
         alert.setAlertType(Alert.AlertType.CONFIRMATION);
-        Platform.runLater(() -> alert.setWidth(200));
-        Platform.runLater(() -> alert.setHeight(150));
         Optional<ButtonType> result = alert.showAndWait();
 
         if (result.get() == ButtonType.OK) {
@@ -269,9 +270,6 @@ public class AppController implements Initializable {
             throw new RuntimeException("Could not save rooms to " + filename);
         }
 
-        // Platform.runLater(() -> alert.setResizable(true));
-        Platform.runLater(() -> alert.setWidth(200));
-        Platform.runLater(() -> alert.setHeight(150));
         alert.setAlertType(Alert.AlertType.INFORMATION);
         alert.setContentText("Save Succesfull");
         alert.setHeaderText(null);
@@ -309,10 +307,15 @@ public class AppController implements Initializable {
         room5_list.add(t4.getIP());
         var room5 = new Room("Basement", room5_list);
 
+        var room6 = new Room("Living Room", room5_list);
+        var room7 = new Room("Main Hall", room5_list);
+
         rooms.add(room2);
         rooms.add(room3);
         rooms.add(room4);
         rooms.add(room5);
+        rooms.add(room6);
+        rooms.add(room7);
     }
 
 }
