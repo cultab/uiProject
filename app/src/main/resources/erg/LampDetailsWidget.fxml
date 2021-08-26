@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -46,12 +47,12 @@
          <children>
             <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" text="IP:" textAlignment="RIGHT" GridPane.rowIndex="1" />
             <TextField fx:id="IP" text="192.168.1.1" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="room_name" text="Kitchen" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label alignment="CENTER_RIGHT" text="Status:" textAlignment="RIGHT" GridPane.rowIndex="3" />
             <Label alignment="CENTER_RIGHT" text="Room:" textAlignment="RIGHT" GridPane.rowIndex="2" />
             <TextField fx:id="status" editable="false" text="On" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <Label text="Name:" />
             <TextField fx:id="name" text="LAMP #2" GridPane.columnIndex="1" />
+            <ComboBox fx:id="room_name" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" promptText="Select a room" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
       <Button fx:id="save" disable="true" mnemonicParsing="false" onAction="#save" text="Apply" />

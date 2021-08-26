@@ -56,7 +56,7 @@ public class AppController implements Initializable {
         devicesViewCache = new HashMap<String, List<CustomWidget>>();
         roomsViewCache = new HashMap<String, List<CustomWidget>>();
         // gen_rooms_and_devices();
-        // 
+        //
         // save_to_cfg();
 
         load_from_cfg();
@@ -76,8 +76,8 @@ public class AppController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
         for (var room : rooms) {
-            if (!listRooms.getItems().contains(room.getRoom_id())) {
-                listRooms.getItems().add(room.getRoom_id());
+            if (!listRooms.getItems().contains(room.getRoom_name())) {
+                listRooms.getItems().add(room.getRoom_name());
             }
             System.out.println("");
         }
@@ -96,6 +96,10 @@ public class AppController implements Initializable {
 
     public void setUnsaved_details(Boolean unsaved_details) {
         this.unsaved_details = unsaved_details;
+    }
+
+    public List<Room> getRooms() {
+        return rooms;
     }
 
     @FXML
@@ -168,20 +172,23 @@ public class AppController implements Initializable {
         if (!devicesViewCache.containsKey(selection)) {
             for (var device : devices) {
                 if (device.getClass().getSimpleName().equals(selection_no_spaces)) {
+                    ViewWidget widget;
                     switch (selection_no_spaces) {
-                        case "Lamp":
-                            widgets_to_add.add(new LampViewWidget((Lamp) device, this));
-                            break;
-                        case "TemperatureSensor":
-                            widgets_to_add.add(new TemperatureViewWidget((TemperatureSensor) device, this));
-                            break;
-                        default:
-                            throw new RuntimeException("Missing switch case for class.");
+                    case "Lamp":
+                        widget = new LampViewWidget((Lamp) device, this);
+                        break;
+                    case "TemperatureSensor":
+                        widget = new TemperatureViewWidget((TemperatureSensor) device, this);
+                        break;
+                    default:
+                        throw new RuntimeException("Missing switch case for class.");
                     }
+                widget.setRoom_name_visible();
+                widgets_to_add.add(widget);
                 }
             }
-            widgets_to_add.add(new AddDeviceCustomWidget(this, selection, null));
 
+            widgets_to_add.add(new AddDeviceCustomWidget(this, selection, null));
             // add to flow
             children.addAll(widgets_to_add);
             // add to cache

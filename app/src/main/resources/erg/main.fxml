@@ -39,7 +39,7 @@
       <items>
             <VBox onMouseClicked="#check_unsaved_details" prefHeight="854.0" prefWidth="150.0" SplitPane.resizableWithParent="false">
                <children>
-                <TitledPane alignment="TOP_LEFT" animated="false" expanded="false" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" text="Rooms">
+                <TitledPane alignment="TOP_LEFT" animated="false" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" text="Rooms">
                      <content>
                         <ListView fx:id="listRooms" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#load_widgets_by_room" />
                      </content>

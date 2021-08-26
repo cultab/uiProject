@@ -8,7 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.image.ImageView;
 
 public class AddDeviceCustomWidget extends CustomWidget implements Initializable {
@@ -16,11 +16,10 @@ public class AddDeviceCustomWidget extends CustomWidget implements Initializable
     @FXML
     ImageView image;
     @FXML
-    ChoiceBox<String> dropdown;
+    ComboBox<String> dropdown;
     @FXML
     Button add;
 
-    private final String DEFAULT_SELECTION_TEXT = "Select a device type..";
     private String type;
     private String room_name;
 
@@ -37,7 +36,7 @@ public class AddDeviceCustomWidget extends CustomWidget implements Initializable
         type = new_type;
         room_name = new_room_name;
         if (room_name == null) {
-            room_name = "Undefined";
+            room_name = "Select a room";
         }
 
         load_fxml("/erg/AddDeviceViewWidget.fxml");
@@ -49,11 +48,10 @@ public class AddDeviceCustomWidget extends CustomWidget implements Initializable
         // HACK: ?
 
         if (type == null) {
-            dropdown.setItems(FXCollections.observableArrayList(DEFAULT_SELECTION_TEXT, "Lamp", "Temperature Sensor"));
+            dropdown.setItems(FXCollections.observableArrayList("Lamp", "Temperature Sensor"));
             dropdown.setDisable(false);
-            dropdown.getSelectionModel().select(0);
             dropdown.getSelectionModel().selectedItemProperty().addListener((obs, old_value, new_value) -> {
-                if (!new_value.equals(DEFAULT_SELECTION_TEXT)) {
+                if (dropdown.getSelectionModel().getSelectedIndex() != -1) {
                     add.setDisable(false);
                 }
             });

@@ -5,9 +5,11 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.beans.value.ChangeListener;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 
@@ -21,7 +23,7 @@ public class DetailsWidget extends CustomWidget implements Initializable {
     @FXML
     protected TextField IP;
     @FXML
-    protected TextField room_name;
+    protected ComboBox<Room> room_name;
     @FXML
     protected TextField name;
     @FXML
@@ -37,30 +39,44 @@ public class DetailsWidget extends CustomWidget implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        name.setText(sensor.getName());
-        room_name.setText(sensor.getRoom_name());
-        IP.setText(sensor.getIP());
+
+        var rooms = parent.getRooms();
+        room_name.setItems(FXCollections.observableArrayList(rooms));
+        room_name.setPromptText("Select a room");
 
         ChangeListener<String> set_unsaved = (obs, oldText, newText) -> {
             setSaved(false);
         };
+        ChangeListener<Room> set_unsaved_r = (obs, oldText, newText) -> {
+            setSaved(false);
+        };
 
         name.textProperty().addListener(set_unsaved);
-        room_name.textProperty().addListener(set_unsaved);
         IP.textProperty().addListener(set_unsaved);
+        room_name.getSelectionModel().selectedItemProperty().addListener(set_unsaved_r);
+
+        update();
+        if (room_name.getSelectionModel().getSelectedIndex() == -1) {
+            room_name.getSelectionModel().select(0);
+        }
     }
 
     public void update() {
         name.setText(sensor.getName());
-        room_name.setText(sensor.getRoom_name());
         IP.setText(sensor.getIP());
+
+        for (var room : room_name.getItems()) {
+            if (room.getRoom_name().equals(sensor.getRoom_name())) {
+                room_name.getSelectionModel().select(room);
+            }
+        }
     }
 
     @FXML
     public void save() {
         sensor.setIP(IP.getText());
         sensor.setName(name.getText());
-        sensor.setRoom_name(room_name.getText());
+        sensor.setRoom_name(room_name.getSelectionModel().getSelectedItem().getRoom_name());
         setSaved(true);
         update();
     }

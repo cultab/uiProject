@@ -44,4 +44,8 @@ public class ViewWidget extends CustomWidget implements Initializable {
         parent.setCurrent_details(detailsWidget);
     }
 
+    public void setRoom_name_visible() {
+        room_name.setVisible(true);
+    }
+
 }
