@@ -90,7 +90,7 @@ public class AppController implements Initializable {
         }
 
         listDevices.getItems().add("Lamp");
-        listDevices.getItems().add("TemperatureSensor");
+        listDevices.getItems().add("Temperature Sensor");
         listDevices.setPrefHeight(listDevices.getItems().size() * ROW_HEIGHT + 2);
 
     }
@@ -136,7 +136,7 @@ public class AppController implements Initializable {
 
     }
 
-    public void load_widgets() {
+    public void load_widgets_by_room() {
         flow.getChildren().removeAll(flow.getChildren());
         String selection = listRooms.getSelectionModel().getSelectedItem();
 
@@ -149,15 +149,18 @@ public class AppController implements Initializable {
                     flow.getChildren().add(new TemperatureViewWidget((TemperatureSensor) device, this));
             }
         }
+        System.out.println("room selection" + selection);
+        flow.getChildren().add(AddDeviceCustomWidget.newWithRoom(this, selection));
     }
 
-    public void load_general() {
+    public void load_widgets_by_device() {
         flow.getChildren().removeAll(flow.getChildren());
         String selection = listDevices.getSelectionModel().getSelectedItem();
+        var selection_no_spaces = selection.replaceAll("\\s+", "");
 
         for (var device : devices.values()) {
-            if (device.getClass().getSimpleName().equals(selection)) {
-                switch (selection) {
+            if (device.getClass().getSimpleName().equals(selection_no_spaces)) {
+                switch (selection_no_spaces) {
                     case "Lamp":
                         flow.getChildren().add(new LampViewWidget((Lamp) device, this));
                         break;
@@ -167,6 +170,7 @@ public class AppController implements Initializable {
                 }
             }
         }
+        flow.getChildren().add(AddDeviceCustomWidget.newWithType(this, selection));
     }
 
     public void load_devices() {
@@ -185,6 +189,11 @@ public class AppController implements Initializable {
         } catch (ClassNotFoundException e) {
             System.out.println("ClassNotFoundException.");
         }
+    }
+
+    public void newDevice(Device dev) {
+        // HACK: randomized key until we use a list
+        devices.put("JUST USE A LIST FUCK " + Math.random(), dev);
     }
 
     @FXML
