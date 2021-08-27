@@ -39,6 +39,12 @@ public class TVViewWidget extends ViewWidget {
 
         choice.getItems().addAll(list);
 
+        choice.valueProperty().addListener((observable, oldValue, newValue) -> {
+            tv.setChannel(choice.getValue());
+            update();
+
+        });
+
         // slider.valueProperty().addListener((observable, oldValue, newValue) -> {
         //     var new_temp = slider.getValue();
         //     thermostat.setTemperature((double) Math.round(new_temp));

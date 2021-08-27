@@ -29,7 +29,7 @@ public class TVDetailsWidget extends DetailsWidget {
 
     @FXML
     public void update() {
-        status.setText("Channel 1");
+        status.setText(tv.getChannel());
 
         super.update();
     }
