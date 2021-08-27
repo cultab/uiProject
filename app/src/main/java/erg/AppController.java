@@ -56,8 +56,8 @@ public class AppController implements Initializable {
 
         devicesViewCache = new HashMap<String, List<CustomWidget>>();
         roomsViewCache = new HashMap<String, List<CustomWidget>>();
-        // gen_rooms_and_devices();
-        // save_to_cfg();
+        gen_rooms_and_devices();
+        save_to_cfg();
         load_from_cfg();
     }
 
@@ -86,7 +86,7 @@ public class AppController implements Initializable {
         }
 
         listDevices.getItems().add("Lamp");
-        listDevices.getItems().add("Temperature Sensor");
+        listDevices.getItems().add("Thermostat");
 
         listRooms.setPrefHeight(listRooms.getItems().size() * ROW_HEIGHT + 2);
         listDevices.setPrefHeight(listDevices.getItems().size() * ROW_HEIGHT + 2);
@@ -98,9 +98,11 @@ public class AppController implements Initializable {
             change.next();
             for (var added_dev : change.getAddedSubList() ) {
                 roomsViewCache.remove(added_dev.getRoom_name());
+                devicesViewCache.remove(added_dev.getClass().getSimpleName());
             }
             for (var removed_dev : change.getRemoved() ) {
                 roomsViewCache.remove(removed_dev.getRoom_name());
+                devicesViewCache.remove(removed_dev.getClass().getSimpleName());
             }
         };
 
@@ -168,16 +170,7 @@ public class AppController implements Initializable {
             for (var room : rooms) {
                 if (room.getRoom_name().equals(selection)) {
                     for (var device : room.getDevices()) {
-                        switch (device.getClass().getSimpleName()) {
-                            case "Lamp":
-                                widgets_to_add.add(new LampViewWidget((Lamp) device, this));
-                                break;
-                            case "TemperatureSensor":
-                                widgets_to_add.add(new TemperatureViewWidget((TemperatureSensor) device, this));
-                                break;
-                            default:
-                                throw new RuntimeException("Missing switch case for class.");
-                        }
+                        widgets_to_add.add(Otmac.viewWidget(device, this));
                     }
                 }
             }
@@ -197,25 +190,14 @@ public class AppController implements Initializable {
         var children = flow.getChildren();
         String selection = listDevices.getSelectionModel().getSelectedItem();
         var widgets_to_add = new ArrayList<CustomWidget>();
-        var selection_no_spaces = selection.replaceAll("\\s+", "");
 
         children.removeAll(children);
 
         if (!devicesViewCache.containsKey(selection)) {
             for (var room : rooms) {
                 for (var device : room.getDevices()) {
-                    if (device.getClass().getSimpleName().equals(selection_no_spaces)) {
-                        ViewWidget widget;
-                        switch (selection_no_spaces) {
-                            case "Lamp":
-                                widget = new LampViewWidget((Lamp) device, this);
-                                break;
-                            case "TemperatureSensor":
-                                widget = new TemperatureViewWidget((TemperatureSensor) device, this);
-                                break;
-                            default:
-                                throw new RuntimeException("Missing switch case for class.");
-                        }
+                    if (device.getClass().getSimpleName().equals(selection)) {
+                        var widget = Otmac.viewWidget(device, this);
                         widget.setRoom_name_visible();
                         widgets_to_add.add(widget);
                     }
@@ -247,7 +229,10 @@ public class AppController implements Initializable {
             System.out.println(e);
             throw new RuntimeException("Could load from " + filename);
         } catch (ClassNotFoundException e) {
-            System.out.println("ClassNotFoundException.");
+            System.out.println(e.getCause());
+            System.out.println(e.getMessage());
+            System.out.println(e);
+            throw new RuntimeException("Could load from " + filename);
         }
     }
 
@@ -289,7 +274,7 @@ public class AppController implements Initializable {
     protected void gen_rooms_and_devices() {
         var l1 = new Lamp("Desk", "192.168.1.2", "Bedroom");
         // devices.add(l1);
-        var t1 = new TemperatureSensor("Thermostat 1", "192.168.1.22", "Bedroom");
+        var t1 = new Thermostat("Thermostat 1", "192.168.1.22", "Bedroom");
         // devices.add(t1);
         ObservableList<Device> room2_list = FXCollections.observableArrayList();
         room2_list.add(l1);
@@ -298,7 +283,7 @@ public class AppController implements Initializable {
 
         var l2 = new Lamp("Main", "192.168.1.3", "Kitchen");
         // devices.add(l2);
-        var t2 = new TemperatureSensor("Thermostat", "192.168.1.23", "Kitchen");
+        var t2 = new Thermostat("Thermostat", "192.168.1.23", "Kitchen");
         // devices.add(t2);
         ObservableList<Device> room3_list = FXCollections.observableArrayList();
         room3_list.add(l2);
@@ -311,7 +296,7 @@ public class AppController implements Initializable {
         room4_list.add(l3);
         var room4 = new Room("Bathroom", room4_list);
 
-        var t4 = new TemperatureSensor("Thermostat", "192.168.1.25", "Basement");
+        var t4 = new Thermostat("Thermostat", "192.168.1.25", "Basement");
         // devices.add(t4);
         ObservableList<Device> room5_list = FXCollections.observableArrayList();
         room5_list.add(t4);

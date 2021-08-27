@@ -15,7 +15,7 @@ public class TVDetailsWidget extends DetailsWidget {
     @FXML
     LineChart<Number, Double> chart;
 
-    public TVDetailsWidget(TV sensor, AppController parent) {
+    public TVDetailsWidget(Device sensor, AppController parent) {
         super(sensor, parent);
         tv = (TV) sensor;
         load_fxml("/erg/TVDetailsWidget.fxml");

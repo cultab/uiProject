@@ -21,7 +21,7 @@ public class TVViewWidget extends ViewWidget {
 
     private TV tv;
 
-    public TVViewWidget(TV sensor, AppController parent) {
+    public TVViewWidget(Device sensor, AppController parent) {
         super(sensor, parent);
         tv = (TV) sensor;
 

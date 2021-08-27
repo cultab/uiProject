@@ -12,11 +12,11 @@ public class TemperatureViewWidget extends ViewWidget {
     @FXML
     private Slider slider;
 
-    private TemperatureSensor thermostat;
+    private Thermostat thermostat;
 
     public TemperatureViewWidget(Device sensor, AppController parent) {
         super(sensor, parent);
-        thermostat = (TemperatureSensor) sensor;
+        thermostat = (Thermostat) sensor;
 
         detailsWidget = new TemperatureDetailsWidget(thermostat, parent);
         load_fxml("/erg/TempViewWidget.fxml");

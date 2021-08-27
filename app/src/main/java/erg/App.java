@@ -29,10 +29,8 @@ public class App extends Application implements Initializable {
     @Override
     public void start(Stage stage) {
         Parent root = null;
-        // var fxmlLoader = new FXMLLoader(getClass().getResource("/main.fxml"));
 
         try {
-            // root = fxmlLoader.load();
             root = FXMLLoader.load(getClass().getResource("/erg/main.fxml"));
 
         } catch (IOException e) {

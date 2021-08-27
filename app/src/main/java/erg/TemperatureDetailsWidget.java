@@ -10,7 +10,7 @@ import javafx.scene.chart.XYChart;
 
 public class TemperatureDetailsWidget extends DetailsWidget {
 
-    TemperatureSensor thermometer;
+    Thermostat thermometer;
     XYChart.Series<Number, Double> series;
 
     @FXML
@@ -18,7 +18,7 @@ public class TemperatureDetailsWidget extends DetailsWidget {
 
     public TemperatureDetailsWidget(Device sensor, AppController parent) {
         super(sensor, parent);
-        thermometer = (TemperatureSensor) sensor;
+        thermometer = (Thermostat) sensor;
         series = new XYChart.Series<Number, Double>();
 
         load_fxml("/erg/TemperatureDetailsWidget.fxml");

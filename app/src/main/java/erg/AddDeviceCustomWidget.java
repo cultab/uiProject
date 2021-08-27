@@ -74,7 +74,7 @@ public class AddDeviceCustomWidget extends CustomWidget implements Initializable
             widget = new LampDetailsWidget(sensor, parent);
             break;
         case "Temperature Sensor":
-            sensor = new TemperatureSensor(room_name);
+            sensor = new Thermostat(room_name);
             widget = new TemperatureDetailsWidget(sensor, parent);
             break;
         default:
