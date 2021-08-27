@@ -55,7 +55,7 @@
             <ComboBox fx:id="room_name" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" promptText="Select a room" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             </children>
         </GridPane>
-        <Button fx:id="save" disable="true" mnemonicParsing="false" text="Apply" />
+        <Button fx:id="save" disable="true" mnemonicParsing="false" onAction="#save" text="Apply" />
     </children>
     <padding>
         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

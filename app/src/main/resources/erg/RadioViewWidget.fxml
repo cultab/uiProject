@@ -28,10 +28,10 @@
 
                     </items>
                 </ChoiceBox>
-                <Slider fx:id="slider" blockIncrement="1.0" layoutX="26.0" layoutY="32.0" majorTickUnit="10.0" max="108.0" min="87.8" minorTickCount="9" prefHeight="0.0" prefWidth="140.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+                <Slider fx:id="slider" blockIncrement="1.0" layoutX="26.0" layoutY="32.0" majorTickUnit="10.0" max="108.0" min="87.8" minorTickCount="9" prefHeight="0.0" onMouseReleased="#update" prefWidth="140.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
             </children>
         </VBox>
-        <Button mnemonicParsing="false" text="Button" >
+        <Button mnemonicParsing="false" onAction="#set_details" text="Details" >
             <VBox.margin>
                 <Insets bottom="5.0" />
             </VBox.margin></Button>

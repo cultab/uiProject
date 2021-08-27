@@ -29,7 +29,8 @@ public class RadioDetailsWidget extends DetailsWidget {
 
     @FXML
     public void update() {
-        status.setText("Statiom 1");
+        status.setText(String.valueOf(radio.getFrequency()));
+
 
         super.update();
     }

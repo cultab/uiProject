@@ -45,6 +45,28 @@ public class RadioViewWidget extends ViewWidget {
         //     update();
         // });
 
+        choice.valueProperty().addListener((observable, oldValue, newValue) -> {
+            String station = choice.getValue();
+            if(station.equals("Station 1"))
+            {
+                radio.setFrequency(88.0);
+                slider.adjustValue(88.0);
+            }
+            else if (station.equals("Station 2"))
+            {
+                radio.setFrequency(102.3);
+                slider.adjustValue(102.3);
+            }
+            else if (station.equals("Station 3"))
+            {
+                radio.setFrequency(96.3);
+                slider.adjustValue(96.3);
+            }
+
+            radio.setChannel(station);
+            update();
+        });
+
         super.initialize(url, rb);
     }
 
