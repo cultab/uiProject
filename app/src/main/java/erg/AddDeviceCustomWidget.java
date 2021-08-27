@@ -48,6 +48,7 @@ public class AddDeviceCustomWidget extends CustomWidget implements Initializable
         // HACK: ?
 
         if (type == null) {
+
             dropdown.setItems(FXCollections.observableArrayList("Lamp", "Temperature Sensor", "TV", "Radio"));
             dropdown.setDisable(false);
             dropdown.getSelectionModel().selectedItemProperty().addListener((obs, old_value, new_value) -> {
@@ -71,15 +72,15 @@ public class AddDeviceCustomWidget extends CustomWidget implements Initializable
         switch(dropdown.getSelectionModel().getSelectedItem()) {
         case "Lamp":
             sensor = new Lamp(room_name);
-            widget = new LampDetailsWidget(sensor, parent);
             break;
-        case "Temperature Sensor":
+        case "Thermostat":
             sensor = new Thermostat(room_name);
-            widget = new TemperatureDetailsWidget(sensor, parent);
             break;
         default:
-            throw new RuntimeException("No such class name.");
+            throw new RuntimeException("Add New Device: No such class name.");
         }
+
+        widget = Otmac.detailsWidget(sensor, parent);
         
         parent.setCurrent_details(widget);
         // parent.newDevice(sensor);

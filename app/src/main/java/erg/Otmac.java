@@ -70,6 +70,9 @@ public class Otmac {
 
         }
 
+        if (widget == null) {
+                throw new RuntimeException("Class '" + class_name + "' is not supported by Otmac. Also nice one.");
+        }
         return widget;
     }
 }

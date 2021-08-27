@@ -8,10 +8,13 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.concurrent.Executors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -51,13 +54,14 @@ public class AppController implements Initializable {
 
     public AppController() {
         alert = new CustomAlert(Alert.AlertType.NONE);
-        // devices = new ArrayList<Device>();
         rooms = FXCollections.observableArrayList();
 
         devicesViewCache = new HashMap<String, List<CustomWidget>>();
         roomsViewCache = new HashMap<String, List<CustomWidget>>();
-        //gen_rooms_and_devices();
-        //save_to_cfg();
+
+        // gen_rooms_and_devices();
+        // save_to_cfg();
+
         load_from_cfg();
     }
 
@@ -135,7 +139,6 @@ public class AppController implements Initializable {
                 new_room.addDevice(dev);
             }
         }
-
     }
 
     @FXML
@@ -164,7 +167,10 @@ public class AppController implements Initializable {
 
         var children = flow.getChildren();
         String selection = listRooms.getSelectionModel().getSelectedItem();
-        var widgets_to_add = new ArrayList<CustomWidget>();
+
+        var widgets_to_add = Collections.synchronizedList(new LinkedList<CustomWidget>());
+
+        var threads = new ArrayList<Thread>();
 
         children.removeAll(children);
 
@@ -172,8 +178,19 @@ public class AppController implements Initializable {
             for (var room : rooms) {
                 if (room.getRoom_name().equals(selection)) {
                     for (var device : room.getDevices()) {
-                        widgets_to_add.add(Otmac.viewWidget(device, this));
+                        // widgets_to_add.add(Otmac.viewWidget(device, this));
+                        var t = new Thread(() -> widgets_to_add.add(Otmac.viewWidget(device, this)));
+                        t.start();
+                        threads.add(t);
                     }
+                    threads.forEach(t -> {
+                        try {
+                            t.join();
+                        } catch (InterruptedException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+                    });
                 }
             }
             widgets_to_add.add(new AddDeviceCustomWidget(this, null, selection));
@@ -192,7 +209,8 @@ public class AppController implements Initializable {
     public void load_widgets_by_device() {
         var children = flow.getChildren();
         String selection = listDevices.getSelectionModel().getSelectedItem();
-        var widgets_to_add = new ArrayList<CustomWidget>();
+        var widgets_to_add = Collections.synchronizedList(new LinkedList<CustomWidget>());
+        var threads = new ArrayList<Thread>();
 
         children.removeAll(children);
 
@@ -200,11 +218,24 @@ public class AppController implements Initializable {
             for (var room : rooms) {
                 for (var device : room.getDevices()) {
                     if (device.getClass().getSimpleName().equals(selection)) {
-                        var widget = Otmac.viewWidget(device, this);
-                        widget.setRoom_name_visible();
-                        widgets_to_add.add(widget);
+
+                        var t = new Thread(() -> {
+                            var widget = Otmac.viewWidget(device, this);
+                            widget.setRoom_name_visible();
+                            widgets_to_add.add(widget);
+                        });
+                        t.start();
+                        threads.add(t);
                     }
                 }
+                threads.forEach(t -> {
+                    try {
+                        t.join();
+                    } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                });
             }
 
             widgets_to_add.add(new AddDeviceCustomWidget(this, selection, null));
@@ -283,6 +314,9 @@ public class AppController implements Initializable {
         var r1 = new Radio("Radio 1", "192.168.1.22", "Bedroom");
         // devices.add(t1);
         ObservableList<Device> room2_list = FXCollections.observableArrayList();
+        for (int i = 0; i < 15; i++) {
+            room2_list.add(new Lamp("Profiler Lamp :)", "127.0.0.1", "Home"));
+        }
         room2_list.add(l1);
         room2_list.add(t1);
         room2_list.add(tv1);

@@ -9,6 +9,7 @@ import javafx.scene.layout.VBox;
 public class CustomWidget extends VBox {
 
     protected AppController parent;
+    public static ClassLoader cachingClassLoader = new CachingClassLoader(FXMLLoader.getDefaultClassLoader());
 
     public CustomWidget(AppController parent) {
         this.parent = parent;
@@ -18,6 +19,7 @@ public class CustomWidget extends VBox {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(path));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
+        fxmlLoader.setClassLoader(cachingClassLoader);
 
         try {
             fxmlLoader.load();
