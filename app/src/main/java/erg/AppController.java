@@ -92,8 +92,22 @@ public class AppController implements Initializable {
         listDevices.setPrefHeight(listDevices.getItems().size() * ROW_HEIGHT + 2);
 
         // rooms.addListener((ListChangeListener<Room>) change -> {
-        // change.getAddedSubList();
+        //     change.getAddedSubList();
         // });
+        ListChangeListener<Device> deviceListener = change -> {
+            change.next();
+            for (var added_dev : change.getAddedSubList() ) {
+                roomsViewCache.remove(added_dev.getRoom_name());
+            }
+            for (var removed_dev : change.getRemoved() ) {
+                roomsViewCache.remove(removed_dev.getRoom_name());
+            }
+        };
+
+        for (var room : rooms) {
+            // TODO: lookup InvalidationListener
+            room.getDevices().addListener(deviceListener);
+        }
 
     }
 

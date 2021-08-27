@@ -35,9 +35,9 @@ public class AddDeviceCustomWidget extends CustomWidget implements Initializable
         super(parent);
         type = new_type;
         room_name = new_room_name;
-        if (room_name == null) {
-            room_name = "Select a room";
-        }
+        // if (room_name == null) {
+        //     room_name = "NEW_ROOM";
+        // }
 
         load_fxml("/erg/AddDeviceViewWidget.fxml");
     }
@@ -81,9 +81,10 @@ public class AddDeviceCustomWidget extends CustomWidget implements Initializable
             throw new RuntimeException("No such class name.");
         }
         
-        parent.newDevice(sensor);
         parent.setCurrent_details(widget);
-        parent.setUnsaved_details(true);
+        // parent.newDevice(sensor);
+        widget.setSaved(false);
+        // parent.setUnsaved_details(true);
 
         if (type == null) {
             add.setDisable(true);
