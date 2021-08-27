@@ -24,6 +24,7 @@ beautification
 
 LOW PRIORITY
 fxml_load in constructor from final String
+fxml_load use threads when loading ListViews, see: https://stackoverflow.com/questions/11734885/javafx2-very-poor-performance-when-adding-custom-made-fxmlpanels-to-gridpane
 
 LOWEST PITS OF HELL PRIORITY
 events
