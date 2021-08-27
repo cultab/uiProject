@@ -6,10 +6,10 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TitledPane?>
-<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.TilePane?>
@@ -41,25 +41,22 @@
                <children>
                 <TitledPane alignment="TOP_LEFT" animated="false" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" text="Rooms">
                      <content>
-                        <ListView fx:id="listRooms" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#load_widgets_by_room" />
+                        <ListView fx:id="listRooms" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#load_widgets_by_room" prefHeight="40.0" />
                      </content>
                 </TitledPane>
                 <TitledPane alignment="TOP_LEFT" animated="false" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" text="Devices">
                   <content>
-                        <ListView fx:id="listDevices" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#load_widgets_by_device" />
+                        <ListView fx:id="listDevices" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#load_widgets_by_device" prefHeight="40.0" />
                   </content>
                 </TitledPane>
                </children>
             </VBox>
-            <FlowPane fx:id="flow" onMouseClicked="#check_unsaved_details" prefHeight="200.0" prefWidth="200.0">
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-            </FlowPane>
-            <TilePane fx:id="details" alignment="TOP_RIGHT" maxWidth="0.0" SplitPane.resizableWithParent="false" />
+            <ScrollPane fitToHeight="true" fitToWidth="true" minViewportWidth="250.0">
+               <content>
+                  <TilePane fx:id="flow" alignment="BASELINE_CENTER" cacheShape="false" centerShape="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="547.0" prefTileHeight="200.0" prefTileWidth="150.0" prefWidth="400.0" scaleShape="false" />
+               </content>
+            </ScrollPane>
+            <TilePane fx:id="details" alignment="TOP_RIGHT" prefColumns="1" prefRows="1" prefTileHeight="1.0" prefTileWidth="250.0" SplitPane.resizableWithParent="false" />
       </items>
     </SplitPane>
     <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">

@@ -51,7 +51,6 @@ public class DetailsWidget extends CustomWidget implements Initializable {
             setSaved(false);
         };
 
-
         update();
 
         if (room_name.getSelectionModel().getSelectedIndex() == -1) {
@@ -69,7 +68,7 @@ public class DetailsWidget extends CustomWidget implements Initializable {
         IP.setText(sensor.getIP());
 
         for (var room : room_name.getItems()) {
-            if (room.getRoom_name().equals(sensor.getRoom_name())) {
+            if (room.getName().equals(sensor.getRoom_name())) {
                 room_name.getSelectionModel().select(room);
             }
         }
@@ -81,13 +80,13 @@ public class DetailsWidget extends CustomWidget implements Initializable {
         sensor.setName(name.getText());
 
         var new_room = room_name.getSelectionModel().getSelectedItem();
-        sensor.setRoom_name(new_room.getRoom_name());
+        sensor.setRoom_name(new_room.getName());
 
-        if (!sensor.getRoom_name().equals(new_room.getRoom_name())) {
+        if (!sensor.getRoom_name().equals(new_room.getName())) {
             parent.changeDeviceRoom(sensor, sensor.getRoom_name(), new_room);
         }
         for (var room : parent.getRooms()) {
-            if (room.getRoom_name().equals(sensor.getRoom_name())) {
+            if (room.getName().equals(sensor.getRoom_name())) {
                 if (!room.getDevices().contains(sensor)) {
                     parent.newDevice(sensor);
                 }

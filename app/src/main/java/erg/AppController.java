@@ -4,6 +4,7 @@ package erg;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InvalidClassException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.URL;
@@ -14,7 +15,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.concurrent.Executors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -41,7 +41,7 @@ public class AppController implements Initializable {
     @FXML
     private SplitPane mainSplit;
     @FXML
-    private FlowPane flow;
+    private TilePane flow;
     @FXML
     private TilePane details;
     @FXML
@@ -59,10 +59,17 @@ public class AppController implements Initializable {
         devicesViewCache = new HashMap<String, List<CustomWidget>>();
         roomsViewCache = new HashMap<String, List<CustomWidget>>();
 
-        // gen_rooms_and_devices();
-        // save_to_cfg();
-
-        load_from_cfg();
+        try {
+            load_from_cfg();
+        } catch (RuntimeException e) {
+            System.out.println(e.getCause());
+            System.out.println(e.getMessage());
+            System.out.println("==============================================");
+            System.out.println("#           Generating rooms anew!           #");
+            System.out.println("==============================================");
+            gen_rooms_and_devices();
+            save_to_cfg();
+        }
     }
 
     public void setCurrent_details(DetailsWidget widget) {
@@ -83,8 +90,8 @@ public class AppController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
         for (var room : rooms) {
-            if (!listRooms.getItems().contains(room.getRoom_name())) {
-                listRooms.getItems().add(room.getRoom_name());
+            if (!listRooms.getItems().contains(room.getName())) {
+                listRooms.getItems().add(room.getName());
             }
             System.out.println("");
         }
@@ -134,9 +141,15 @@ public class AppController implements Initializable {
 
     public void changeDeviceRoom(Device dev, String old_room_name, Room new_room) {
         for (var old_room : rooms) {
-            if (old_room.getRoom_name().equals(old_room_name)) {
+            if (old_room.getName().equals(old_room_name)) {
+                // System.out.println("Remove from " + old_room_name);
                 old_room.removeDevice(dev);
+                // System.out.println("Add to " + new_room.getRoom_name());
                 new_room.addDevice(dev);
+
+                roomsViewCache.remove(old_room_name);
+                roomsViewCache.remove(new_room.getName());
+                devicesViewCache.remove(dev.getClass().getSimpleName());
             }
         }
     }
@@ -176,7 +189,7 @@ public class AppController implements Initializable {
 
         if (!roomsViewCache.containsKey(selection)) {
             for (var room : rooms) {
-                if (room.getRoom_name().equals(selection)) {
+                if (room.getName().equals(selection)) {
                     for (var device : room.getDevices()) {
                         // widgets_to_add.add(Otmac.viewWidget(device, this));
                         var t = new Thread(() -> widgets_to_add.add(Otmac.viewWidget(device, this)));
@@ -272,7 +285,7 @@ public class AppController implements Initializable {
 
     public void newDevice(Device dev) {
         for (var room : rooms) {
-            if (room.getRoom_name().equals(dev.getRoom_name())) {
+            if (room.getName().equals(dev.getRoom_name())) {
                 room.addDevice(dev);
             }
         }

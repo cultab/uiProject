@@ -24,7 +24,7 @@ public class Room implements Serializable {
         this.devices = FXCollections.observableArrayList(devs);
     }
 
-    public String getRoom_name() {
+    public String getName() {
         return room_name;
     }
 
