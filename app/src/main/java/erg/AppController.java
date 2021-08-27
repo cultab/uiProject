@@ -4,7 +4,6 @@ package erg;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InvalidClassException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.URL;
@@ -43,7 +42,7 @@ public class AppController implements Initializable {
     @FXML
     private TilePane flow;
     @FXML
-    private TilePane details;
+    private FlowPane details;
     @FXML
     private ListView<String> listRooms;
     @FXML
