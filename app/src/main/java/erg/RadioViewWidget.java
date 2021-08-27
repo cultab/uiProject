@@ -25,7 +25,7 @@ public class RadioViewWidget extends ViewWidget {
         super(sensor, parent);
         radio = (Radio) sensor;
 
-        detailsWidget = new TVDetailsWidget(sensor, parent);
+        detailsWidget = new RadioDetailsWidget(sensor, parent);
         load_fxml("/erg/RadioViewWidget.fxml");
     }
 
@@ -51,7 +51,7 @@ public class RadioViewWidget extends ViewWidget {
     @Override
     public void update() {
         // var new_temp = slider.getValue();
-        radio.setFrequency((Double) Math.round(slider.getValue()));
+        radio.setFrequency((double) Math.round(slider.getValue()));
         super.update();
     }
 

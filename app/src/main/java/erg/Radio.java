@@ -3,7 +3,7 @@ package erg;
 public class Radio extends Device{
 
     private Boolean powered_on;
-    private Double frequency;
+    private double frequency;
     private String channel;
 
 
@@ -23,9 +23,9 @@ public class Radio extends Device{
         this.powered_on = powered_on;
     }
 
-    public Double getFrequency() {return frequency;}
+    public double getFrequency() {return frequency;}
 
-    public void setFrequency(Double frequency) {this.frequency = frequency;}
+    public void setFrequency(double frequency) {this.frequency = frequency;}
 
     public String getChannel() { return channel; }
 
