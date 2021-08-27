@@ -48,7 +48,7 @@ public class AddDeviceCustomWidget extends CustomWidget implements Initializable
         // HACK: ?
 
         if (type == null) {
-            dropdown.setItems(FXCollections.observableArrayList("Lamp", "Temperature Sensor"));
+            dropdown.setItems(FXCollections.observableArrayList("Lamp", "Temperature Sensor", "TV", "Radio"));
             dropdown.setDisable(false);
             dropdown.getSelectionModel().selectedItemProperty().addListener((obs, old_value, new_value) -> {
                 if (dropdown.getSelectionModel().getSelectedIndex() != -1) {

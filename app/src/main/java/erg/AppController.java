@@ -56,8 +56,8 @@ public class AppController implements Initializable {
 
         devicesViewCache = new HashMap<String, List<CustomWidget>>();
         roomsViewCache = new HashMap<String, List<CustomWidget>>();
-        gen_rooms_and_devices();
-        save_to_cfg();
+        //gen_rooms_and_devices();
+        //save_to_cfg();
         load_from_cfg();
     }
 
@@ -87,6 +87,8 @@ public class AppController implements Initializable {
 
         listDevices.getItems().add("Lamp");
         listDevices.getItems().add("Thermostat");
+        listDevices.getItems().add("Radio");
+        listDevices.getItems().add("TV");
 
         listRooms.setPrefHeight(listRooms.getItems().size() * ROW_HEIGHT + 2);
         listDevices.setPrefHeight(listDevices.getItems().size() * ROW_HEIGHT + 2);
@@ -177,6 +179,7 @@ public class AppController implements Initializable {
             widgets_to_add.add(new AddDeviceCustomWidget(this, null, selection));
 
             // add to flow
+
             children.addAll(widgets_to_add);
             // add to cache
             roomsViewCache.put(selection, widgets_to_add);
@@ -275,13 +278,19 @@ public class AppController implements Initializable {
         var l1 = new Lamp("Desk", "192.168.1.2", "Bedroom");
         // devices.add(l1);
         var t1 = new Thermostat("Thermostat 1", "192.168.1.22", "Bedroom");
+
+        var tv1 = new TV("TV 1", "192.168.1.22", "Bedroom");
+        var r1 = new Radio("Radio 1", "192.168.1.22", "Bedroom");
         // devices.add(t1);
         ObservableList<Device> room2_list = FXCollections.observableArrayList();
         room2_list.add(l1);
         room2_list.add(t1);
+        room2_list.add(tv1);
+        room2_list.add(r1);
+
         var room2 = new Room("Bedroom", room2_list);
 
-        var l2 = new Lamp("Main", "192.168.1.3", "Kitchen");
+        var l2 = new Lamp("Main 2", "192.168.1.3", "Kitchen");
         // devices.add(l2);
         var t2 = new Thermostat("Thermostat", "192.168.1.23", "Kitchen");
         // devices.add(t2);

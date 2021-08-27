@@ -47,23 +47,27 @@ public class Otmac {
             break;
         case "TV":
             switch(type) {
-            case VIEW:
-            widget = new TVViewWidget(dev, parent);
-                break;
-            case DETAILS:
-            widget = new TVDetailsWidget(dev, parent);
-                break;
-        // case "Radio":
-        //     switch(type) {
-        //     case VIEW:
-        //     widget = new RadioViewWidget(dev, parent);
-        //         break;
-        //     case DETAILS:
-        //     widget = new RadioDetailsWidget(dev, parent);
-        //         break;
-            default:
-                throw new RuntimeException("Class '" + class_name + "' is not supported by Otmac.");
+                case VIEW:
+                    widget = new TVViewWidget(dev, parent);
+                    break;
+                case DETAILS:
+                    widget = new TVDetailsWidget(dev, parent);
+                    break;
             }
+            break;
+        case "Radio":
+             switch(type) {
+                 case VIEW:
+                     widget = new RadioViewWidget(dev, parent);
+                     break;
+                 case DETAILS:
+                     widget = new RadioDetailsWidget(dev, parent);
+                     break;
+             }
+             break;
+        default:
+                throw new RuntimeException("Class '" + class_name + "' is not supported by Otmac.");
+
         }
 
         return widget;
