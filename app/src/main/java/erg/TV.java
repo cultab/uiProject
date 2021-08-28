@@ -15,6 +15,13 @@ public class TV extends Device{
         channel = "Channel 1";
     }
 
+    public TV(String room_name) {
+        super(room_name);
+        powered_on = false;
+        volume = 15;
+        channel = "Channel 1";
+    }
+
     public Boolean isPoweredOn() {
         return powered_on;
     }

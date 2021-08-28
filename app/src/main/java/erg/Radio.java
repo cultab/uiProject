@@ -15,6 +15,13 @@ public class Radio extends Device{
         channel = "Station 1";
     }
 
+    public Radio(String room_name) {
+        super(room_name);
+        powered_on = false;
+        frequency = 96.3;
+        channel = "Station 1";
+    }
+
     public Boolean isPoweredOn() {
         return powered_on;
     }
