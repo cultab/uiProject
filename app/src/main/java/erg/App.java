@@ -5,6 +5,7 @@ package erg;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.application.Application;
@@ -13,8 +14,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.SplitPane;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class App extends Application implements Initializable {
 
@@ -41,13 +45,30 @@ public class App extends Application implements Initializable {
 
         Scene scene = new Scene(root, 1280, 720);
 
-        stage.setTitle("testing title");
+        stage.setTitle("Smart Home App v1.0");
         stage.setScene(scene);
+
+        stage.getScene().getWindow().addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, this::closeWindowEvent);
         stage.show();
     }
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    private void closeWindowEvent(WindowEvent event)
+    {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setAlertType(Alert.AlertType.CONFIRMATION);
+        alert.setContentText("Are you sure you want to quit?");
+        alert.setTitle("Exiting the app ...");
+        alert.setHeaderText(null);
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if(result.isPresent()) {
+            if(result.get().equals(ButtonType.CANCEL))
+                event.consume();
+        }
     }
 
     @FXML

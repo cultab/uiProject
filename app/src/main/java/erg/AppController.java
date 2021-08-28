@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import com.sun.javafx.stage.WindowCloseRequestHandler;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -24,9 +25,13 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.TilePane;
+import javafx.scene.image.Image;
+import javafx.scene.layout.*;
+import javafx.scene.paint.ImagePattern;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
+
+import javax.swing.*;
 
 public class AppController implements Initializable {
 
@@ -87,6 +92,14 @@ public class AppController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
+        Image ww = new Image(String.valueOf(getClass().getResource("/erg/Intro.jpg")));
+        //Th trith false
+        BackgroundSize backgroundSize = new BackgroundSize(900, 600, false, false,false, false);
+        BackgroundImage backgroundImage = new BackgroundImage(ww, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
+        Background background = new Background(backgroundImage);
+
+        flow.setBackground(background);
 
         for (var room : rooms) {
             if (!listRooms.getItems().contains(room.getName())) {
@@ -166,6 +179,9 @@ public class AppController implements Initializable {
     @FXML
     public void quit() {
         alert.setAlertType(Alert.AlertType.CONFIRMATION);
+        alert.setContentText("Are you sure you want to quit?");
+        alert.setTitle("Exiting the app ...");
+        alert.setHeaderText(null);
         Optional<ButtonType> result = alert.showAndWait();
 
         if (result.get() == ButtonType.OK) {
@@ -176,13 +192,33 @@ public class AppController implements Initializable {
     }
 
     public void load_widgets_by_room() {
-
         var children = flow.getChildren();
         String selection = listRooms.getSelectionModel().getSelectedItem();
 
         var widgets_to_add = Collections.synchronizedList(new LinkedList<CustomWidget>());
 
         var threads = new ArrayList<Thread>();
+        Image ww = new Image(String.valueOf(getClass().getResource("/erg/Intro.jpg")));
+
+        if(selection.equals("Bedroom"))
+             ww = new Image(String.valueOf(getClass().getResource("/erg/Bedroom.jpg")));
+        else if(selection.equals("Kitchen"))
+            ww = new Image(String.valueOf(getClass().getResource("/erg/Kitchen.jpg")));
+        else if(selection.equals("Bathroom"))
+            ww = new Image(String.valueOf(getClass().getResource("/erg/Bathroom2.jpg")));
+        else if(selection.equals("Garage"))
+            ww = new Image(String.valueOf(getClass().getResource("/erg/Garage.jpg")));
+        else if(selection.equals("Living Room"))
+            ww = new Image(String.valueOf(getClass().getResource("/erg/Living Room.jpeg")));
+        else if(selection.equals("Main Hall"))
+            ww = new Image(String.valueOf(getClass().getResource("/erg/MainEntrance.jpg")));
+
+
+        //Th trith false
+        BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true,true, false);
+        BackgroundImage backgroundImage = new BackgroundImage(ww, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
+        Background background = new Background(backgroundImage);
+        flow.setBackground(background);
 
         children.removeAll(children);
 
@@ -313,7 +349,9 @@ public class AppController implements Initializable {
     @FXML
     public void help() {
         alert.setAlertType(Alert.AlertType.INFORMATION);
-        alert.setContentText("Help Needed");
+        alert.setTitle("Please contact us");
+        alert.setContentText("Contact email: cs131118@uniwa.gr");
+        alert.setHeaderText(null);
         alert.showAndWait();
     }
 
@@ -326,9 +364,7 @@ public class AppController implements Initializable {
         var r1 = new Radio("Radio 1", "192.168.1.22", "Bedroom");
         // devices.add(t1);
         ObservableList<Device> room2_list = FXCollections.observableArrayList();
-        for (int i = 0; i < 15; i++) {
-            room2_list.add(new Lamp("Profiler Lamp :)", "127.0.0.1", "Home"));
-        }
+
         room2_list.add(l1);
         room2_list.add(t1);
         room2_list.add(tv1);
@@ -351,11 +387,11 @@ public class AppController implements Initializable {
         room4_list.add(l3);
         var room4 = new Room("Bathroom", room4_list);
 
-        var t4 = new Thermostat("Thermostat", "192.168.1.25", "Basement");
+        var t4 = new Thermostat("Thermostat", "192.168.1.25", "Garage");
         // devices.add(t4);
         ObservableList<Device> room5_list = FXCollections.observableArrayList();
         room5_list.add(t4);
-        var room5 = new Room("Basement", room5_list);
+        var room5 = new Room("Garage", room5_list);
 
         var room6 = new Room("Living Room", FXCollections.observableArrayList());
         var room7 = new Room("Main Hall", FXCollections.observableArrayList());

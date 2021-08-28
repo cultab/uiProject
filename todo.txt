@@ -2,23 +2,28 @@ x Pane to put detail widgets in so that the layout does not get reset when addin
 x Details temp widget
 x Persistence temperature status
 x ListView Performance ~(Asim)
-Add devices
+x Add devices
     Windows Rolls
 x   TV
+        Volume on details
     A/C
 x   Radio/Stereo
         Channels on details double ( optional )
+        Volume on View/Details
     Water heater
-x DropDown menu listeners (Asim)
+~x DropDown menu listeners (Asim)
     remove
         Everything except save,quit,help
-x reaffirmation windows
+~x reaffirmation windows
 add help button
 x being able to add/edit rooms and devices (Evan)
     x edit
     add
+Remove devices
+Pictures background of rooms
+Randomize IP on creation
 x Thermostat history (Evan)
-Pop up tips on open
+Hello user on open
 header on help window
 
 beautification

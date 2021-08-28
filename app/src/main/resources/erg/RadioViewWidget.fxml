@@ -9,7 +9,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.VBox?>
 
-<fx:root alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="150.0" spacing="5.0" type="VBox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="150.0" spacing="5.0" style="-fx-background-color: #c0deed; -fx-background-radius: 25px;" type="VBox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <Label fx:id="name" text="NAME HERE" />
         <Label fx:id="room_name" text="ROOM_NAME" visible="false" />
