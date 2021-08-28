@@ -58,7 +58,7 @@ public class App extends Application implements Initializable {
 
     private void closeWindowEvent(WindowEvent event)
     {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        Alert alert = new CustomAlert(Alert.AlertType.CONFIRMATION);
         alert.setAlertType(Alert.AlertType.CONFIRMATION);
         alert.setContentText("Are you sure you want to quit?");
         alert.setTitle("Exiting the app ...");

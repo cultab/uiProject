@@ -89,9 +89,11 @@ public class AppController implements Initializable {
 
     public void setCurrent_details(DetailsWidget widget) {
         System.out.println("unsaved" + unsaved_details);
-        if (unsaved_details) {
+
+        if (!check_unsaved_details()) {
             return;
         }
+
         if (currentDetailsWidget != null) {
             details.getChildren().remove(currentDetailsWidget);
         }
@@ -152,7 +154,6 @@ public class AppController implements Initializable {
     }
 
     public void setUnsaved_details(Boolean unsaved_details) {
-        System.out.println("SET unsaved -> " + unsaved_details);
         this.unsaved_details = unsaved_details;
     }
 
@@ -175,12 +176,21 @@ public class AppController implements Initializable {
     }
 
     @FXML
-    public void check_unsaved_details() {
+    public Boolean check_unsaved_details() {
         if (unsaved_details) {
-            alert.setAlertType(Alert.AlertType.WARNING);
+            alert.setAlertType(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("You have unsaved edits for a device!");
+            alert.setContentText("Do you want to discard them?");
             alert.setHeaderText(null);
-            alert.setContentText("Unsaved details");
-            alert.showAndWait();
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if (result.get() == ButtonType.OK) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return true;
         }
     }
 
