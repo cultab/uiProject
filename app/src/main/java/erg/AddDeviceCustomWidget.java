@@ -91,5 +91,7 @@ public class AddDeviceCustomWidget extends CustomWidget implements Initializable
             add.setDisable(true);
             dropdown.getSelectionModel().select(0);
         }
+        parent.forceReloadLastView();
+        parent.invalidateCache(sensor);
     }
 }

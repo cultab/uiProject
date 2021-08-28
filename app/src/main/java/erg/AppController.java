@@ -51,12 +51,22 @@ public class AppController implements Initializable {
     // height of vertical listView item
     private final int ROW_HEIGHT = 24;
 
+    private viewType lastView;
+
+    private enum viewType {
+        ROOMS,
+        DEVICES,
+        NONE
+    }
+
     public AppController() {
         alert = new CustomAlert(Alert.AlertType.NONE);
         rooms = FXCollections.observableArrayList();
 
         devicesViewCache = new HashMap<String, List<CustomWidget>>();
         roomsViewCache = new HashMap<String, List<CustomWidget>>();
+
+        lastView = viewType.NONE;
 
         try {
             load_from_cfg();
@@ -109,12 +119,10 @@ public class AppController implements Initializable {
         ListChangeListener<Device> deviceListener = change -> {
             change.next();
             for (var added_dev : change.getAddedSubList() ) {
-                roomsViewCache.remove(added_dev.getRoom_name());
-                devicesViewCache.remove(added_dev.getClass().getSimpleName());
+                invalidateCache(added_dev);
             }
             for (var removed_dev : change.getRemoved() ) {
-                roomsViewCache.remove(removed_dev.getRoom_name());
-                devicesViewCache.remove(removed_dev.getClass().getSimpleName());
+                invalidateCache(removed_dev);
             }
         };
 
@@ -141,14 +149,13 @@ public class AppController implements Initializable {
     public void changeDeviceRoom(Device dev, String old_room_name, Room new_room) {
         for (var old_room : rooms) {
             if (old_room.getName().equals(old_room_name)) {
-                // System.out.println("Remove from " + old_room_name);
+                System.out.println("Remove from " + old_room_name);
                 old_room.removeDevice(dev);
-                // System.out.println("Add to " + new_room.getRoom_name());
+                System.out.println("Add to " + new_room.getName());
                 new_room.addDevice(dev);
 
-                roomsViewCache.remove(old_room_name);
-                roomsViewCache.remove(new_room.getName());
-                devicesViewCache.remove(dev.getClass().getSimpleName());
+                invalidateCache(old_room_name);
+                invalidateCache(dev);
             }
         }
     }
@@ -175,7 +182,17 @@ public class AppController implements Initializable {
 
     }
 
+    public void invalidateCache(Device dev) {
+        devicesViewCache.remove(dev.getClass().getSimpleName());
+        roomsViewCache.remove(dev.getRoom_name());
+    }
+
+    public void invalidateCache(String room_name) {
+        roomsViewCache.remove(room_name);
+    }
+
     public void load_widgets_by_room() {
+        lastView = viewType.ROOMS;
 
         var children = flow.getChildren();
         String selection = listRooms.getSelectionModel().getSelectedItem();
@@ -219,6 +236,7 @@ public class AppController implements Initializable {
     }
 
     public void load_widgets_by_device() {
+        lastView = viewType.DEVICES;
         var children = flow.getChildren();
         String selection = listDevices.getSelectionModel().getSelectedItem();
         var widgets_to_add = Collections.synchronizedList(new LinkedList<CustomWidget>());
@@ -257,6 +275,19 @@ public class AppController implements Initializable {
             devicesViewCache.put(selection, widgets_to_add);
         } else {
             children.addAll(devicesViewCache.get(selection));
+        }
+    }
+
+    public void forceReloadLastView() {
+        switch(lastView) {
+        case ROOMS:
+            load_widgets_by_room();
+            break;
+        case DEVICES:
+            load_widgets_by_device();
+            break;
+        case NONE:
+            break;
         }
     }
 

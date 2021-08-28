@@ -10,7 +10,8 @@ plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     id 'application'
     id 'org.openjfx.javafxplugin' version '0.0.10'
-    id 'org.beryx.runtime' version '1.12.5'
+    // id 'org.beryx.runtime' version '1.12.5'
+    id 'org.beryx.jlink' version '2.21.1'
 }
 
 repositories {
@@ -23,10 +24,140 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClass = 'erg.App'
+    mainClassName = 'erg.App'
+    applicationName = 'homeapp'
+    mainModule = 'homeapp'
 }
 
 javafx {
     version = '11'
     modules = [ 'javafx.controls', 'javafx.fxml', 'javafx.media' ]
 }
+
+jlink {
+    options = ['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages']
+    launcher {
+        name = 'homeapp-launcher'
+    }
+
+    targetPlatform("linux") {
+        jdkHome = jdkDownload("https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.12%2B7/OpenJDK11U-jdk_x64_linux_hotspot_11.0.12_7.tar.gz")
+        addExtraModulePath("/opt/jmods/javafx-jmods-11.0.2_linux")
+        addExtraModulePath("./src/main/java/")
+                            // https://github.com/AdoptOpenJDK/openjdk15-binaries/releases/download/jdk-15.0.2%2B7/OpenJDK15U-jdk_x64_linux_hotspot_15.0.2_7.tar.gz
+    }
+    targetPlatform("macOS") {
+        jdkHome = jdkDownload("https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.12%2B7/OpenJDK11U-jdk_x64_mac_hotspot_11.0.12_7.tar.gz") {
+        addExtraModulePath("/opt/jmods/javafx-jmods-11.0.2_macOS")
+                                // "https://github.com/AdoptOpenJDK/openjdk15-binaries/releases/download/jdk-15.0.2%2B7/OpenJDK15U-jdk_x64_mac_hotspot_15.0.2_7.tar.gz"
+            downloadDir = "$buildDir/myMac"
+            archiveName = "my-mac-jdk"
+            archiveExtension = "tar.gz"
+            pathToHome = "jdk-11.0.12+7/Contents/Home"
+            overwrite = false
+        }
+    }
+    targetPlatform("windows") {
+        jdkHome = jdkDownload("https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.12%2B7/OpenJDK11U-jdk_x86-32_windows_hotspot_11.0.12_7.zip")
+                            // https://github.com/AdoptOpenJDK/openjdk15-binaries/releases/download/jdk-15.0.2%2B7/OpenJDK15U-jdk_x64_windows_hotspot_15.0.2_7.zip
+        addExtraModulePath("/opt/jmods/javafx-jmods-11.0.2_windows")
+    }
+
+    // customImage {
+    //     appModules = [ 'javafx.base',
+    //                     'javafx.graphics',
+    //                     'javafx.controls',
+    //                     'javafx.fxml',
+    //                     'javafx.media']
+    // }
+
+    jpackage {
+        jpackageHome = "/usr/lib/jvm/jdk-16.0.2"
+        // Uncomment and adjust the following line if your runtime task is configured to generate images for multiple platforms
+        targetPlatformName = "windows"
+
+        def currentOs = org.gradle.internal.os.OperatingSystem.current()
+        // def imgType = currentOs.windows ? 'ico' : currentOs.macOsX ? 'icns' : 'png'
+        // imageOptions += ['--icon', "src/main/resources/icon.$imgType"]
+        installerOptions += ['--resource-dir', "src/main/resources"]
+        installerOptions += ['--vendor', 'uniwa students']
+
+        if(currentOs.windows) {
+            installerOptions += ['--win-per-user-install', '--win-dir-chooser', '--win-menu', '--win-shortcut']
+            installerName = 'homeapp-windows'
+            imageName = 'homeapp-windows'
+            installerType = ['msi']
+        }
+        else if (currentOs.linux) {
+            skipInstaller = true
+            installerOptions += ['--linux-package-name', 'homeapp','--linux-shortcut']
+            installerName = 'homeapp-linux'
+            imageName = 'homeapp-linux'
+        }
+        else if (currentOs.macOsX) {
+            installerOptions += ['--mac-package-name', 'homeapp']
+            installerName = 'homeapp-macOS'
+            imageName = 'homeapp-macOS'
+        }
+    }
+}
+// runtime {
+//     options = ['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages']
+// 
+//     modules = [ 'javafx.base',
+//                 'javafx.graphics',
+//                 'javafx.controls',
+//                 'javafx.fxml',
+//                 'javafx.media',
+//                 'java.desktop',
+//                 'java.xml',
+//                 'jdk.unsupported',
+//                 'java.scripting' ]
+// // Uncomment and adjust the code below if you want to generate images for multiple platforms.
+// // (You need to also uncomment the line 'targetPlatformName = ...' in the jpackage block.)
+//     targetPlatform("linux") {
+//         jdkHome = jdkDownload("https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.12%2B7/OpenJDK11U-jdk_x64_linux_hotspot_11.0.12_7.tar.gz")
+//                             // https://github.com/AdoptOpenJDK/openjdk15-binaries/releases/download/jdk-15.0.2%2B7/OpenJDK15U-jdk_x64_linux_hotspot_15.0.2_7.tar.gz
+//     }
+//     targetPlatform("mac") {
+//         jdkHome = jdkDownload("https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.12%2B7/OpenJDK11U-jdk_x64_mac_hotspot_11.0.12_7.tar.gz") {
+//                                 // "https://github.com/AdoptOpenJDK/openjdk15-binaries/releases/download/jdk-15.0.2%2B7/OpenJDK15U-jdk_x64_mac_hotspot_15.0.2_7.tar.gz"
+//             downloadDir = "$buildDir/myMac"
+//             archiveName = "my-mac-jdk"
+//             archiveExtension = "tar.gz"
+//             pathToHome = "jdk-11.0.12+7/Contents/Home"
+//             overwrite = true
+//         }
+//     }
+//     targetPlatform("win") {
+//         jdkHome = jdkDownload("https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.12%2B7/OpenJDK11U-jdk_x86-32_windows_hotspot_11.0.12_7.zip")
+//                             // https://github.com/AdoptOpenJDK/openjdk15-binaries/releases/download/jdk-15.0.2%2B7/OpenJDK15U-jdk_x64_windows_hotspot_15.0.2_7.zip
+//     }
+// 
+// 
+//     launcher {
+//         noConsole = true
+//     }
+// 
+//     jpackage {
+//         jpackageHome = "/usr/lib/jvm/jdk-16.0.2"
+//         // Uncomment and adjust the following line if your runtime task is configured to generate images for multiple platforms
+//         targetPlatformName = "linux"
+// 
+//         def currentOs = org.gradle.internal.os.OperatingSystem.current()
+//         // def imgType = currentOs.windows ? 'ico' : currentOs.macOsX ? 'icns' : 'png'
+//         // imageOptions += ['--icon', "src/main/resources/icon.$imgType"]
+//         installerOptions += ['--resource-dir', "src/main/resources"]
+//         installerOptions += ['--vendor', 'uniwa students']
+// 
+//         if(currentOs.windows) {
+//             installerOptions += ['--win-per-user-install', '--win-dir-chooser', '--win-menu', '--win-shortcut']
+//         }
+//         else if (currentOs.linux) {
+//             installerOptions += ['--linux-package-name', 'homeapp','--linux-shortcut']
+//         }
+//         else if (currentOs.macOsX) {
+//             installerOptions += ['--mac-package-name', 'homeapp']
+//         }
+//     }
+// }
