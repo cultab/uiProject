@@ -13,9 +13,9 @@
     <children>
         <Label fx:id="name" text="NAME HERE" />
         <Label fx:id="room_name" text="ROOM_NAME" visible="false" />
-        <ImageView fx:id="image" fitHeight="68.0" fitWidth="68.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="image" fitHeight="68.0" fitWidth="68.0" onMouseClicked="#toggle" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@RadioOn.png" />
+                <Image url="@RadioOff.png" />
             </image>
             <VBox.margin>
                 <Insets bottom="5.0" top="5.0" />

@@ -88,7 +88,7 @@ public class AppController implements Initializable {
     }
 
     public void setCurrent_details(DetailsWidget widget) {
-        System.out.println("unsaved" + unsaved_details);
+        // System.out.println("unsaved" + unsaved_details);
 
         if (!check_unsaved_details()) {
             return;

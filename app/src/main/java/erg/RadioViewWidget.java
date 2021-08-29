@@ -9,6 +9,8 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Slider;
+import javafx.scene.image.Image;
+import javafx.scene.media.AudioClip;
 
 public class RadioViewWidget extends ViewWidget {
 
@@ -24,6 +26,11 @@ public class RadioViewWidget extends ViewWidget {
     public RadioViewWidget(Device sensor, AppController parent) {
         super(sensor, parent);
         radio = (Radio) sensor;
+
+        onImg = new Image(getClass().getResource("/erg/RadioOn.png").toString());
+        offImg = new Image(getClass().getResource("/erg/RadioOff.png").toString());
+        onSound = new AudioClip(getClass().getResource("/erg/RadioOn.wav").toString());
+        offSound = new AudioClip(getClass().getResource("/erg/RadioOff.wav").toString());
 
         detailsWidget = new RadioDetailsWidget(sensor, parent);
         load_fxml("/erg/RadioViewWidget.fxml");

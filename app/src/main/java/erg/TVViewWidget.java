@@ -9,6 +9,8 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Slider;
+import javafx.scene.image.Image;
+import javafx.scene.media.AudioClip;
 
 public class TVViewWidget extends ViewWidget {
 
@@ -26,6 +28,11 @@ public class TVViewWidget extends ViewWidget {
         tv = (TV) sensor;
 
         detailsWidget = new TVDetailsWidget(sensor, parent);
+        onImg = new Image(getClass().getResource("/erg/TVOn.png").toString());
+        offImg = new Image(getClass().getResource("/erg/TVOff.png").toString());
+        onSound = new AudioClip(getClass().getResource("/erg/TVOn.wav").toString());
+        offSound = new AudioClip(getClass().getResource("/erg/TVOff.wav").toString());
+
         load_fxml("/erg/TVViewWidget.fxml");
     }
 
