@@ -525,6 +525,7 @@ public class AppController implements Initializable {
 
             invalidateCache(sensor);
             forceReloadLastView();
+            details.getChildren().remove(currentDetailsWidget);
         }
 
 
