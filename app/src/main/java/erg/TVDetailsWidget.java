@@ -6,7 +6,7 @@ import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
-import javafx.scene.chart.XYChart;
+import javafx.scene.image.Image;
 
 public class TVDetailsWidget extends DetailsWidget {
 
@@ -18,6 +18,8 @@ public class TVDetailsWidget extends DetailsWidget {
     public TVDetailsWidget(Device sensor, AppController parent) {
         super(sensor, parent);
         tv = (TV) sensor;
+        onImg = new Image(getClass().getResource("/erg/TVOn.png").toString());
+        offImg = new Image(getClass().getResource("/erg/TVOff.png").toString());
         load_fxml("/erg/TVDetailsWidget.fxml");
     }
 

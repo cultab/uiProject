@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.image.Image;
 
 public class RadioDetailsWidget extends DetailsWidget {
 
@@ -18,6 +19,9 @@ public class RadioDetailsWidget extends DetailsWidget {
     public RadioDetailsWidget(Device sensor, AppController parent) {
         super(sensor, parent);
         radio = (Radio) sensor;
+
+        onImg = new Image(getClass().getResource("/erg/RadioOn.png").toString());
+        offImg = new Image(getClass().getResource("/erg/RadioOff.png").toString());
         load_fxml("/erg/RadioDetailsWidget.fxml");
     }
 

@@ -6,6 +6,8 @@ import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Slider;
+import javafx.scene.image.Image;
+import javafx.scene.media.AudioClip;
 
 public class TemperatureViewWidget extends ViewWidget {
 
@@ -19,6 +21,10 @@ public class TemperatureViewWidget extends ViewWidget {
         thermostat = (Thermostat) sensor;
 
         detailsWidget = new TemperatureDetailsWidget(thermostat, parent);
+        onImg = new Image(getClass().getResource("/erg/ThermostatOn.png").toString());
+        offImg = new Image(getClass().getResource("/erg/ThermostatOff.png").toString());
+        onSound = new AudioClip(getClass().getResource("/erg/TempOn.wav").toString());
+        offSound = new AudioClip(getClass().getResource("/erg/TempOff.wav").toString());
         load_fxml("/erg/TempViewWidget.fxml");
     }
 
@@ -37,7 +43,9 @@ public class TemperatureViewWidget extends ViewWidget {
 
     @FXML
     public void setTemperature(Double temp) {
-        thermostat.setTemperature(temp);
+        if (temp != thermostat.getTemperature()) {
+            thermostat.setTemperature(temp);
+        }
         update();
     }
 

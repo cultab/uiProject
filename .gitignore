@@ -8,3 +8,5 @@ bin
 .metadata
 .project
 .settings
+
+rooms.cfg

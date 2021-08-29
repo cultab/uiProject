@@ -54,7 +54,7 @@ public class App extends Application implements Initializable {
 
         Alert welcome = new CustomAlert(Alert.AlertType.NONE);
         welcome.setContentText("Welcome User!");
-        welcome.getButtonTypes().add( ButtonType.CLOSE);
+        welcome.getButtonTypes().add(ButtonType.CLOSE);
         welcome.show();
     }
 
@@ -62,8 +62,7 @@ public class App extends Application implements Initializable {
         launch(args);
     }
 
-    private void closeWindowEvent(WindowEvent event)
-    {
+    private void closeWindowEvent(WindowEvent event) {
         Alert alert = new CustomAlert(Alert.AlertType.CONFIRMATION);
         alert.setAlertType(Alert.AlertType.CONFIRMATION);
         alert.setContentText("Are you sure you want to quit?");
@@ -71,8 +70,8 @@ public class App extends Application implements Initializable {
         alert.setHeaderText(null);
         Optional<ButtonType> result = alert.showAndWait();
 
-        if(result.isPresent()) {
-            if(result.get().equals(ButtonType.CANCEL))
+        if (result.isPresent()) {
+            if (result.get().equals(ButtonType.CANCEL))
                 event.consume();
         }
     }

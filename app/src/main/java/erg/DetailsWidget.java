@@ -11,12 +11,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class DetailsWidget extends CustomWidget implements Initializable {
 
     protected Boolean saved;
     protected Device sensor;
+    protected Image onImg;
+    protected Image offImg;
 
     @FXML
     protected ImageView image;
@@ -66,6 +69,12 @@ public class DetailsWidget extends CustomWidget implements Initializable {
     public void update() {
         name.setText(sensor.getName());
         IP.setText(sensor.getIP());
+
+        if (sensor.isPoweredOn()) {
+            image.setImage(onImg);
+        } else {
+            image.setImage(offImg);
+        }
 
         for (var room : room_name.getItems()) {
             if (room.getName().equals(sensor.getRoom_name())) {
