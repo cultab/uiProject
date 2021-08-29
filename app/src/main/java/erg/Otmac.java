@@ -8,19 +8,21 @@ public class Otmac {
     };
 
     public static DetailsWidget detailsWidget(Device dev, AppController parent) {
-        return (DetailsWidget) reflectionMagic(dev, parent, ReturnType.DETAILS, null);
+        return (DetailsWidget) reflectionMagic(dev, parent, ReturnType.DETAILS, null, null);
     }
 
     public static ViewWidget viewWidget(Device dev, AppController parent) {
-        return (ViewWidget) reflectionMagic(dev, parent, ReturnType.VIEW, null);
+        return (ViewWidget) reflectionMagic(dev, parent, ReturnType.VIEW, null, null);
     }
 
     public static Device device(String className, String room_name) {
-        return (Device) reflectionMagic(null, null, ReturnType.DEVICE, room_name);
+        return (Device) reflectionMagic(null, null, ReturnType.DEVICE, className, room_name);
     }
 
-    private static Object reflectionMagic(Device dev, AppController parent, ReturnType type, String room_name) {
-        var class_name = dev.getClass().getSimpleName();
+    private static Object reflectionMagic(Device dev, AppController parent, ReturnType type, String class_name, String room_name) {
+        if (dev != null) {
+            class_name = dev.getClass().getSimpleName();
+        }
         /*
          * HACK: initialize as null, if it remains null we don't case since a
          * RuntimeException is gonna be thrown.

@@ -69,17 +69,7 @@ public class AddDeviceCustomWidget extends CustomWidget implements Initializable
         Device sensor;
         DetailsWidget widget;
 
-        switch(dropdown.getSelectionModel().getSelectedItem()) {
-        case "Lamp":
-            sensor = new Lamp(room_name);
-            break;
-        case "Thermostat":
-            sensor = new Thermostat(room_name);
-            break;
-        default:
-            throw new RuntimeException("Add New Device: No such class name.");
-        }
-
+        sensor = Otmac.device(dropdown.getSelectionModel().getSelectedItem(), room_name);
         widget = Otmac.detailsWidget(sensor, parent);
         
         parent.setCurrent_details(widget);
