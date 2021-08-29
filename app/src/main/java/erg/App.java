@@ -17,6 +17,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.SplitPane;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -50,6 +51,11 @@ public class App extends Application implements Initializable {
 
         stage.getScene().getWindow().addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, this::closeWindowEvent);
         stage.show();
+
+        Alert welcome = new CustomAlert(Alert.AlertType.NONE);
+        welcome.setContentText("Welcome User!");
+        welcome.getButtonTypes().add( ButtonType.CLOSE);
+        welcome.show();
     }
 
     public static void main(String[] args) {
