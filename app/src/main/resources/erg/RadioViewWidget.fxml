@@ -23,7 +23,7 @@
         </ImageView>
         <VBox alignment="CENTER" spacing="5.0">
             <children>
-                <ChoiceBox fx:id="choice" prefWidth="150.0" value="Saved Station 1">
+                <ChoiceBox fx:id="choice" prefWidth="150.0" value="Station 1">
                     <items>
 
                     </items>

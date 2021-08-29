@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 
 public class TVDetailsWidget extends DetailsWidget {
@@ -13,7 +14,8 @@ public class TVDetailsWidget extends DetailsWidget {
     TV tv;
 
     @FXML
-    LineChart<Number, Double> chart;
+    protected TextField volume;
+
 
     public TVDetailsWidget(Device sensor, AppController parent) {
         super(sensor, parent);
@@ -32,6 +34,7 @@ public class TVDetailsWidget extends DetailsWidget {
     @FXML
     public void update() {
         status.setText(tv.getChannel());
+        volume.setText(String.valueOf(tv.getVolume()));
 
         super.update();
     }

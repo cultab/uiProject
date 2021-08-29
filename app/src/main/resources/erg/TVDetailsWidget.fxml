@@ -49,6 +49,8 @@
                 <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="16.0" prefWidth="42.0" text="IP:" textAlignment="RIGHT" GridPane.rowIndex="1" />
                 <TextField fx:id="IP" text="192.168.1.1" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                 <Label alignment="CENTER_RIGHT" text="Channel on:" textAlignment="RIGHT" GridPane.rowIndex="3" />
+                <Label alignment="CENTER_RIGHT" text="Volume:" textAlignment="RIGHT" GridPane.rowIndex="4" />
+                <TextField fx:id="volume" editable="false" text="" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                 <Label alignment="CENTER_RIGHT" text="Room:" textAlignment="RIGHT" GridPane.rowIndex="2" />
                 <TextField fx:id="status" editable="false" text="Channel 1" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                 <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="16.0" prefWidth="47.0" text="Name:" textAlignment="RIGHT" />

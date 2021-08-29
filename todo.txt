@@ -3,28 +3,21 @@ x Details temp widget
 x Persistence temperature status
 x ListView Performance ~(Asim)
 x Add devices
-    Windows Rolls
 x   TV
-        Volume on details
-    A/C
+x       Volume on details
 x   Radio/Stereo
-        Channels on details double ( optional )
-        Volume on View/Details
-    Water heater
 ~x DropDown menu listeners (Asim)
-    remove
-        Everything except save,quit,help
 ~x reaffirmation windows
 add help button
 x being able to add/edit rooms and devices (Evan)
     x edit
-    add
-Remove devices
-Pictures background of rooms
+    x add
+x Remove devices
+x Pictures background of rooms
 Randomize IP on creation
 x Thermostat history (Evan)
-Hello user on open
-header on help window
+x Hello user on open
+x header on help window
 
 beautification
 

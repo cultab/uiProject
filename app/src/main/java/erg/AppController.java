@@ -350,6 +350,8 @@ public class AppController implements Initializable {
                         break;
             case "Radio": ww = new Image(String.valueOf(getClass().getResource("/erg/Radio.jpg")));
                         break;
+            case "Thermostat": ww = new Image(String.valueOf(getClass().getResource("/erg/Thermostat.jpeg")));
+                        break;
         }
 
         BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true,true, false);
