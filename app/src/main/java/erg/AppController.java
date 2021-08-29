@@ -21,6 +21,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
@@ -36,10 +37,10 @@ import javafx.stage.Stage;
 
 public class AppController implements Initializable {
 
-    private ObservableList<Room> rooms;
+    private List<Room> rooms;
     private DetailsWidget currentDetailsWidget;
     private Boolean unsaved_details = false;
-    private CustomAlert alert;
+    private Boolean saved = false;
     private HashMap<String, List<CustomWidget>> devicesViewCache;
     private HashMap<String, List<CustomWidget>> roomsViewCache;
 
@@ -66,8 +67,7 @@ public class AppController implements Initializable {
     }
 
     public AppController() {
-        alert = new CustomAlert(Alert.AlertType.NONE);
-        rooms = FXCollections.observableArrayList();
+        rooms = new ArrayList<Room>();
 
         devicesViewCache = new HashMap<String, List<CustomWidget>>();
         roomsViewCache = new HashMap<String, List<CustomWidget>>();
@@ -130,9 +130,6 @@ public class AppController implements Initializable {
         listRooms.setPrefHeight(listRooms.getItems().size() * ROW_HEIGHT + 2);
         listDevices.setPrefHeight(listDevices.getItems().size() * ROW_HEIGHT + 2);
 
-        // rooms.addListener((ListChangeListener<Room>) change -> {
-        //     change.getAddedSubList();
-        // });
         ListChangeListener<Device> deviceListener = change -> {
             change.next();
             for (var added_dev : change.getAddedSubList() ) {
@@ -156,6 +153,9 @@ public class AppController implements Initializable {
 
     public void setUnsaved_details(Boolean unsaved_details) {
         this.unsaved_details = unsaved_details;
+        if (saved && !unsaved_details) {
+            saved = false;
+        }
     }
 
     public List<Room> getRooms() {
@@ -179,7 +179,7 @@ public class AppController implements Initializable {
     @FXML
     public Boolean check_unsaved_details() {
         if (unsaved_details) {
-            alert.setAlertType(Alert.AlertType.CONFIRMATION);
+            var alert = new CustomAlert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("You have unsaved edits for a device!");
             alert.setContentText("Do you want to discard them?");
             alert.setHeaderText(null);
@@ -196,10 +196,50 @@ public class AppController implements Initializable {
     }
 
     @FXML
+    public void save() {
+        saved = true;
+        save_to_cfg();
+
+        var alert = new CustomAlert(Alert.AlertType.INFORMATION);
+        alert.setContentText("Save Succesfull");
+        alert.setHeaderText(null);
+        alert.showAndWait();
+    }
+
+    @FXML
     public void quit() {
-        alert.setAlertType(Alert.AlertType.CONFIRMATION);
+        if (!saved) {
+            var alert = new CustomAlert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("You have unsaved changes!");
+            alert.setContentText("Do you want to save them before exiting?");
+            var saveButton = new ButtonType("Save and Quit");
+            var quitButton = new ButtonType("Quit");
+            var cancelButton = new ButtonType("Cancel");
+            alert.getButtonTypes().setAll(cancelButton, quitButton, saveButton);
+
+            var result = alert.showAndWait().get();
+
+            if (result == saveButton) {
+                save_to_cfg();
+                Stage stage = (Stage) flow.getScene().getWindow();
+                stage.close();
+                return;
+            } else if ( result == quitButton) {
+                Stage stage = (Stage) flow.getScene().getWindow();
+                stage.close();
+                return;
+            } else {
+                return;
+            }
+        }
+
+        var alert = new CustomAlert(Alert.AlertType.CONFIRMATION);
         alert.setContentText("Are you sure you want to quit?");
         alert.setTitle("Exiting the app ...");
+        var cancel = (Button) alert.getDialogPane().lookupButton(ButtonType.CANCEL);
+        cancel.setDefaultButton(true);
+        var ok = (Button) alert.getDialogPane().lookupButton(ButtonType.OK);
+        ok.setDefaultButton(false);
         alert.setHeaderText(null);
         Optional<ButtonType> result = alert.showAndWait();
 
@@ -230,18 +270,28 @@ public class AppController implements Initializable {
         var threads = new ArrayList<Thread>();
         Image ww = new Image(String.valueOf(getClass().getResource("/erg/Intro.jpg")));
 
-        if(selection.equals("Bedroom"))
+        switch(selection) {
+        case "Bedroom":
              ww = new Image(String.valueOf(getClass().getResource("/erg/Bedroom.jpg")));
-        else if(selection.equals("Kitchen"))
+            break;
+        case "Kitchen":
             ww = new Image(String.valueOf(getClass().getResource("/erg/Kitchen.jpg")));
-        else if(selection.equals("Bathroom"))
+            break;
+        case "Bathroom":
             ww = new Image(String.valueOf(getClass().getResource("/erg/Bathroom2.jpg")));
-        else if(selection.equals("Garage"))
+            break;
+        case "Garage":
             ww = new Image(String.valueOf(getClass().getResource("/erg/Garage.jpg")));
-        else if(selection.equals("Living Room"))
+            break;
+        case "Living Room":
             ww = new Image(String.valueOf(getClass().getResource("/erg/Living Room.jpeg")));
-        else if(selection.equals("Main Hall"))
+            break;
+        case "Main Hall":
             ww = new Image(String.valueOf(getClass().getResource("/erg/MainEntrance.jpg")));
+            break;
+        default:
+            ww = new Image(String.valueOf(getClass().getResource("/erg/Intro.jpg")));
+        }
 
 
         //Th trith false
@@ -392,25 +442,20 @@ public class AppController implements Initializable {
 
         // Serialization
         try (var out = new ObjectOutputStream(new FileOutputStream(filename))) {
-            out.writeObject(new ArrayList<Room>(rooms));
+            out.writeObject(rooms);
         } catch (IOException e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
             System.out.println(e);
             throw new RuntimeException("Could not save to " + filename);
         }
-
-        alert.setAlertType(Alert.AlertType.INFORMATION);
-        alert.setContentText("Save Succesfull");
-        alert.setHeaderText(null);
-        alert.showAndWait();
     }
 
     @FXML
     public void help() {
-        alert.setAlertType(Alert.AlertType.INFORMATION);
+        var alert = new CustomAlert(Alert.AlertType.INFORMATION);
         alert.setTitle("Please contact us");
-        alert.setContentText("Contact email: cs131118@uniwa.gr");
+        alert.setContentText("Contact email: cs131118@uniwa.gr\ncs171014@uniwa.gr");
         alert.setHeaderText(null);
         alert.showAndWait();
     }

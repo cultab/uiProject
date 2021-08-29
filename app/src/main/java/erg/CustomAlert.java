@@ -8,10 +8,12 @@ public class CustomAlert extends Alert {
 
     public CustomAlert(AlertType type) {
         super(type);
-        Platform.runLater(() -> setWidth(-1));
-        Platform.runLater(() -> setHeight(-1));
-        Platform.runLater(() -> setResizable(true));
-
+        Platform.runLater(() -> {
+            if (getWidth() < 50 || getHeight() < 50) {
+                setResizable(true);
+                setWidth(350);
+                setHeight(200);
+            }
+        });
     }
-
 }
