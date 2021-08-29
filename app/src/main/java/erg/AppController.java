@@ -506,20 +506,29 @@ public class AppController implements Initializable {
 
     protected void delete(Device sensor)
     {
-        for( Room r: rooms)
-        {
-//            for(Device d: r.devices)
-//            {
-//                if(d.equals(sensor))
-//                {
-//                    r.devices.remove(d);
-//                }
-//            }
-            r.devices.remove(sensor);
+        var alert = new CustomAlert(Alert.AlertType.CONFIRMATION);
+        alert.setContentText("Are you sure you want to delete this device?");
+        alert.setTitle("Warning !!!!!");
+        var cancel = (Button) alert.getDialogPane().lookupButton(ButtonType.CANCEL);
+        cancel.setDefaultButton(true);
+        var ok = (Button) alert.getDialogPane().lookupButton(ButtonType.OK);
+        ok.setText("Yes");
+        ok.setDefaultButton(false);
+        alert.setHeaderText(null);
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.get() == ButtonType.OK) {
+            for( Room r: rooms)
+            {
+                r.devices.remove(sensor);
+            }
+
+            invalidateCache(sensor);
+            forceReloadLastView();
         }
 
-        invalidateCache(sensor);
-        forceReloadLastView();
+
+
     }
 
 }
