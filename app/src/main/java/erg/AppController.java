@@ -464,4 +464,22 @@ public class AppController implements Initializable {
         rooms.add(room7);
     }
 
+    protected void delete(Device sensor)
+    {
+        for( Room r: rooms)
+        {
+//            for(Device d: r.devices)
+//            {
+//                if(d.equals(sensor))
+//                {
+//                    r.devices.remove(d);
+//                }
+//            }
+            r.devices.remove(sensor);
+        }
+
+        invalidateCache(sensor);
+        forceReloadLastView();
+    }
+
 }

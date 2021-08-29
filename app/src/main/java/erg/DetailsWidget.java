@@ -107,4 +107,9 @@ public class DetailsWidget extends CustomWidget implements Initializable {
         parent.setUnsaved_details(!s);
     }
 
+    @FXML
+    public void delete(){
+        parent.delete(sensor);
+    }
+
 }
