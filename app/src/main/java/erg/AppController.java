@@ -112,6 +112,7 @@ public class AppController implements Initializable {
         BackgroundImage backgroundImage = new BackgroundImage(ww, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
         Background background = new Background(backgroundImage);
 
+
         flow.setBackground(background);
 
         for (var room : rooms) {
@@ -289,6 +290,22 @@ public class AppController implements Initializable {
         String selection = listDevices.getSelectionModel().getSelectedItem();
         var widgets_to_add = Collections.synchronizedList(new LinkedList<CustomWidget>());
         var threads = new ArrayList<Thread>();
+
+        Image ww = new Image(String.valueOf(getClass().getResource("/erg/Intro.jpg")));
+        switch (selection)
+        {
+            case "Lamp": ww = new Image(String.valueOf(getClass().getResource("/erg/Lamp.jpg")));
+                        break;
+            case "TV": ww = new Image(String.valueOf(getClass().getResource("/erg/TV.jpg")));
+                        break;
+            case "Radio": ww = new Image(String.valueOf(getClass().getResource("/erg/Radio.jpg")));
+                        break;
+        }
+
+        BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true,true, false);
+        BackgroundImage backgroundImage = new BackgroundImage(ww, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
+        Background background = new Background(backgroundImage);
+        flow.setBackground(background);
 
         children.removeAll(children);
 
