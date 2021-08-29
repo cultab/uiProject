@@ -6,15 +6,15 @@ x Add devices
 x   TV
 x       Volume on details
 x   Radio/Stereo
-~x DropDown menu listeners (Asim)
-~x reaffirmation windows
-add help button
+x DropDown menu listeners (Asim)
+x reaffirmation windows
+x add help button
 x being able to add/edit rooms and devices (Evan)
     x edit
     x add
 x Remove devices
 x Pictures background of rooms
-Randomize IP on creation
+x Randomize IP on creation
 x Thermostat history (Evan)
 x Hello user on open
 x header on help window
@@ -22,8 +22,8 @@ x header on help window
 beautification
 
 LOW PRIORITY
-fxml_load in constructor from final String
-fxml_load use threads when loading ListViews, see: https://stackoverflow.com/questions/11734885/javafx2-very-poor-performance-when-adding-custom-made-fxmlpanels-to-gridpane
+Abort fxml_load in constructor from final String
+x fxml_load use threads when loading ListViews, see: https://stackoverflow.com/questions/11734885/javafx2-very-poor-performance-when-adding-custom-made-fxmlpanels-to-gridpane
 
 LOWEST PITS OF HELL PRIORITY
 events
