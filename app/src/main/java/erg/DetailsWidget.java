@@ -90,11 +90,11 @@ public class DetailsWidget extends CustomWidget implements Initializable {
 
         var new_room = room_name.getSelectionModel().getSelectedItem();
 
+        sensor.setRoom_name(new_room.getName());
+
         if (!sensor.getRoom_name().equals(new_room.getName())) {
             parent.changeDeviceRoom(sensor, sensor.getRoom_name(), new_room);
         }
-
-        sensor.setRoom_name(new_room.getName());
 
         for (var room : parent.getRooms()) {
             if (room.getName().equals(sensor.getRoom_name())) {
