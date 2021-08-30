@@ -121,4 +121,9 @@ public class DetailsWidget extends CustomWidget implements Initializable {
         parent.delete(sensor);
     }
 
+    @FXML
+    public void close(){
+        parent.close(this);
+    }
+
 }

@@ -31,7 +31,7 @@
         </Menu>
         <Menu mnemonicParsing="false" text="Help">
           <items>
-            <MenuItem mnemonicParsing="false" onAction="#help" text="About MyHelloApp" />
+            <MenuItem mnemonicParsing="false" onAction="#help" text="Contact Information" />
           </items>
         </Menu>
       </menus>
