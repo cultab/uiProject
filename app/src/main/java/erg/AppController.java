@@ -468,37 +468,36 @@ public class AppController extends Application implements Initializable {
     }
 
     protected void gen_rooms_and_devices() {
-//        var l1 = new Lamp("Desk", "192.168.1.2", "Bedroom");
-//        // devices.add(l1);
-//        var t1 = new Thermostat("Thermostat 1", "192.168.1.22", "Bedroom");
-//
-//        var tv1 = new TV("TV 1", "192.168.1.22", "Bedroom");
-//        var r1 = new Radio("Radio 1", "192.168.1.22", "Bedroom");
+        var l1 = new Lamp("Desk", "192.168.1.2", "Bedroom");
+        var t1 = new Thermostat("Thermostat 1", "192.168.1.22", "Bedroom");
+
+        var tv1 = new TV("TV 1", "192.168.1.22", "Bedroom");
+        var r1 = new Radio("Radio 1", "192.168.1.22", "Bedroom");
         ObservableList<Device> room2_list = FXCollections.observableArrayList();
-//
-//        room2_list.add(l1);
-//        room2_list.add(t1);
-//        room2_list.add(tv1);
-//        room2_list.add(r1);
-//
-        var room2 = new Room("Bedroom", room2_list);
-//
-//        var l2 = new Lamp("Main 2", "192.168.1.3", "Kitchen");
-//        var t2 = new Thermostat("Thermostat", "192.168.1.23", "Kitchen");
-        ObservableList<Device> room3_list = FXCollections.observableArrayList();
-//        room3_list.add(l2);
-//        room3_list.add(t2);
-        var room3 = new Room("Kitchen", room3_list);
-//
-//        var l3 = new Lamp("Main", "192.168.1.4", "Bathroom");
-        ObservableList<Device> room4_list = FXCollections.observableArrayList();
-//        room4_list.add(l3);
-        var room4 = new Room("Bathroom", room4_list);
-//
-//        var t4 = new Thermostat("Thermostat", "192.168.1.25", "Garage");
-        ObservableList<Device> room5_list = FXCollections.observableArrayList();
-//        room5_list.add(t4);
-        var room5 = new Room("Garage", room5_list);
+
+        room2_list.add(l1);
+        room2_list.add(t1);
+        room2_list.add(tv1);
+        room2_list.add(r1);
+
+      var room2 = new Room("Bedroom", room2_list);
+
+        var l2 = new Lamp("Main 2", "192.168.1.3", "Kitchen");
+        var t2 = new Thermostat("Thermostat", "192.168.1.23", "Kitchen");
+      ObservableList<Device> room3_list = FXCollections.observableArrayList();
+        room3_list.add(l2);
+        room3_list.add(t2);
+      var room3 = new Room("Kitchen", room3_list);
+
+        var l3 = new Lamp("Main", "192.168.1.4", "Bathroom");
+      ObservableList<Device> room4_list = FXCollections.observableArrayList();
+        room4_list.add(l3);
+      var room4 = new Room("Bathroom", room4_list);
+
+        var t4 = new Thermostat("Thermostat", "192.168.1.25", "Garage");
+      ObservableList<Device> room5_list = FXCollections.observableArrayList();
+        room5_list.add(t4);
+      var room5 = new Room("Garage", room5_list);
 
         var room6 = new Room("Living Room", FXCollections.observableArrayList());
         var room7 = new Room("Main Hall", FXCollections.observableArrayList());
@@ -533,12 +532,17 @@ public class AppController extends Application implements Initializable {
             invalidateCache(sensor);
             forceReloadLastView();
             details.getChildren().remove(currentDetailsWidget);
+            saved = false;
+            unsaved_details = false;
         }
     }
 
     protected void close(DetailsWidget d)
     {
-        details.getChildren().remove(d);
+        if (check_unsaved_details()) {
+            details.getChildren().remove(d);
+            unsaved_details = false;
+        }
     }
 
     @FXML
