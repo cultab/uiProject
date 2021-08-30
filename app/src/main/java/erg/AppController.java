@@ -1,11 +1,8 @@
 
 package erg;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.awt.*;
+import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,6 +12,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import javafx.application.Application;
+import javafx.application.HostServices;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -35,7 +35,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.TilePane;
 import javafx.stage.Stage;
 
-public class AppController implements Initializable {
+public class AppController extends Application implements Initializable {
 
     private List<Room> rooms;
     private DetailsWidget currentDetailsWidget;
@@ -85,6 +85,11 @@ public class AppController implements Initializable {
             gen_rooms_and_devices();
             save_to_cfg();
         }
+    }
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+
     }
 
     public void setCurrent_details(DetailsWidget widget) {
@@ -457,7 +462,7 @@ public class AppController implements Initializable {
     public void help() {
         var alert = new CustomAlert(Alert.AlertType.INFORMATION);
         alert.setTitle("Please contact us");
-        alert.setContentText("Contact email: cs131118@uniwa.gr,\n\t\t\tcs171014@uniwa.gr");
+        alert.setContentText("\t\t\tcs171073@uniwa.gr,\nContact email: cs131118@uniwa.gr,\n\t\t\tcs171014@uniwa.gr");
         alert.setHeaderText(null);
         alert.showAndWait();
     }
@@ -534,6 +539,14 @@ public class AppController implements Initializable {
     protected void close(DetailsWidget d)
     {
         details.getChildren().remove(d);
+    }
+
+    @FXML
+    public void manual(){
+
+        HostServices hostServices = getHostServices();
+        hostServices.showDocument(String.valueOf(getClass().getResource("/erg/Smart_Home_App.pdf")));
+
     }
 
 }

@@ -18,7 +18,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="erg.AppController">
+<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="erg.AppController">
   <children>
     <MenuBar prefHeight="2.0" prefWidth="900.0" VBox.vgrow="NEVER">
       <menus>
@@ -31,6 +31,8 @@
         </Menu>
         <Menu mnemonicParsing="false" text="Help">
           <items>
+                  <MenuItem mnemonicParsing="false" text="Manual" onAction="#manual"/>
+                  <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem mnemonicParsing="false" onAction="#help" text="Contact Information" />
           </items>
         </Menu>
@@ -70,7 +72,7 @@
             <Font size="11.0" />
           </font>
           <textFill>
-            <Color blue="0.625" green="0.625" red="0.625" />
+            <Color red="0.625" green="0.625" blue="0.625" />
           </textFill>
         </Label>
         <Pane prefHeight="-1.0" prefWidth="-1.0" HBox.hgrow="ALWAYS" />
