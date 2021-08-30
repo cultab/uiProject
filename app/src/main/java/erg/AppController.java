@@ -75,7 +75,7 @@ public class AppController implements Initializable {
         lastView = viewType.NONE;
 
         try {
-            load_from_cfg();
+            gen_rooms_and_devices();
         } catch (RuntimeException e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
@@ -457,42 +457,42 @@ public class AppController implements Initializable {
     public void help() {
         var alert = new CustomAlert(Alert.AlertType.INFORMATION);
         alert.setTitle("Please contact us");
-        alert.setContentText("Contact email: cs131118@uniwa.gr\ncs171014@uniwa.gr");
+        alert.setContentText("Contact email: cs131118@uniwa.gr,\n\t\t\tcs171014@uniwa.gr");
         alert.setHeaderText(null);
         alert.showAndWait();
     }
 
     protected void gen_rooms_and_devices() {
-        var l1 = new Lamp("Desk", "192.168.1.2", "Bedroom");
-        // devices.add(l1);
-        var t1 = new Thermostat("Thermostat 1", "192.168.1.22", "Bedroom");
-
-        var tv1 = new TV("TV 1", "192.168.1.22", "Bedroom");
-        var r1 = new Radio("Radio 1", "192.168.1.22", "Bedroom");
+//        var l1 = new Lamp("Desk", "192.168.1.2", "Bedroom");
+//        // devices.add(l1);
+//        var t1 = new Thermostat("Thermostat 1", "192.168.1.22", "Bedroom");
+//
+//        var tv1 = new TV("TV 1", "192.168.1.22", "Bedroom");
+//        var r1 = new Radio("Radio 1", "192.168.1.22", "Bedroom");
         ObservableList<Device> room2_list = FXCollections.observableArrayList();
-
-        room2_list.add(l1);
-        room2_list.add(t1);
-        room2_list.add(tv1);
-        room2_list.add(r1);
-
+//
+//        room2_list.add(l1);
+//        room2_list.add(t1);
+//        room2_list.add(tv1);
+//        room2_list.add(r1);
+//
         var room2 = new Room("Bedroom", room2_list);
-
-        var l2 = new Lamp("Main 2", "192.168.1.3", "Kitchen");
-        var t2 = new Thermostat("Thermostat", "192.168.1.23", "Kitchen");
+//
+//        var l2 = new Lamp("Main 2", "192.168.1.3", "Kitchen");
+//        var t2 = new Thermostat("Thermostat", "192.168.1.23", "Kitchen");
         ObservableList<Device> room3_list = FXCollections.observableArrayList();
-        room3_list.add(l2);
-        room3_list.add(t2);
+//        room3_list.add(l2);
+//        room3_list.add(t2);
         var room3 = new Room("Kitchen", room3_list);
-
-        var l3 = new Lamp("Main", "192.168.1.4", "Bathroom");
+//
+//        var l3 = new Lamp("Main", "192.168.1.4", "Bathroom");
         ObservableList<Device> room4_list = FXCollections.observableArrayList();
-        room4_list.add(l3);
+//        room4_list.add(l3);
         var room4 = new Room("Bathroom", room4_list);
-
-        var t4 = new Thermostat("Thermostat", "192.168.1.25", "Garage");
+//
+//        var t4 = new Thermostat("Thermostat", "192.168.1.25", "Garage");
         ObservableList<Device> room5_list = FXCollections.observableArrayList();
-        room5_list.add(t4);
+//        room5_list.add(t4);
         var room5 = new Room("Garage", room5_list);
 
         var room6 = new Room("Living Room", FXCollections.observableArrayList());
@@ -529,9 +529,11 @@ public class AppController implements Initializable {
             forceReloadLastView();
             details.getChildren().remove(currentDetailsWidget);
         }
+    }
 
-
-
+    protected void close(DetailsWidget d)
+    {
+        details.getChildren().remove(d);
     }
 
 }
