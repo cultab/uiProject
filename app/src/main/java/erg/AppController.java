@@ -54,6 +54,7 @@ public class AppController extends Application implements Initializable {
     private ListView<String> listRooms;
     @FXML
     private ListView<String> listDevices;
+    
 
     // height of vertical listView item
     private final int ROW_HEIGHT = 24;
@@ -75,7 +76,7 @@ public class AppController extends Application implements Initializable {
         lastView = viewType.NONE;
 
         try {
-            gen_rooms_and_devices();
+            load_from_cfg();
         } catch (RuntimeException e) {
             System.out.println(e.getCause());
             System.out.println(e.getMessage());
