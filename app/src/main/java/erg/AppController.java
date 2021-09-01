@@ -34,6 +34,7 @@ import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.TilePane;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class AppController extends Application implements Initializable {
 
@@ -150,7 +151,10 @@ public class AppController extends Application implements Initializable {
             // TODO: lookup InvalidationListener
             room.getDevices().addListener(deviceListener);
         }
-
+        Platform.runLater(() -> {
+            flow.getScene().getWindow().addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, this::quit);
+        }
+        );
     }
 
     public Boolean getUnsaved_details() {
@@ -213,7 +217,7 @@ public class AppController extends Application implements Initializable {
     }
 
     @FXML
-    public void quit() {
+    public void quit(WindowEvent event) {
         if (!saved) {
             var alert = new CustomAlert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("You have unsaved changes!");

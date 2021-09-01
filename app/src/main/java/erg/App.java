@@ -49,7 +49,7 @@ public class App extends Application implements Initializable {
         stage.setTitle("Smart Home App v1.0");
         stage.setScene(scene);
 
-        stage.getScene().getWindow().addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, this::closeWindowEvent);
+        // stage.getScene().getWindow().addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, this::closeWindowEvent);
         stage.show();
 
         Alert welcome = new CustomAlert(Alert.AlertType.NONE);
@@ -60,20 +60,6 @@ public class App extends Application implements Initializable {
 
     public static void main(String[] args) {
         launch(args);
-    }
-
-    private void closeWindowEvent(WindowEvent event) {
-        Alert alert = new CustomAlert(Alert.AlertType.CONFIRMATION);
-        alert.setAlertType(Alert.AlertType.CONFIRMATION);
-        alert.setContentText("Are you sure you want to quit?");
-        alert.setTitle("Exiting the app ...");
-        alert.setHeaderText(null);
-        Optional<ButtonType> result = alert.showAndWait();
-
-        if (result.isPresent()) {
-            if (result.get().equals(ButtonType.CANCEL))
-                event.consume();
-        }
     }
 
     @FXML
