@@ -1,0 +1,63 @@
+  private    void closeWindowEvent(WindowEvent event) {
+  private    void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
+  private    void readObjectNoData() throws ObjectStreamException {
+  private    void writeObject(java.io.ObjectOutputStream out) throws IOException {
+protected    void close(DetailsWidget d)
+protected    void delete(Device sensor)
+protected    void gen_rooms_and_devices() {
+protected    void load_fxml(String path) {
+   public Boolean check_unsaved_details() {
+   public Boolean getUnsaved_details() {
+   public Boolean isPoweredOn() {
+   public  Double getTemperature() {
+   public  String getChannel() {
+   public  String getIP() {
+   public  String getName() {
+   public  String getRoom_name() {
+   public  String toString() {
+   public     URL getResource(String name) {
+   public  double getFrequency() {
+   public     int getVolume() {
+   public    void add() {
+   public    void addDevice(Device dev) {
+   public    void changeDeviceRoom(Device dev, String old_room_name, Room new_room) {
+   public    void clearAssertionStatus() {
+   public    void close(){
+   public    void delete(){
+   public    void forceReloadLastView() {
+   public    void help() {
+   public    void initialize(URL url, ResourceBundle rb) {
+   public    void invalidateCache(Device dev) {
+   public    void invalidateCache(String room_name) {
+   public    void load_from_cfg() {
+   public    void load_widgets_by_device() {
+   public    void load_widgets_by_room() {
+   public    void manual(){
+   public    void newDevice(Device dev) {
+   public    void quit() {
+   public    void removeDevice(Device dev) {
+   public    void save() {
+   public    void save_to_cfg() {
+   public    void setChannel(String channel) {
+   public    void setClassAssertionStatus(String className, boolean enabled) {
+   public    void setCurrent_details(DetailsWidget widget) {
+   public    void setDefaultAssertionStatus(boolean enabled) {
+   public    void setFrequency(double frequency) {
+   public    void setIP(String iP) {
+   public    void setName(String name) {
+   public    void setPackageAssertionStatus(String packageName, boolean enabled) {
+   public    void setPowerStatus(Boolean powered_on) {
+   public    void setRoom_name(String room_id) {
+   public    void setRoom_name(String room_name) {
+   public    void setRoom_name_visible() {
+   public    void setSaved(Boolean s) {
+   public    void setTemp_history(List<Double> temp_history) {
+   public    void setTemperature(Double temp) {
+   public    void setTemperature(Double temperature) {
+   public    void setUnsaved_details(Boolean unsaved_details) {
+   public    void setVolume(int volume) {
+   public    void set_details() {
+   public    void start(Stage primaryStage) throws Exception {
+   public    void start(Stage stage) {
+   public    void toggle() {
+   public    void update() {
