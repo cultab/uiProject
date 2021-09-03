@@ -18,6 +18,7 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -217,7 +218,7 @@ public class AppController extends Application implements Initializable {
     }
 
     @FXML
-    public void quit(WindowEvent event) {
+    public void quit(Event event) {
         if (!saved) {
             var alert = new CustomAlert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("You have unsaved changes!");
@@ -239,6 +240,7 @@ public class AppController extends Application implements Initializable {
                 stage.close();
                 return;
             } else {
+                event.consume();
                 return;
             }
         }
@@ -257,6 +259,8 @@ public class AppController extends Application implements Initializable {
             Stage stage = (Stage) flow.getScene().getWindow();
             stage.close();
         }
+        else if (result.get().equals(ButtonType.CANCEL))
+            event.consume();
 
     }
 
