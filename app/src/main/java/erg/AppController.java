@@ -42,7 +42,7 @@ public class AppController extends Application implements Initializable {
     private List<Room> rooms;
     private DetailsWidget currentDetailsWidget;
     private Boolean unsaved_details = false;
-    private Boolean saved = false;
+    private Boolean saved = true;
     private HashMap<String, List<CustomWidget>> devicesViewCache;
     private HashMap<String, List<CustomWidget>> roomsViewCache;
 
